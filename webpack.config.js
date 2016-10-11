@@ -28,13 +28,18 @@ module.exports = {
         loader: "babel"
       },
       {
+        test: /\.json$/,
+        include: path.join(__dirname, 'app'),
+        loader: "json"
+      },
+      {
         test: /\.scss$/,
         loaders: ['style', 'css', 'sass']
       }
     ]
   },
   resolve: {
-    extensions: ['', '.js', '.jsx'],
+    extensions: ['', '.js', '.jsx', '.json', '.scss'],
     modulesDirectories: ['node_modules']
   },
   plugins: [HTMLWebpackPluginConfig]

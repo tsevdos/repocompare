@@ -1,17 +1,16 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-const Footer = ({ copy } = props) => {
-  return (
-    <footer className="footer">
-      <div className="container">
-        <p className="text-muted">{copy}</p>
-      </div>
-    </footer>
-  );
-}
+const Footer = ({copy}) =>
+(
+  <footer className="footer">
+    <div className="container">
+      <p className="text-muted">{copy}</p>
+    </div>
+  </footer>
+);
 
 Footer.propTypes = {
-  copy: React.PropTypes.string
+  copy: React.PropTypes.string.isRequired
 };
 
 export default Footer;

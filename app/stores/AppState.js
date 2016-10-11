@@ -5,7 +5,20 @@ class AppState {
     {
       id: 1,
       user: 'twbs',
-      repo: 'bootstrap'
+      name: 'bootstrap',
+      data: null
+    },
+    {
+      id: 2,
+      user: 'tsevdos',
+      name: 'greek-in-tech',
+      data: null
+    },
+    {
+      id: 3,
+      user: 'MostlyAdequate',
+      name: 'mostly-adequate-guide',
+      data: null
     }
   ];
 

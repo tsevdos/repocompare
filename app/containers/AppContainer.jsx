@@ -2,30 +2,54 @@ import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import axios from 'axios';
 
+import config from '../config/config';
+
+import RepoInfo from '../components/RepoInfo';
 import Header from '../components/Header';
 import Form from '../components/Form';
 import Footer from '../components/Footer';
-
-import { githubAPIUrl } from '../config/config';
 
 import DevTools from 'mobx-react-devtools';
 
 @observer
 class AppContainer extends Component {
-
-  componentDidMount() {
-    this.fetchRepoData();
+  constructor() {
+    super();
+    this.addRepo = this.addRepo.bind(this);
   }
 
-  fetchRepoData(repo) {
-    console.log(this.props.appState.repos[0]);
+  componentDidMount() {
+    this.fetchData(this.props.appState.repos);
+  }
 
-    axios.get(`${githubAPIUrl}repos/mzabriskie/axios/stats/contributors`)
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
+  addRepo(e) {
+    e.preventDefault();
+
+    const repo = e.target.elements[0].value.trim();
+    const user = repo.split('/')[0];
+    const name = repo.split('/')[1];
+    const id = this.props.appState.repos.length + 1;
+
+    const repoToAdd = {
+      id,
+      user,
+      name,
+      data: null
+    };
+
+    this.props.appState.repos.push(repoToAdd);
+  }
+
+  fetchData(repos) {
+
+    repos.forEach((repo, i) => {
+      axios.get(`${config.githubAPIUrl}/repos/${repo.user}/${repo.name}`)
+        .then((response) => {
+          this.props.appState.repos[i].data = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     });
 
   }
@@ -34,26 +58,16 @@ class AppContainer extends Component {
     return (
       <div>
         <Header />
-        <div className="container">
-          <div className="jumbotron">
-            <Form />
-          </div>
-        </div>
+        <div id="main" className="container">
 
-        <div className="container" id="main">
-          <div className="row">
-            <div className="col-md-4">
-              <h2>RepoName</h2>
-              <table className="table table-striped">
-                <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+          <div className="jumbotron">
+            <Form appState={this.props.appState} addRepo={this.addRepo} />
           </div>
+
+          <div className="row">
+            { this.props.appState.repos.map((repo, i) => <RepoInfo key={`${i}`} repoData={repo.data} />) }
+          </div>
+
         </div>
 
         <Footer copy="I love this job." />
