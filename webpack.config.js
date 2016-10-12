@@ -10,9 +10,9 @@ module.exports = {
   devtool: 'eval',
   entry: './app/index.jsx',
   output: {
-    path: path.join(__dirname, 'dist'),
+    path: path.join(__dirname, './'),
     filename: 'bundle.js',
-    publicPath: "http://localhost:8080/dist/"
+    publicPath: "http://localhost:8080"
   },
   devServer: {
     hot: true,

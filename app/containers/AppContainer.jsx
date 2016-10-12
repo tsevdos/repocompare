@@ -1,17 +1,7 @@
 import React, { Component } from 'react';
-import { observer } from 'mobx-react';
-import axios from 'axios';
+// import { PropTypes } from 'mobx-react';
+import App from '../components/App';
 
-import config from '../config/config';
-
-import RepoInfo from '../components/RepoInfo';
-import Header from '../components/Header';
-import Form from '../components/Form';
-import Footer from '../components/Footer';
-
-import DevTools from 'mobx-react-devtools';
-
-@observer
 class AppContainer extends Component {
   constructor() {
     super();
@@ -19,7 +9,9 @@ class AppContainer extends Component {
   }
 
   componentDidMount() {
-    this.fetchData(this.props.appState.repos);
+    if (this.props.appState.repos.length) {
+      this.props.appState.repos.forEach((repo, i) => this.props.appState.fetchRepoData(repo, i))
+    }
   }
 
   addRepo(e) {
@@ -37,49 +29,18 @@ class AppContainer extends Component {
       data: null
     };
 
-    this.props.appState.repos.push(repoToAdd);
-  }
-
-  fetchData(repos) {
-
-    repos.forEach((repo, i) => {
-      axios.get(`${config.githubAPIUrl}/repos/${repo.user}/${repo.name}`)
-        .then((response) => {
-          this.props.appState.repos[i].data = response.data;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    });
-
+    this.props.appState.addRepo(repoToAdd);
   }
 
   render() {
     return (
-      <div>
-        <Header />
-        <div id="main" className="container">
-
-          <div className="jumbotron">
-            <Form appState={this.props.appState} addRepo={this.addRepo} />
-          </div>
-
-          <div className="row">
-            { this.props.appState.repos.map((repo, i) => <RepoInfo key={`${i}`} repoData={repo.data} />) }
-          </div>
-
-        </div>
-
-        <Footer copy="I love this job." />
-
-        <DevTools />
-      </div>
+      <App repos={this.props.appState.repos} addRepo={this.addRepo} />
     );
   }
 }
 
-AppContainer.propTypes = {
-  values: React.PropTypes.object
-};
+// AppContainer.propTypes = {
+//   appState: PropTypes.observableObject
+// };
 
 export default AppContainer;

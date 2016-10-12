@@ -3,7 +3,7 @@
   "version": "1.0.1",
   "description": "A really simple Boilerplate for ReactJS",
   "scripts": {
-    "start": "webpack-dev-server --hot --inline --progress --colors --watch --display-error-details --display-cache --content-base ./dist",
+    "start": "webpack-dev-server --hot --inline --progress --colors --watch --display-error-details --display-cache",
     "build": "webpack -p",
     "lint": "eslint app"
   },

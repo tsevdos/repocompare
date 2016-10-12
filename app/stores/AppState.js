@@ -1,6 +1,9 @@
-import { observable } from 'mobx';
+import { observable, action } from 'mobx';
+import axios from 'axios';
 
-class AppState {
+import config from '../config/config';
+
+export default class AppState {
   @observable repos = [
     {
       id: 1,
@@ -22,6 +25,20 @@ class AppState {
     }
   ];
 
-}
+  @action fetchRepoData(repo, index) {
 
-export default AppState;
+    axios.get(`${config.githubAPIUrl}/repos/${repo.user}/${repo.name}`)
+      .then((response) => {
+        this.repos[index].data = response.data;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  addRepo(repoObj) {
+    this.repos.push(repoObj);
+    this.fetchRepoData(repoObj, this.repos.length - 1);
+  }
+
+}

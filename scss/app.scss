@@ -2,14 +2,13 @@ body {
   padding-top: 70px;
 }
 
-.footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    padding: 1em;
-    background-color: #f5f5f5;
+.panel-heading h4 {
+  height: 2em;
+  overflow: none;
 }
 
-.footer p {
-  margin: 0;
+.description {
+  height: 7em;
+  overflow: auto;
 }
+

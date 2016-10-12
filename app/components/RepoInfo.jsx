@@ -11,7 +11,7 @@ const RepoInfo = ({repoData}) =>
         <div className="panel-body">
           <ul className="list-group">
             <li className="list-group-item"><strong><a href="{repoData.homepage}">Official Site</a></strong></li>
-            <li className="list-group-item">{repoData.description}</li>
+            <li className="list-group-item description">{repoData.description}</li>
             <li className="list-group-item"><span className="badge">{repoData.stargazers_count}</span>Stars</li>
             <li className="list-group-item"><span className="badge">{repoData.forks_count}</span>Forks</li>
             <li className="list-group-item"><span className="badge">{repoData.watchers_count}</span>Watchers</li>
@@ -22,11 +22,11 @@ const RepoInfo = ({repoData}) =>
       </div>
     </div>
   :
-    <div>No repo data :-(</div>
-)
+    <div>Fetching Repo!</div>
+);
 
 RepoInfo.propTypes = {
-  repoData: React.PropTypes.object.isRequired
+  repoData: React.PropTypes.object
 };
 
 export default RepoInfo;
