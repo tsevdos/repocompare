@@ -1,5 +1,6 @@
 import React from 'react';
 import { observer } from 'mobx-react';
+import { PropTypes } from 'mobx-react';
 
 import Header from '../components/Header';
 import Form from '../components/Form';
@@ -13,24 +14,19 @@ const App = observer(({repos, addRepo}) =>
   <div>
     <Header />
     <div id="main" className="container">
-
       <div className="jumbotron">
-        <Form appState={appState} addRepo={addRepo} />
+        <Form addRepo={addRepo} />
       </div>
-
       <div className="row">
-        { repos.map((repo, i) => <RepoInfo key={`${i}`} repoData={repo.data} />) }
+        { repos.map((repo) => <RepoInfo key={repo.id} repo={repo} />) }
       </div>
-
     </div>
-
     <Footer copy="I love this job." />
-
   </div>
 ));
 
 App.propTypes = {
-  appState: React.PropTypes.array.isRequired,
+  repos: PropTypes.observableArray,
   addRepo: React.PropTypes.func.isRequired
 };
 
