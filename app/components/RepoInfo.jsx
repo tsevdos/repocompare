@@ -1,9 +1,8 @@
 import React from 'react';
-import { PropTypes } from 'mobx-react';
-import { observer } from 'mobx-react';
+import { observer, PropTypes } from 'mobx-react';
 import Loader from './Loader';
 
-const RepoInfo = observer(({repo}) =>
+const RepoInfo = observer(({ repo }) =>
 (
   repo.isFetching ?
     <div className="col-md-4">
@@ -18,7 +17,7 @@ const RepoInfo = observer(({repo}) =>
           </div>
           <div className="panel-body">
             <ul className="list-group">
-              <li className="list-group-item"><strong><a href={repo.data.homepage} target="_blank">Official Site</a></strong></li>
+              <li className="list-group-item"><strong><a href={repo.data.homepage} target="_blank" rel="noopener noreferrer">Official Site</a></strong></li>
               <li className="list-group-item description">{repo.data.description}</li>
               <li className="list-group-item"><span className="badge">{repo.data.stargazers_count}</span>Stars</li>
               <li className="list-group-item"><span className="badge">{repo.data.forks_count}</span>Forks</li>
@@ -29,8 +28,8 @@ const RepoInfo = observer(({repo}) =>
           </div>
         </div>
       </div>
-   :
-     <div>Error</div>
+    :
+      <div>Repo {repo.repoNameFull} doesn&apos;t exists!</div>
 ));
 
 RepoInfo.propTypes = {

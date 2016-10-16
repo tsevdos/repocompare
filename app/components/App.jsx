@@ -1,15 +1,14 @@
 import React from 'react';
-import { observer } from 'mobx-react';
-import { PropTypes } from 'mobx-react';
+import { observer, PropTypes } from 'mobx-react';
 
 import Header from '../components/Header';
 import Form from '../components/Form';
 import RepoInfo from '../components/RepoInfo';
 import Footer from '../components/Footer';
 
-import DevTools from 'mobx-react-devtools';
+// import DevTools from 'mobx-react-devtools';
 
-const App = observer(({repos, addRepo}) =>
+const App = observer(({ repos, addRepo }) =>
 (
   <div>
     <Header />

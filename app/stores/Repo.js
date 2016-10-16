@@ -1,14 +1,12 @@
-import { observable, action } from 'mobx';
+import { observable, computed, action } from 'mobx';
 import axios from 'axios';
 import config from '../config/config';
 
 export default class Repo {
-  @observable username;
-  @observable reponame;
   @observable isFetching;
   @observable data;
 
-  constructor({username = '', reponame = ''} = {}) {
+  constructor({ username = '', reponame = '' } = {}) {
     this.id = new Date().valueOf();
     this.username = username;
     this.reponame = reponame;
@@ -17,17 +15,19 @@ export default class Repo {
     this.fetchData();
   }
 
-  @action fetchData() {
+  @computed get repoNameFull() {
+    return `${this.username}/${this.reponame}`;
+  }
 
-    axios.get(`${config.githubAPIUrl}/repos/${this.username}/${this.reponame}`)
+  @action fetchData() {
+    axios.get(`${config.githubAPIUrl}/repos/${this.repoNameFull}`)
       .then((response) => {
         this.data = response.data;
         this.isFetching = false;
       })
       .catch((error) => {
-        console.log(error);
         this.isFetching = false;
-        console.log('Couldnt find repo');
+        console.log('Couldnt find repo...', error); // TODO: Handle error
       });
   }
 

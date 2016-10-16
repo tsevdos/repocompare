@@ -21,6 +21,14 @@ module.exports = {
     historyApiFallback: true
   },
   module: {
+    preLoaders: [
+      {
+        test: [/\.js$/, /\.jsx$/],
+        include: path.join(__dirname, 'app'),
+        exclude: /node_modules/,
+        loader: 'eslint-loader'
+      }
+    ],
     loaders: [
       {
         test: [/\.js$/, /\.jsx$/],

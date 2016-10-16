@@ -1,6 +1,17 @@
 {
+  "env": {
+    "browser": true
+  },
+  "parser": "babel-eslint",
+  "plugins": [
+    "babel",
+    "react"
+  ],
   "extends": "airbnb",
   "rules": {
-    "comma-dangle": [2, "never"]
+    "comma-dangle": [2, "never"],
+    "import/extensions": [1, "never"],
+    "arrow-parens": [2, "always"],
+    "no-nested-ternary": 1
   }
 }

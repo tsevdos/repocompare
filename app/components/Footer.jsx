@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Footer = ({copy}) =>
+const Footer = ({ copy }) =>
 (
   <footer className="footer">
     <div className="container">
