@@ -11,12 +11,15 @@ class AppContainer extends Component {
 
   addRepo(e) {
     e.preventDefault();
-    const inputValue = e.target.elements[0].value.trim();
+
+    const inputEl = e.target.querySelectorAll('#repo-name')[0];
+    const inputValue = inputEl.value.trim();
     const username = inputValue.split('/')[0];
     const reponame = inputValue.split('/')[1];
     const repoToAddData = { username, reponame };
     const repoToAdd = new Repo(repoToAddData);
 
+    inputEl.value = '';
     this.props.repoStore.addRepo(repoToAdd);
   }
 
