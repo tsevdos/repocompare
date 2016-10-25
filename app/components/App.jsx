@@ -3,7 +3,7 @@ import { observer, PropTypes } from 'mobx-react';
 
 import Header from '../components/Header';
 import Form from '../components/Form';
-import RepoInfo from '../components/RepoInfo';
+import RepoWrapper from '../components/RepoWrapper';
 import Footer from '../components/Footer';
 
 // import DevTools from 'mobx-react-devtools';
@@ -17,7 +17,7 @@ const App = observer(({ repos, addRepo }) =>
         <Form addRepo={addRepo} />
       </div>
       <div className="row">
-        { repos.map((repo) => <RepoInfo key={repo.id} repo={repo} />) }
+        { repos.map((repo) => <RepoWrapper key={repo.id} repo={repo} />) }
       </div>
     </div>
     <Footer copy="I love this job." />
