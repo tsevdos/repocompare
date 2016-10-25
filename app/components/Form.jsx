@@ -4,7 +4,7 @@ const Form = ({ addRepo }) =>
 (
   <form className="form-horizontal" onSubmit={addRepo}>
     <div className="input-group">
-      <input id="repo-name" className="form-control input-lg" placeholder="user/repo" />
+      <input id="repo-name" className="form-control input-lg" placeholder="username/repository &nbsp;&nbsp;&nbsp;&nbsp; ex. twbs/bootstrap" />
       <span className="input-group-btn">
         <button className="btn btn-lg btn-success" type="submit">Compare!</button>
       </span>
