@@ -25,9 +25,8 @@ export default class Repo {
         this.data = response.data;
         this.isFetching = false;
       })
-      .catch((error) => {
+      .catch(() => {
         this.isFetching = false;
-        console.log('Couldnt find repo...', error); // TODO: Handle error
       });
   }
 
