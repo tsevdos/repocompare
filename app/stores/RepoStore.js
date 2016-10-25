@@ -7,6 +7,10 @@ class RepoStore {
     this.repos.push(repo);
   }
 
+  @action removeRepo(repoId) {
+    const repoIndex = this.repos.findIndex((repo) => repo.id === repoId);
+    this.repos.splice(repoIndex, 1);
+  }
 }
 
 const repoStore = new RepoStore();

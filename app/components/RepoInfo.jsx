@@ -1,13 +1,18 @@
 import React from 'react';
 import { observer, PropTypes } from 'mobx-react';
+import './RepoInfo.scss';
 
-const RepoInfo = observer(({ repo }) =>
+const RepoInfo = observer(({ repo, removeRepo }) =>
 (
   repo.data ?
     <div className="col-md-4">
       <div className="panel panel-default panel-primary">
         <div className="panel-heading">
-          <h4>{repo.data.full_name}</h4>
+          <a href="#" className="close pull-right" aria-label="Close" onClick={removeRepo} data-repo-id={repo.id}>
+            <span aria-hidden="true">&times;</span>
+            <span className="sr-only">close</span>
+          </a>
+          <h4>{repo.repoNameFull}</h4>
         </div>
         <div className="panel-body">
           <ul className="list-group">
@@ -24,8 +29,12 @@ const RepoInfo = observer(({ repo }) =>
     </div>
   :
     <div className="col-md-4">
-      <div className="panel panel-default panel-primary">
+      <div className="panel panel-default panel-danger">
         <div className="panel-heading">
+          <a href="#" className="close pull-right" aria-label="Close" onClick={removeRepo} data-repo-id={repo.id}>
+            <span aria-hidden="true">&times;</span>
+            <span className="sr-only">close</span>
+          </a>
           <h4>{repo.repoNameFull}</h4>
         </div>
         <div className="panel-body">
@@ -36,7 +45,8 @@ const RepoInfo = observer(({ repo }) =>
 ));
 
 RepoInfo.propTypes = {
-  repo: PropTypes.observableObject
+  repo: PropTypes.observableObject,
+  removeRepo: React.PropTypes.func.isRequired
 };
 
 export default RepoInfo;

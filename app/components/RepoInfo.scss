@@ -1,0 +1,23 @@
+.panel-heading .close {
+  width: 1em;
+  margin: 5px 0 0;
+  font-size: 2em;
+  text-align: center;
+  background: #eee;
+  border-radius: 10px;
+  opacity: 0.8;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.panel-body ul,
+.panel-body p {
+  margin: 0;
+}
+
+.description {
+  height: 4em;
+  overflow: auto;
+}

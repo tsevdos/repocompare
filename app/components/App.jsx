@@ -8,7 +8,7 @@ import Footer from '../components/Footer';
 
 // import DevTools from 'mobx-react-devtools';
 
-const App = observer(({ repos, addRepo }) =>
+const App = observer(({ repos, addRepo, removeRepo }) =>
 (
   <div>
     <Header />
@@ -17,7 +17,7 @@ const App = observer(({ repos, addRepo }) =>
         <Form addRepo={addRepo} />
       </div>
       <div className="row">
-        { repos.map((repo) => <RepoWrapper key={repo.id} repo={repo} />) }
+        { repos.map((repo) => <RepoWrapper key={repo.id} repo={repo} removeRepo={removeRepo} />) }
       </div>
     </div>
     <Footer copy="I love this job." />
@@ -26,7 +26,8 @@ const App = observer(({ repos, addRepo }) =>
 
 App.propTypes = {
   repos: PropTypes.observableArray,
-  addRepo: React.PropTypes.func.isRequired
+  addRepo: React.PropTypes.func.isRequired,
+  removeRepo: React.PropTypes.func.isRequired
 };
 
 export default App;

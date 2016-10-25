@@ -7,6 +7,7 @@ class AppContainer extends Component {
   constructor() {
     super();
     this.addRepo = this.addRepo.bind(this);
+    this.removeRepo = this.removeRepo.bind(this);
   }
 
   addRepo(e) {
@@ -23,9 +24,20 @@ class AppContainer extends Component {
     this.props.repoStore.addRepo(repoToAdd);
   }
 
+  removeRepo(e) {
+    e.preventDefault();
+    const repoId = parseInt(e.currentTarget.dataset.repoId, 10);
+
+    this.props.repoStore.removeRepo(repoId);
+  }
+
   render() {
     return (
-      <App repos={this.props.repoStore.repos} addRepo={this.addRepo} />
+      <App
+        repos={this.props.repoStore.repos}
+        addRepo={this.addRepo}
+        removeRepo={this.removeRepo}
+      />
     );
   }
 }

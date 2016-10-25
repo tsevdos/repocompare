@@ -12,6 +12,6 @@
     "comma-dangle": [2, "never"],
     "import/extensions": [1, "never"],
     "arrow-parens": [2, "always"],
-    "no-nested-ternary": 1
+    "jsx-a11y/href-no-hash": 0
   }
 }

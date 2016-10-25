@@ -4,7 +4,6 @@ import config from '../config/config';
 
 export default class Repo {
   @observable isFetching;
-  @observable data;
 
   constructor({ username = '', reponame = '' } = {}) {
     this.id = new Date().valueOf();
