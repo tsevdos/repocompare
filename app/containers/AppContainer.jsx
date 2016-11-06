@@ -8,6 +8,7 @@ class AppContainer extends Component {
     super();
     this.addRepo = this.addRepo.bind(this);
     this.removeRepo = this.removeRepo.bind(this);
+    this.removeAllRepos = this.removeAllRepos.bind(this);
   }
 
   addRepo(e) {
@@ -31,12 +32,17 @@ class AppContainer extends Component {
     this.props.repoStore.removeRepo(repoId);
   }
 
+  removeAllRepos() {
+    this.props.repoStore.removeAllRepos();
+  }
+
   render() {
     return (
       <App
         repos={this.props.repoStore.repos}
         addRepo={this.addRepo}
         removeRepo={this.removeRepo}
+        removeAllRepos={this.removeAllRepos}
       />
     );
   }

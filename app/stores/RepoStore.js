@@ -11,6 +11,10 @@ class RepoStore {
     const repoIndex = this.repos.findIndex((repo) => repo.id === repoId);
     this.repos.splice(repoIndex, 1);
   }
+
+  @action removeAllRepos() {
+    this.repos.clear();
+  }
 }
 
 const repoStore = new RepoStore();
