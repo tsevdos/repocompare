@@ -4,12 +4,14 @@ import config from '../config/config';
 
 export default class Repo {
   @observable isFetching;
+  @observable animate;
 
   constructor({ username = '', reponame = '' } = {}) {
     this.id = new Date().valueOf();
     this.username = username;
     this.reponame = reponame;
     this.isFetching = true;
+    this.animate = false;
     this.data = null;
     this.fetchData();
   }
@@ -27,6 +29,12 @@ export default class Repo {
       .catch(() => {
         this.isFetching = false;
       });
+  }
+
+  // TODO: Use more React-way to do the animation like ReactCSSTransitionGroup
+  @action hightlight() {
+    this.animate = true;
+    setTimeout(() => (this.animate = false), 1000);
   }
 
 }

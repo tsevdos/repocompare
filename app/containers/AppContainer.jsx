@@ -19,10 +19,16 @@ class AppContainer extends Component {
     const username = inputValue.split('/')[0];
     const reponame = inputValue.split('/')[1];
     const repoToAddData = { username, reponame };
-    const repoToAdd = new Repo(repoToAddData);
+    const existingRepos = this.props.repoStore.repos.filter((repo) => repo.repoNameFull === `${repoToAddData.username}/${repoToAddData.reponame}`);
 
     inputEl.value = '';
-    this.props.repoStore.addRepo(repoToAdd);
+
+    if (existingRepos.length > 0) {
+      existingRepos[0].hightlight();
+    } else {
+      const repoToAdd = new Repo(repoToAddData);
+      this.props.repoStore.addRepo(repoToAdd);
+    }
   }
 
   removeRepo(e) {
