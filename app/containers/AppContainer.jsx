@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { PropTypes } from 'mobx-react';
 import Repo from '../stores/Repo';
-import App from '../components/App';
+import App from '../components/app/App';
 
 class AppContainer extends Component {
   constructor() {

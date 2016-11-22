@@ -1,11 +1,11 @@
 import React from 'react';
 import { observer, PropTypes } from 'mobx-react';
 
-import Header from './Header';
+import Header from '../shared/Header';
+import Footer from '../shared/Footer';
 import Form from './Form';
 import RemoveAllBtn from './RemoveAllBtn';
 import RepoWrapper from './RepoWrapper';
-import Footer from './Footer';
 
 // import DevTools from 'mobx-react-devtools';
 
