@@ -1,3 +1,41 @@
 {
-  "githubAPIUrl": "https://api.github.com"
+  "githubAPIUrl": "https://api.github.com",
+  "phpFrameworks": [
+    {
+      "username": "laravel",
+      "reponame": "laravel"
+    },
+    {
+      "username": "symfony",
+      "reponame": "symfony"
+    },
+    {
+      "username": "bcit-ci",
+      "reponame": "CodeIgniter"
+    },
+    {
+      "username": "yiisoft",
+      "reponame": "yii2"
+    },
+    {
+      "username": "phalcon",
+      "reponame": "cphalcon"
+    },
+    {
+      "username": "cakephp",
+      "reponame": "cakephp"
+    },
+    {
+      "username": "zendframework",
+      "reponame": "zendframework"
+    },
+    {
+      "username": "slimphp",
+      "reponame": "Slim"
+    },
+    {
+      "username": "fuelphp",
+      "reponame": "fuelphp"
+    }
+  ]
 }

@@ -9,10 +9,10 @@ import RepoWrapper from './RepoWrapper';
 
 // import DevTools from 'mobx-react-devtools';
 
-const App = observer(({ repos, addRepo, removeRepo, removeAllRepos }) =>
+const App = observer(({ repos, addRepo, addRepos, removeRepo, removeAllRepos }) =>
 (
   <div>
-    <Header />
+    <Header addRepos={addRepos} />
     <div id="main" className="container">
       <div className="jumbotron">
         <Form addRepo={addRepo} />
@@ -29,6 +29,7 @@ const App = observer(({ repos, addRepo, removeRepo, removeAllRepos }) =>
 App.propTypes = {
   repos: PropTypes.observableArray,
   addRepo: React.PropTypes.func.isRequired,
+  addRepos: React.PropTypes.func.isRequired,
   removeRepo: React.PropTypes.func.isRequired
 };
 
