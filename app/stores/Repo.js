@@ -7,7 +7,7 @@ export default class Repo {
   @observable animate;
 
   constructor({ username = '', reponame = '' } = {}) {
-    this.id = new Date().valueOf();
+    this.id = `${username}/${reponame}`;
     this.username = username;
     this.reponame = reponame;
     this.isFetching = true;

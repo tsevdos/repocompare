@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import { PropTypes } from 'mobx-react';
 import Repo from '../stores/Repo';
 import App from '../components/app/App';
+import config from '../config/config';
 
 class AppContainer extends Component {
   constructor() {
     super();
     this.addRepo = this.addRepo.bind(this);
+    this.addRepos = this.addRepos.bind(this);
     this.removeRepo = this.removeRepo.bind(this);
     this.removeAllRepos = this.removeAllRepos.bind(this);
   }
@@ -31,6 +33,17 @@ class AppContainer extends Component {
     }
   }
 
+  addRepos(e) {
+    e.preventDefault();
+    const reposKey = e.target.dataset.repos;
+    const repos = config[reposKey];
+
+    repos.forEach((repoData) => {
+      const repoToAdd = new Repo(repoData);
+      this.props.repoStore.addRepo(repoToAdd);
+    });
+  }
+
   removeRepo(e) {
     e.preventDefault();
     const repoId = parseInt(e.currentTarget.dataset.repoId, 10);
@@ -47,6 +60,7 @@ class AppContainer extends Component {
       <App
         repos={this.props.repoStore.repos}
         addRepo={this.addRepo}
+        addRepos={this.addRepos}
         removeRepo={this.removeRepo}
         removeAllRepos={this.removeAllRepos}
       />
