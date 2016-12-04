@@ -35,8 +35,17 @@ class AppContainer extends Component {
 
   addRepos(e) {
     e.preventDefault();
-    const reposKey = e.target.dataset.repos;
-    const repos = config[reposKey];
+    const reposCategoryData = e.target.dataset.repos.split('-');
+    let repos = [];
+    const categoryLevel1 = reposCategoryData[0];
+    const categoryLevel2 = reposCategoryData[1];
+    const categoryLevel3 = reposCategoryData[2] ? reposCategoryData[2] : false;
+
+    if (categoryLevel3) {
+      repos = config[categoryLevel1][categoryLevel2][categoryLevel3];
+    } else {
+      repos = config[categoryLevel1][categoryLevel2];
+    }
 
     repos.forEach((repoData) => {
       const repoToAdd = new Repo(repoData);
@@ -46,7 +55,7 @@ class AppContainer extends Component {
 
   removeRepo(e) {
     e.preventDefault();
-    const repoId = parseInt(e.currentTarget.dataset.repoId, 10);
+    const repoId = e.currentTarget.dataset.repoId;
 
     this.props.repoStore.removeRepo(repoId);
   }
