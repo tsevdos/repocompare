@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { PropTypes } from 'mobx-react';
 import Repo from '../stores/Repo';
 import App from '../components/app/App';
-import config from '../config/config';
+import { getRepo, getReposFromConfig } from '../utils/ReposHelper';
 
 class AppContainer extends Component {
   constructor() {
@@ -18,9 +18,7 @@ class AppContainer extends Component {
 
     const inputEl = e.target.querySelectorAll('#repo-name')[0];
     const inputValue = inputEl.value.trim();
-    const username = inputValue.split('/')[0];
-    const reponame = inputValue.split('/')[1];
-    const repoToAddData = { username, reponame };
+    const repoToAddData = getRepo(inputValue);
     const existingRepos = this.props.repoStore.repos.filter((repo) => repo.repoNameFull === `${repoToAddData.username}/${repoToAddData.reponame}`);
 
     inputEl.value = '';
@@ -35,17 +33,7 @@ class AppContainer extends Component {
 
   addRepos(e) {
     e.preventDefault();
-    const reposCategoryData = e.target.dataset.repos.split('-');
-    let repos = [];
-    const categoryLevel1 = reposCategoryData[0];
-    const categoryLevel2 = reposCategoryData[1];
-    const categoryLevel3 = reposCategoryData[2] ? reposCategoryData[2] : false;
-
-    if (categoryLevel3) {
-      repos = config[categoryLevel1][categoryLevel2][categoryLevel3];
-    } else {
-      repos = config[categoryLevel1][categoryLevel2];
-    }
+    const repos = getReposFromConfig(e.target.dataset.repos);
 
     repos.forEach((repoData) => {
       const repoToAdd = new Repo(repoData);
