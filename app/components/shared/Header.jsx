@@ -12,7 +12,7 @@ const Header = ({ addRepos }) =>
           <span className="icon-bar" />
           <span className="icon-bar" />
         </button>
-        <a className="navbar-brand" href="https://tsevdos.github.io/repocompare/">RepoCompare</a>
+        <a className="navbar-brand" href="/">RepoCompare</a>
       </div>
 
       <div className="collapse navbar-collapse" id="main-menu">

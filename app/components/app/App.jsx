@@ -7,8 +7,6 @@ import Form from './Form';
 import RemoveAllBtn from './RemoveAllBtn';
 import RepoWrapper from './RepoWrapper';
 
-// import DevTools from 'mobx-react-devtools';
-
 const App = observer(({ repos, addRepo, addRepos, removeRepo, removeAllRepos }) =>
 (
   <div>
@@ -17,12 +15,37 @@ const App = observer(({ repos, addRepo, addRepos, removeRepo, removeAllRepos }) 
       <div className="jumbotron">
         <Form addRepo={addRepo} />
       </div>
-      <RemoveAllBtn repos={repos} removeAllRepos={removeAllRepos} />
+
       <div className="row">
-        { repos.map((repo) => <RepoWrapper key={repo.id} repo={repo} removeRepo={removeRepo} />) }
+
+        <table className="table table-hover">
+          <thead>
+            <tr>
+              <th className="first">Repo</th>
+              <th>Stars</th>
+              <th>Forks</th>
+              <th>Watchers</th>
+              <th>Open issues</th>
+              <th>File size</th>
+              <th><RemoveAllBtn repos={repos} removeAllRepos={removeAllRepos} /></th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              repos.length > 0 ?
+                repos.map((repo) =>
+                  <RepoWrapper key={repo.id} repo={repo} removeRepo={removeRepo} />)
+              :
+                <tr>
+                  <th scope="row" colSpan="6">Add repos using the form above or select a category.</th>
+                </tr>
+            }
+          </tbody>
+        </table>
+
       </div>
     </div>
-    <Footer copy="I love this job." />
+    <Footer />
   </div>
 ));
 

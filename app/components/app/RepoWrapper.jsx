@@ -6,9 +6,7 @@ import RepoInfo from './RepoInfo';
 const RepoWrapper = observer(({ repo, removeRepo }) =>
 (
   repo.isFetching ?
-    <div className="col-md-4">
-      <Loader />
-    </div>
+    <Loader />
   :
     <RepoInfo repo={repo} removeRepo={removeRepo} />
 ));

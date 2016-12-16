@@ -1,0 +1,23 @@
+.table {
+  font-size: 1.2em;
+
+  tbody > tr > td,
+  tbody > tr > th {
+    vertical-align: middle;
+  }
+
+  thead > tr > th,
+  tbody > tr > td {
+    text-align: right;
+  }
+
+  thead > tr > .first,
+  tbody > tr > .first {
+    text-align: left;
+  }
+
+  tr td:last-child {
+    white-space: nowrap;
+    width: 1px;
+  }
+}
