@@ -16,7 +16,7 @@ const App = observer(({ repos, addRepo, addRepos, removeRepo, removeAllRepos }) 
         <Form addRepo={addRepo} />
       </div>
 
-      <div className="row">
+      <div className="table-responsive">
 
         <table className="table table-hover">
           <thead>
