@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { PropTypes, inject } from 'mobx-react';
-import Repo from '../../stores/Repo';
-import { App } from '../../components';
-import { getRepo } from '../../utils/ReposHelper';
+import Repo from 'stores/Repo';
+import { App } from 'components';
+import { getRepo } from 'utils/ReposHelper';
 
 @inject('repoStore')
 class AppContainer extends Component {

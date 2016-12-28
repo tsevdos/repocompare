@@ -1,6 +1,6 @@
 import { observable, computed, action } from 'mobx';
 import axios from 'axios';
-import config from '../config/config';
+import config from 'config/config';
 
 export default class Repo {
   @observable isFetching;

@@ -56,7 +56,7 @@ const baseConfig = {
     ]
   },
   resolve: {
-    // root: path.resolve('./app'), // TODO: Enable it and fix paths
+    root: path.resolve('./app'),
     extensions: ['', '.js', '.jsx', '.json', '.scss'],
     modulesDirectories: ['node_modules']
   }

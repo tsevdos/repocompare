@@ -1,9 +1,9 @@
 import React from 'react';
 import { Provider } from 'mobx-react';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
-import repoStore from '../stores/RepoStore';
-import Repo from '../stores/Repo';
-import { MainContainer, AppContainer, AboutContainer } from '../containers';
+import repoStore from 'stores/RepoStore';
+import Repo from 'stores/Repo';
+import { MainContainer, AppContainer, AboutContainer } from 'containers';
 
 const bootstrap = new Repo({ username: 'twbs', reponame: 'bootstrap' });
 repoStore.addRepo(bootstrap);

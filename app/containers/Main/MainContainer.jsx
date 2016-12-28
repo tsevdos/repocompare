@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
-import { HeaderContainer } from '../../containers';
-import { Footer } from '../../components';
+import { HeaderContainer } from 'containers';
+import { Footer } from 'components';
 
 const MainContainer = ({ children, location }) => (
   <div>

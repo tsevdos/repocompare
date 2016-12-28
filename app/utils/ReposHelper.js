@@ -1,4 +1,4 @@
-import config from '../config/config';
+import config from 'config/config';
 
 function getReposFromConfig(categoryStr, delimiter = '-') {
   let repos = [];
