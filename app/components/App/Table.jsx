@@ -31,7 +31,6 @@ const Table = observer(({ repos, removeRepo, removeAllRepos }) =>
   </table>
 ));
 
-
 Table.propTypes = {
   repos: PropTypes.observableArray,
   removeRepo: React.PropTypes.func.isRequired,

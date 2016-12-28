@@ -18,6 +18,8 @@ open http://localhost:8080
 
 *Note: You need to build the `index.html` and `bundle.js` files (on root and dist directory respectively), because webpack-dev-server serves the root directory for development (hence you need an `index.html` file). Keep in mind that after the initial build, you only need to start the server using the last command (`npm start`).*
 
+[![Standard - JavaScript Style Guide](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
+
 ## License
 
 GPL3 (&#390;) John Tsevdos
