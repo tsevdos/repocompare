@@ -1,8 +1,16 @@
 {
+  "parser": "babel-eslint",
   "env": {
+    "es6": true,
     "browser": true
   },
-  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
   "plugins": [
     "babel",
     "react"
@@ -12,6 +20,10 @@
     "comma-dangle": [2, "never"],
     "import/extensions": [1, "never"],
     "arrow-parens": [2, "always"],
-    "jsx-a11y/href-no-hash": 0
+    "jsx-a11y/href-no-hash": 0,
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "max-len": [1, 80],
+    "import/no-extraneous-dependencies": 0,
+    "react/forbid-prop-types": 0
   }
 }

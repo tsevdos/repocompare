@@ -5,7 +5,8 @@
   "scripts": {
     "start": "webpack-dev-server --hot --inline --progress --colors --watch --display-error-details --display-cache",
     "build": "webpack -p",
-    "lint": "eslint app"
+    "lint": "eslint --ext .jsx --ext .js app",
+    "lint:fix": "eslint --ext .jsx --ext .js --fix app"
   },
   "repository": {
     "type": "git",

@@ -7,8 +7,8 @@ var HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
 });
 
 module.exports = {
-  devtool: 'eval',
-  entry: './app/index.jsx',
+  devtool: 'cheap-module-inline-source-map',
+  entry: './app/index.js',
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'bundle.js',
@@ -47,6 +47,7 @@ module.exports = {
     ]
   },
   resolve: {
+    // root: path.resolve('./app'), // TODO: Enable it and fix paths
     extensions: ['', '.js', '.jsx', '.json', '.scss'],
     modulesDirectories: ['node_modules']
   },

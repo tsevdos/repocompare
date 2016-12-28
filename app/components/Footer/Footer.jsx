@@ -12,8 +12,4 @@ const Footer = () =>
   </footer>
 );
 
-Footer.propTypes = {
-  copy: React.PropTypes.string.isRequired
-};
-
 export default Footer;
