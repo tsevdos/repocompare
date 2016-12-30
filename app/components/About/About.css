@@ -1,0 +1,3 @@
+.marginBottom {
+  composes: twiceEmBottom from '../../sharedStyles/margin.css';
+}

@@ -1,4 +1,5 @@
 import React from 'react';
+import { marginBottom } from './About.css';
 
 const About = () =>
 (
@@ -9,13 +10,13 @@ const About = () =>
 
     <h2>How to use</h2>
 
-    <p className="lead">
+    <p className={`lead ${marginBottom}`}>
       RepoCompare is a pet project made with love from <a target="_blank" rel="noopener noreferrer" href="http://tsevdos.me">John Tsevdos</a>. As you can see my design skills are not so great, so feel free to <a target="_blank" rel="noopener noreferrer" href="https://github.com/tsevdos/repocompare">contribute</a> you awesome designs and styles!
     </p>
 
     <h2>How to use</h2>
 
-    <p className="lead">
+    <p className={`lead ${marginBottom}`}>
       Just put any Github repository using the <code>username/repository name</code> convention and instantly view valuable details about the selected repository. Feel free to add as many as you like and compare!
     </p>
   </div>

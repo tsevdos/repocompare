@@ -50,14 +50,14 @@ const baseConfig = {
         loader: "json"
       },
       {
-        test: /\.scss$/,
-        loaders: ['style', 'css', 'sass']
+        test: /\.css$/,
+        loader: 'style!css?sourceMap&modules&localIdentName=[name]__[local]___[hash:base64:5]'
       }
     ]
   },
   resolve: {
     root: path.resolve('./app'),
-    extensions: ['', '.js', '.jsx', '.json', '.scss'],
+    extensions: ['', '.js', '.jsx', '.json', '.css'],
     modulesDirectories: ['node_modules']
   }
 };
