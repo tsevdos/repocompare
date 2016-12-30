@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { PropTypes, inject } from 'mobx-react';
 import Repo from 'stores/Repo';
 import { Header } from 'components';
-import { getReposFromConfig } from 'utils/ReposHelper';
+import { getReposFromConfig } from 'helpers/ReposHelper';
 
 @inject('repoStore')
 class HeaderContainer extends Component {
