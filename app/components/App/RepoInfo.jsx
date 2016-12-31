@@ -1,6 +1,7 @@
 import React from 'react';
 import { observer, PropTypes } from 'mobx-react';
-import { first } from './RepoInfo.css';
+import { first, span } from './RepoInfo.css';
+import filesize from 'file-size';
 
 const RepoInfo = observer(({ repo, removeRepo }) => {
   const animateClassName = repo.animate ? 'info' : '';
@@ -8,12 +9,17 @@ const RepoInfo = observer(({ repo, removeRepo }) => {
   return (
     repo.data ?
       <tr className={animateClassName}>
-        <th scope="row" className={first}><a href={repo.data.homepage} target="_blank" rel="noopener noreferrer">{repo.repoNameFull}</a></th>
-        <td>{repo.data.stargazers_count}</td>
-        <td>{repo.data.forks_count}</td>
-        <td>{repo.data.watchers_count}</td>
-        <td>{repo.data.open_issues_count}</td>
-        <td>{repo.data.size}</td>
+        <th scope="row" className={first}>
+          {repo.repoNameFull}&nbsp;
+          <span className={span}>
+            (<a href={repo.data.homepage} target="_blank">site</a> / <a href={repo.data.html_url} target="_blank">repo</a>)
+          </span>
+        </th>
+        <td>{repo.data.stargazers_count.toLocaleString()}</td>
+        <td>{repo.data.forks_count.toLocaleString()}</td>
+        <td>{repo.data.watchers_count.toLocaleString()}</td>
+        <td>{repo.data.open_issues_count.toLocaleString()}</td>
+        <td>{filesize(repo.data.size).human()}</td>
         <td>
           <button type="button" className="btn btn-danger btn-sm" onClick={removeRepo} data-repo-id={repo.id}>
             <strong>X</strong>

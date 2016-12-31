@@ -1,3 +1,7 @@
 .first {
   composes: textAlignLeft from '../../sharedStyles/alignment.css';
 }
+
+.span {
+  composes: fontWeightNormal from '../../sharedStyles/fonts.css';
+}
