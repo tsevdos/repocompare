@@ -8,7 +8,7 @@
     "test": "jest",
     "test:watch": "npm test -- --watch",
     "lint": "eslint --ext .jsx --ext .js app",
-    "lint:fix": "eslint --ext .jsx --ext .js --fix app"
+    "lint:fix": "npm run lint -- --fix"
   },
   "repository": {
     "type": "git",
