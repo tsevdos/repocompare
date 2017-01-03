@@ -9,14 +9,12 @@ describe('RepoStore', () => {
         reponame: 'bootstrap'
       }
     );
-
     this.react = new Repo(
       {
         username: 'facebook',
         reponame: 'react'
       }
     );
-
     this.store = new RepoStore();
   });
 

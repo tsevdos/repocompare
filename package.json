@@ -58,12 +58,13 @@
   },
   "jest": {
     "verbose": true,
+    "collectCoverage": true,
     "testPathDirs": ["app"],
     "testPathIgnorePatterns": [
-      "/node_modules/"
+      "/node_modules/",
+      "<rootDir>/dist/"
     ],
-    "modulePaths": ["app"],
-    "moduleFileExtensions": ["js", "jsx", "json"],
-    "moduleDirectories": ["node_modules"]
+    "testPathDirs": ["<rootDir>/app"],
+    "modulePaths": ["app"]
   }
 }
