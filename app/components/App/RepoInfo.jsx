@@ -28,7 +28,7 @@ const RepoInfo = observer(({ repo, removeRepo }) => {
       </tr>
     :
       <tr className="danger">
-        <th scope="row" className="first" colSpan="6">Repo {repo.repoNameFull}doesn&apos;t exists!</th>
+        <th scope="row" className="first" colSpan="6">Repo {repo.repoNameFull} cannot be fetched!</th>
         <td>
           <button type="button" className="btn btn-danger btn-sm" onClick={removeRepo} data-repo-id={repo.id}>
             <strong>X</strong>

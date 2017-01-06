@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { PropTypes, inject } from 'mobx-react';
-import Repo from 'stores/Repo';
+import Repo from 'stores/models/Repo';
 import { Header } from 'components';
 import { getReposFromConfig } from 'helpers/ReposHelper';
 

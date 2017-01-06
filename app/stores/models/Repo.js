@@ -21,7 +21,9 @@ export default class Repo {
   }
 
   @action fetchData() {
-    axios.get(`${config.githubAPIUrl}/repos/${this.repoNameFull}`)
+    const url = `${config.githubAPIUrl}/repos/${this.repoNameFull}`;
+
+    axios.get(url)
       .then((response) => {
         this.data = response.data;
         this.isFetching = false;

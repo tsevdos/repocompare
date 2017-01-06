@@ -20,7 +20,7 @@ describe('Repo', () => {
     expect(this.bootstrap.repoNameFull).toBe('twbs/bootstrap');
   });
 
-  it('#fetchData', function () {
+  it('#fetchData', function() {
     jest.useFakeTimers();
     const fetchData = jest.fn().mockImplementation(() => {
       setTimeout(() => { // Fake API rsponse
@@ -35,7 +35,7 @@ describe('Repo', () => {
     expect(this.bootstrap.data).toEqual({});
   });
 
-  it('#hightlight', function () {
+  it('#hightlight', function() {
     this.bootstrap.hightlight();
     expect(this.bootstrap.animate).toEqual(true);
     jest.runAllTimers();
