@@ -1,36 +1,22 @@
-import { observable, computed, action } from 'mobx';
-import axios from 'axios';
-import config from 'config/config';
+import { observable, action } from 'mobx';
+import { fetchData } from 'helpers/api';
 
 export default class Repo {
   @observable isFetching;
   @observable animate;
+  @observable hasError;
 
   constructor({ username = '', reponame = '' } = {}) {
     this.id = `${username}/${reponame}`;
-    this.username = username;
-    this.reponame = reponame;
     this.isFetching = true;
     this.animate = false;
+    this.hasError = false;
     this.data = null;
-    this.fetchData();
+    this.setData();
   }
 
-  @computed get repoNameFull() {
-    return `${this.username}/${this.reponame}`;
-  }
-
-  @action fetchData() {
-    const url = `${config.githubAPIUrl}/repos/${this.repoNameFull}`;
-
-    axios.get(url)
-      .then((response) => {
-        this.data = response.data;
-        this.isFetching = false;
-      })
-      .catch(() => {
-        this.isFetching = false;
-      });
+  @action setData() {
+    this.data = fetchData(this);
   }
 
   // TODO: Use more React-way to do the animation like ReactCSSTransitionGroup

@@ -17,7 +17,7 @@ class FormContainer extends Component {
     const inputEl = e.target.querySelectorAll('#repo-name')[0];
     const inputValue = inputEl.value.trim();
     const repoToAddData = getRepo(inputValue);
-    const existingRepos = this.props.repoStore.repos.filter((repo) => repo.repoNameFull === `${repoToAddData.username}/${repoToAddData.reponame}`);
+    const existingRepos = this.props.repoStore.repos.filter((repo) => repo.id === `${repoToAddData.username}/${repoToAddData.reponame}`);
 
     inputEl.value = '';
 

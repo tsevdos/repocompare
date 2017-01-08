@@ -7,10 +7,10 @@ const RepoInfo = observer(({ repo, removeRepo }) => {
   const animateClassName = repo.animate ? 'info' : '';
 
   return (
-    repo.data ?
+    !repo.hasError ?
       <tr className={animateClassName}>
         <th scope="row" className={first}>
-          {repo.repoNameFull}&nbsp;
+          {repo.id}&nbsp;
           <span className={span}>
             (<a href={repo.data.homepage} target="_blank">site</a> / <a href={repo.data.html_url} target="_blank">repo</a>)
           </span>
@@ -28,7 +28,7 @@ const RepoInfo = observer(({ repo, removeRepo }) => {
       </tr>
     :
       <tr className="danger">
-        <th scope="row" className="first" colSpan="6">Repo {repo.repoNameFull} cannot be fetched!</th>
+        <th scope="row" className="first" colSpan="6">Repository {repo.id} cannot be fetched. Make sure repository {repo.id} exists!</th>
         <td>
           <button type="button" className="btn btn-danger btn-sm" onClick={removeRepo} data-repo-id={repo.id}>
             <strong>X</strong>
