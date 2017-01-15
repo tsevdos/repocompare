@@ -4,3 +4,4 @@ export AppContainer from './AppContainer';
 export FormContainer from './FormContainer';
 export TableContainer from './TableContainer';
 export AboutContainer from './AboutContainer';
+export AutoCompleteContainer from './AutoCompleteContainer';

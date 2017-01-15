@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
+import { AutoCompleteContainer } from 'containers';
 
-const Form = ({ addRepo }) =>
+const Form = ({ handleSubmit, resetForm }) =>
 (
-  <form className="form-horizontal" onSubmit={addRepo}>
+  <form className="form-horizontal" onSubmit={handleSubmit}>
     <div className="input-group">
-      <input id="repo-name" className="form-control input-lg" placeholder="ex. twbs/bootstrap" />
+      <AutoCompleteContainer resetForm={resetForm} />
       <span className="input-group-btn">
         <button className="btn btn-lg btn-success" type="submit">Compare!</button>
       </span>
@@ -13,7 +14,8 @@ const Form = ({ addRepo }) =>
 );
 
 Form.propTypes = {
-  addRepo: React.PropTypes.func.isRequired
+  handleSubmit: PropTypes.func.isRequired,
+  resetForm: PropTypes.bool.isRequired
 };
 
 export default Form;
