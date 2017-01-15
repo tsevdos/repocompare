@@ -8,18 +8,19 @@ import { getRepo } from 'helpers/ReposHelper';
 class FormContainer extends Component {
   constructor() {
     super();
-    this.addRepo = this.addRepo.bind(this);
+    this.state = {
+      resetForm: false
+    };
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  addRepo(e) {
+  handleSubmit(e) {
     e.preventDefault();
-
-    const inputEl = e.target.querySelectorAll('#repo-name')[0];
-    const inputValue = inputEl.value.trim();
+    const autoCompleteEl = e.target.querySelectorAll('#repo-name')[0];
+    const inputValue = autoCompleteEl.value.trim();
     const repoToAddData = getRepo(inputValue);
     const existingRepos = this.props.repoStore.repos.filter((repo) => repo.id === `${repoToAddData.username}/${repoToAddData.reponame}`);
-
-    inputEl.value = '';
+    this.setState({resetForm: true});
 
     if (existingRepos.length > 0) {
       existingRepos[0].hightlight();
@@ -31,7 +32,10 @@ class FormContainer extends Component {
 
   render() {
     return (
-      <Form addRepo={this.addRepo} />
+      <Form
+        handleSubmit={this.handleSubmit}
+        resetForm={this.state.resetForm}
+      />
     );
   }
 

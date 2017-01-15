@@ -53,18 +53,22 @@
     "mobx": "2.7.0",
     "mobx-react": "4.0.4",
     "react": "15.4.1",
+    "react-autocomplete": "1.4.0",
     "react-dom": "15.4.1",
     "react-router": "3.0.0"
   },
   "jest": {
     "verbose": true,
     "collectCoverage": true,
-    "testPathDirs": ["app"],
+    "testPathDirs": [
+      "<rootDir>/app"
+    ],
     "testPathIgnorePatterns": [
       "/node_modules/",
       "<rootDir>/dist/"
     ],
-    "testPathDirs": ["<rootDir>/app"],
-    "modulePaths": ["app"]
+    "modulePaths": [
+      "<rootDir>/app/"
+    ]
   }
 }
