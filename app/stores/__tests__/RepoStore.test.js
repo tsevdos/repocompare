@@ -34,7 +34,7 @@ describe('RepoStore', () => {
     expect(this.store.repos.length).toEqual(0);
   });
 
-  it('#removeRepo', function() {
+  it('#removeAllRepos', function() {
     this.store.addRepo(this.bootstrap);
     this.store.addRepo(this.react);
     this.store.removeAllRepos();
