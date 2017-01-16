@@ -12,7 +12,13 @@ const RepoInfo = observer(({ repo, removeRepo }) => {
         <th scope="row" className={first}>
           {repo.id}&nbsp;
           <span className={span}>
-            (<a href={repo.data.homepage} target="_blank">site</a> / <a href={repo.data.html_url} target="_blank">repo</a>)
+            (
+              {
+              repo.data.homepage ?
+                <span><a href={repo.data.homepage} target="_blank">site</a> / </span>
+                : null
+              }
+            <a href={repo.data.html_url} target="_blank">repo</a>)
           </span>
         </th>
         <td>{repo.data.stargazers_count.toLocaleString()}</td>
