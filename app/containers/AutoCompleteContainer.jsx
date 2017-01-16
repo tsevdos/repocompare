@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import Autocomplete from 'react-autocomplete';
 import { searchRepo } from 'helpers/api';
-import { highlightedItem, normalItem } from './AutoCompleteContainer.css';
+import { highlightedItem, normalItem, inputStyles } from './AutoCompleteContainer.css';
 
 class AutoCompleteContainer extends Component {
   constructor() {
@@ -48,7 +48,7 @@ class AutoCompleteContainer extends Component {
   render() {
     const inputProps = {
       id: 'repo-name',
-      className: 'form-control input-lg',
+      className: `form-control input-lg ${inputStyles}`,
       placeholder: 'ex. lodash/lodash'
     };
 
