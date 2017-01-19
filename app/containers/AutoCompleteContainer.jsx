@@ -1,36 +1,25 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import { inject, observer, PropTypes } from 'mobx-react';
 import Autocomplete from 'react-autocomplete';
-import { searchRepo } from 'helpers/api';
 import { highlightedItem, normalItem, inputStyles } from './AutoCompleteContainer.css';
 
+@inject('autocompleteStore') @observer
 class AutoCompleteContainer extends Component {
   constructor() {
     super();
-    this.state = {
-      value: '',
-      repos: []
-    };
     this.handleSelect = this.handleSelect.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
-  componentWillReceiveProps(newProps) {
-    if (newProps.resetForm) {
-      this.setState({
-        value: '',
-        repos: []
-      });
-    }
-  }
-
   handleSelect(value, item) {
-    this.setState({ value });
+    this.props.autocompleteStore.query = value;
   }
 
   handleChange(event, value) {
-    this.setState({ value });
-    if (event.target.value.length > 3) {
-      searchRepo(value, this);
+    this.props.autocompleteStore.query = value;
+
+    if (this.props.autocompleteStore.query.length > 3) {
+      this.props.autocompleteStore.search();
     }
   }
 
@@ -52,11 +41,15 @@ class AutoCompleteContainer extends Component {
       placeholder: 'ex. lodash/lodash'
     };
 
+    // Convert to normal JS from MobX array observable
+    // more info: https://mobx.js.org/refguide/array.html
+    const results = this.props.autocompleteStore.results.slice();
+
     return <Autocomplete
       inputProps={inputProps}
       ref="autocomplete"
-      value={this.state.value}
-      items={this.state.repos}
+      value={this.props.autocompleteStore.query}
+      items={results}
       getItemValue={(item) => item.name}
       onSelect={this.handleSelect}
       onChange={this.handleChange}
@@ -67,7 +60,7 @@ class AutoCompleteContainer extends Component {
 }
 
 AutoCompleteContainer.propTypes = {
-  resetForm: PropTypes.bool.isRequired
+  autocompleteStore: PropTypes.observableObject
 };
 
 export default AutoCompleteContainer;

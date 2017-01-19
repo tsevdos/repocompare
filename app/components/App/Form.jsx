@@ -1,11 +1,11 @@
 import React, { PropTypes } from 'react';
 import { AutoCompleteContainer } from 'containers';
 
-const Form = ({ handleSubmit, resetForm }) =>
+const Form = ({ handleSubmit }) =>
 (
   <form className="form-horizontal" onSubmit={handleSubmit}>
     <div className="input-group">
-      <AutoCompleteContainer resetForm={resetForm} />
+      <AutoCompleteContainer />
       <span className="input-group-btn">
         <button className="btn btn-lg btn-success" type="submit">Compare!</button>
       </span>
@@ -14,8 +14,7 @@ const Form = ({ handleSubmit, resetForm }) =>
 );
 
 Form.propTypes = {
-  handleSubmit: PropTypes.func.isRequired,
-  resetForm: PropTypes.bool.isRequired
+  handleSubmit: PropTypes.func.isRequired
 };
 
 export default Form;

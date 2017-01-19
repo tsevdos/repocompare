@@ -4,13 +4,10 @@ import Repo from 'stores/models/Repo';
 import { Form } from 'components';
 import { getRepo } from 'helpers/ReposHelper';
 
-@inject('repoStore')
+@inject('repoStore', 'autocompleteStore')
 class FormContainer extends Component {
   constructor() {
     super();
-    this.state = {
-      resetForm: false
-    };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -19,30 +16,31 @@ class FormContainer extends Component {
     const autoCompleteEl = e.target.querySelectorAll('#repo-name')[0];
     const inputValue = autoCompleteEl.value.trim();
     const repoToAddData = getRepo(inputValue);
-    const existingRepos = this.props.repoStore.repos.filter((repo) => repo.id === `${repoToAddData.username}/${repoToAddData.reponame}`);
-    this.setState({resetForm: true});
+    const existingRepo = this.props.repoStore.repos.filter((repo) => {
+      return repo.id === `${repoToAddData.username}/${repoToAddData.reponame}`;
+    })[0];
 
-    if (existingRepos.length > 0) {
-      existingRepos[0].hightlight();
+    if (existingRepo) {
+      existingRepo.highlight();
     } else {
       const repoToAdd = new Repo(repoToAddData);
       this.props.repoStore.addRepo(repoToAdd);
     }
+
+    this.props.autocompleteStore.reset();
   }
 
   render() {
     return (
-      <Form
-        handleSubmit={this.handleSubmit}
-        resetForm={this.state.resetForm}
-      />
+      <Form handleSubmit={this.handleSubmit} />
     );
   }
 
 }
 
 FormContainer.propTypes = {
-  repoStore: PropTypes.observableObject
+  repoStore: PropTypes.observableObject,
+  autocompleteStore: PropTypes.observableObject
 };
 
 export default FormContainer;

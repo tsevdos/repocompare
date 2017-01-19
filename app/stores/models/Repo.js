@@ -1,28 +1,38 @@
 import { observable, action } from 'mobx';
-import { fetchData } from 'helpers/api';
+import { fetchRepoData } from 'helpers/api';
 
 export default class Repo {
   @observable isFetching;
-  @observable animate;
+  @observable isHighlighted;
   @observable hasError;
 
   constructor({ username = '', reponame = '' } = {}) {
     this.id = `${username}/${reponame}`;
     this.isFetching = true;
-    this.animate = false;
+    this.isHighlighted = false;
     this.hasError = false;
     this.data = null;
     this.setData();
   }
 
-  @action setData() {
-    this.data = fetchData(this);
+  setData() {
+    this.data = fetchRepoData(this.id)
+      .then(
+        action((response) => {
+          this.data = response.data;
+          this.isFetching = false;
+        })
+      )
+      .catch(
+        action(() => {
+          this.hasError = true;
+          this.isFetching = false;
+        })
+      );
   }
 
-  // TODO: Use more React-way to do the animation like ReactCSSTransitionGroup
-  @action hightlight() {
-    this.animate = true;
-    setTimeout(() => (this.animate = false), 1000);
+  @action highlight() {
+    this.isHighlighted = true;
+    setTimeout(() => (this.isHighlighted = false), 1000);
   }
-
 }

@@ -2,7 +2,7 @@
   "githubAPIUrl": "https://api.github.com",
   "basicAuth": {
     "username": "tsevdos",
-    "password": "3679f4f46f99f0cce871646b1a40dd46c1428af8"
+    "password": "986fccdbff8807a07a295614652a0fc2815bc310"
   },
   "php": {
     "frameworks": [

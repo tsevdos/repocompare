@@ -1,28 +1,12 @@
 import axios from 'axios';
 import { githubAPIUrl, basicAuth } from 'config/config';
 
-function fetchData(repo) {
-  const url = `${githubAPIUrl}/repos/${repo.id}`;
-
-  return axios.get(url, { auth: basicAuth })
-    .then((response) => {
-      repo.data = response.data;
-      repo.isFetching = false;
-    })
-    .catch(() => {
-      repo.hasError = true;
-      repo.isFetching = false;
-    });
+function fetchRepoData(repo) {
+  return axios.get(`${githubAPIUrl}/repos/${repo}`, { auth: basicAuth });
 }
 
-function searchRepo(query, autocomplete) {
-  const url = `${githubAPIUrl}/search/repositories?q=${query}`;
-
-  return axios.get(url, { auth: basicAuth })
-    .then((response) => {
-      const searchedRepos = response.data.items.map((repo) => ({ name: repo.full_name }));
-      autocomplete.setState({ repos: searchedRepos });
-    });
+function searchRepo(query) {
+  return axios.get(`${githubAPIUrl}/search/repositories?q=${query}&sort=stars`, { auth: basicAuth });
 }
 
-export { fetchData, searchRepo };
+export { fetchRepoData, searchRepo };
