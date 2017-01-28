@@ -14,9 +14,8 @@ const RepoInfo = observer(({ repo, removeRepo }) => {
           <span className={span}>
             (
               {
-              repo.data.homepage ?
+              repo.data.homepage &&
                 <span><a href={repo.data.homepage} target="_blank">site</a> / </span>
-                : null
               }
             <a href={repo.data.html_url} target="_blank">repo</a>)
           </span>

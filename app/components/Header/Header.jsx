@@ -19,7 +19,7 @@ const Header = ({ displayReposMenu, addRepos }) =>
       <div className="collapse navbar-collapse" id="main-menu">
 
         {
-          displayReposMenu ?
+          displayReposMenu &&
             <ul className="nav navbar-nav">
               <li className="dropdown">
                 <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">JS/Node <span className="caret" /></a>
@@ -50,8 +50,6 @@ const Header = ({ displayReposMenu, addRepos }) =>
                 </ul>
               </li>
             </ul>
-          :
-            null
         }
 
         <ul className="nav navbar-nav navbar-right">
