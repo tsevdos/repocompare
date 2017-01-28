@@ -1,5 +1,5 @@
-import React from 'react';
-import { observer, PropTypes } from 'mobx-react';
+import React from 'react'
+import { observer, PropTypes } from 'mobx-react'
 
 const RemoveAllBtn = observer(({ repos, removeAllRepos }) =>
 (
@@ -7,11 +7,11 @@ const RemoveAllBtn = observer(({ repos, removeAllRepos }) =>
     <button type="button" className="btn btn-danger" onClick={removeAllRepos}><strong>Remove All</strong></button>
   :
     null
-));
+))
 
 RemoveAllBtn.propTypes = {
   repos: PropTypes.observableArray,
   removeAllRepos: React.PropTypes.func.isRequired
-};
+}
 
-export default RemoveAllBtn;
+export default RemoveAllBtn

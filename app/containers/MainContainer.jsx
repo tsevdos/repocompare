@@ -1,6 +1,6 @@
-import React, { PropTypes } from 'react';
-import { HeaderContainer } from 'containers';
-import { Footer } from 'components';
+import React, { PropTypes } from 'react'
+import { HeaderContainer } from 'containers'
+import { Footer } from 'components'
 
 const MainContainer = ({ children, location }) => (
   <div>
@@ -10,11 +10,11 @@ const MainContainer = ({ children, location }) => (
     </main>
     <Footer />
   </div>
-);
+)
 
 MainContainer.propTypes = {
   children: PropTypes.element.isRequired,
   location: PropTypes.object.isRequired
-};
+}
 
-export default MainContainer;
+export default MainContainer

@@ -1,23 +1,23 @@
-import { observable, action } from 'mobx';
+import { observable, action } from 'mobx'
 
 class RepoStore {
   @observable repos = [];
 
   @action addRepo(repo) {
-    this.repos.push(repo);
+    this.repos.push(repo)
   }
 
   @action removeRepo(repoId) {
-    const repoIndex = this.repos.findIndex((repo) => repo.id === repoId);
-    this.repos.splice(repoIndex, 1);
+    const repoIndex = this.repos.findIndex((repo) => repo.id === repoId)
+    this.repos.splice(repoIndex, 1)
   }
 
   @action removeAllRepos() {
-    this.repos.clear();
+    this.repos.clear()
   }
 }
 
-const repoStore = new RepoStore();
+const repoStore = new RepoStore()
 
-export default repoStore;
-export { RepoStore };
+export default repoStore
+export { RepoStore }

@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router';
+import React from 'react'
+import { Link } from 'react-router'
 
 const Header = ({ displayReposMenu, addRepos }) =>
 (
@@ -61,11 +61,11 @@ const Header = ({ displayReposMenu, addRepos }) =>
 
     </div>
   </nav>
-);
+)
 
 Header.propTypes = {
   addRepos: React.PropTypes.func.isRequired,
   displayReposMenu: React.PropTypes.bool.isRequired
-};
+}
 
-export default Header;
+export default Header

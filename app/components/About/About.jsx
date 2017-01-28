@@ -1,5 +1,5 @@
-import React from 'react';
-import { marginBottom } from './About.css';
+import React from 'react'
+import { marginBottom } from './About.css'
 
 const About = () =>
 (
@@ -20,6 +20,6 @@ const About = () =>
       Just search and add as many Github repositories as you like using the <code>username/repository name</code> pattern on the search form. Then compare the repos with ease on things that matter such as stars, forks, open issues and other helpful details!
     </p>
   </div>
-);
+)
 
-export default About;
+export default About

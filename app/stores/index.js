@@ -1,2 +1,2 @@
-export repoStore from './RepoStore';
-export autocompleteStore from './AutocompleteStore';
+export repoStore from './RepoStore'
+export autocompleteStore from './AutocompleteStore'

@@ -1,5 +1,5 @@
-import React from 'react';
-import { FormContainer, TableContainer } from 'containers';
+import React from 'react'
+import { FormContainer, TableContainer } from 'containers'
 
 const App = () =>
 (
@@ -11,6 +11,6 @@ const App = () =>
       <TableContainer />
     </div>
   </div>
-);
+)
 
-export default App;
+export default App

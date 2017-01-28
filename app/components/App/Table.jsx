@@ -1,8 +1,8 @@
-import React from 'react';
-import { observer, PropTypes } from 'mobx-react';
-import RemoveAllBtn from './RemoveAllBtn';
-import RepoWrapper from './RepoWrapper';
-import { table, first } from './Table.css';
+import React from 'react'
+import { observer, PropTypes } from 'mobx-react'
+import RemoveAllBtn from './RemoveAllBtn'
+import RepoWrapper from './RepoWrapper'
+import { table, first } from './Table.css'
 
 const Table = observer(({ repos, removeRepo, removeAllRepos }) =>
 (
@@ -32,12 +32,12 @@ const Table = observer(({ repos, removeRepo, removeAllRepos }) =>
       </tbody>
     </table>
   </div>
-));
+))
 
 Table.propTypes = {
   repos: PropTypes.observableArray,
   removeRepo: React.PropTypes.func.isRequired,
   removeAllRepos: React.PropTypes.func.isRequired
-};
+}
 
-export default Table;
+export default Table

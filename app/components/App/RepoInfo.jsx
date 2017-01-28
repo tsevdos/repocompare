@@ -1,10 +1,10 @@
-import React from 'react';
-import { observer, PropTypes } from 'mobx-react';
-import { first, span } from './RepoInfo.css';
-import filesize from 'file-size';
+import React from 'react'
+import { observer, PropTypes } from 'mobx-react'
+import { first, span } from './RepoInfo.css'
+import filesize from 'file-size'
 
 const RepoInfo = observer(({ repo, removeRepo }) => {
-  const highlightClassName = repo.isHighlighted ? 'info' : '';
+  const highlightClassName = repo.isHighlighted ? 'info' : ''
 
   return (
     !repo.hasError ?
@@ -41,12 +41,12 @@ const RepoInfo = observer(({ repo, removeRepo }) => {
           </button>
         </td>
       </tr>
-  );
-});
+  )
+})
 
 RepoInfo.propTypes = {
   repo: PropTypes.observableObject,
   removeRepo: React.PropTypes.func.isRequired
-};
+}
 
-export default RepoInfo;
+export default RepoInfo

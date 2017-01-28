@@ -1,5 +1,5 @@
-import React, { PropTypes } from 'react';
-import { AutoCompleteContainer } from 'containers';
+import React, { PropTypes } from 'react'
+import { AutoCompleteContainer } from 'containers'
 
 const Form = ({ handleSubmit }) =>
 (
@@ -11,10 +11,10 @@ const Form = ({ handleSubmit }) =>
       </span>
     </div>
   </form>
-);
+)
 
 Form.propTypes = {
   handleSubmit: PropTypes.func.isRequired
-};
+}
 
-export default Form;
+export default Form

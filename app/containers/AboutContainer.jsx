@@ -1,6 +1,6 @@
-import React from 'react';
-import { About } from 'components';
+import React from 'react'
+import { About } from 'components'
 
-const AboutContainer = () => <About />;
+const AboutContainer = () => <About />
 
-export default AboutContainer;
+export default AboutContainer
