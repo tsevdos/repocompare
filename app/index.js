@@ -8,8 +8,6 @@ import routers from './config/routes'
 const repocompare = new Repo({ username: 'tsevdos', reponame: 'repocompare' })
 repoStore.addRepo(repocompare)
 
-window.autocompleteStore = autocompleteStore
-
 ReactDOM.render(
   <Provider repoStore={repoStore} autocompleteStore={autocompleteStore}>
     {routers}

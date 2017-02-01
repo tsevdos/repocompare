@@ -16,7 +16,7 @@ export default class Repo {
   }
 
   setData() {
-    this.data = fetchRepoData(this.id)
+    fetchRepoData(this.id)
       .then(
         action((response) => {
           this.data = response.data
