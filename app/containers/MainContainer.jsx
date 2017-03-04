@@ -1,10 +1,9 @@
 import React, { PropTypes } from 'react'
-import { HeaderContainer } from 'containers'
-import { Footer } from 'components'
+import { Header, Footer } from 'components'
 
 const MainContainer = ({ children, location }) => (
   <div>
-    <HeaderContainer currentPathName={location.pathname} />
+    <Header />
     <main id="main" className="container">
       {children}
     </main>

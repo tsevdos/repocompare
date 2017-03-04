@@ -20,7 +20,7 @@
   "extends": ["eslint:recommended", "plugin:react/recommended", "plugin:jsx-a11y/recommended", "standard"],
   "rules": {
     "operator-linebreak": 0,
-    "jsx-a11y/href-no-hash": 0,
+    "jsx-a11y/anchor-has-content": 0,
     "space-before-function-paren": ["error", "never"]
   }
 }
