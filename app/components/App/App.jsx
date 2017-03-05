@@ -1,12 +1,10 @@
 import React from 'react'
-import { FormContainer, TableContainer } from 'containers'
+import { AutoCompleteContainer, TableContainer } from 'containers'
 
 const App = () =>
 (
   <div>
-    <div className="jumbotron">
-      <FormContainer />
-    </div>
+    <AutoCompleteContainer />
     <div className="table-responsive">
       <TableContainer />
     </div>

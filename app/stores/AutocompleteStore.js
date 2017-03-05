@@ -12,7 +12,7 @@ class AutocompleteStore {
   @action search() {
     this.results.clear()
     searchRepo(this.query)
-      .then((response) => response.data.items.map((repo) => ({ name: repo.full_name })))
+      .then((response) => response.data.items.map((repo) => repo.full_name))
       .then((data) => this.results.replace(data))
   }
 
