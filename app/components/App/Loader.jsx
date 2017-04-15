@@ -1,10 +1,12 @@
 import React from 'react'
+import { TableRow, TableRowColumn } from 'material-ui/Table'
+import LinearProgress from 'material-ui/LinearProgress'
 
 const Loader = () =>
 (
-  <tr>
-    <th scope="row" className="success" colSpan="7">Loading...</th>
-  </tr>
+  <TableRow>
+    <TableRowColumn colSpan={8}><LinearProgress mode="indeterminate" /></TableRowColumn>
+  </TableRow>
 )
 
 export default Loader

@@ -4,16 +4,13 @@ import { Table } from 'components'
 
 @inject('repoStore')
 class TableContainer extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.removeRepo = this.removeRepo.bind(this)
     this.removeAllRepos = this.removeAllRepos.bind(this)
   }
 
-  removeRepo(e) {
-    e.preventDefault()
-    const repoId = e.currentTarget.dataset.repoId
-
+  removeRepo(repoId) {
     this.props.repoStore.removeRepo(repoId)
   }
 

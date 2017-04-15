@@ -1,43 +1,40 @@
 import React from 'react'
 import { observer, PropTypes } from 'mobx-react'
-import RemoveAllBtn from './RemoveAllBtn'
+import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table'
 import RepoWrapper from './RepoWrapper'
-import { table, first } from './Table.css'
 
-const Table = observer(({ repos, removeRepo, removeAllRepos }) =>
+const TableEl = observer(({ repos, removeRepo, removeAllRepos }) =>
 (
-  <div className="table-responsive">
-    <table className={`table table-hover ${table}`}>
-      <thead>
-        <tr>
-          <th className={first}>Repo</th>
-          <th>Stars</th>
-          <th>Forks</th>
-          <th>Watchers</th>
-          <th>Open issues</th>
-          <th>File size</th>
-          <th><RemoveAllBtn repos={repos} removeAllRepos={removeAllRepos} /></th>
-        </tr>
-      </thead>
-      <tbody>
-        {
-          repos.length > 0 ?
-            repos.map((repo) =>
-              <RepoWrapper key={repo.id} repo={repo} removeRepo={removeRepo} />)
-          :
-            <tr>
-              <th scope="row" colSpan="6">Add repos using the form above or select a category.</th>
-            </tr>
-        }
-      </tbody>
-    </table>
-  </div>
+  <Table selectable={false}>
+    <TableHeader adjustForCheckbox={false} displaySelectAll={false} enableSelectAll={false}>
+      <TableRow>
+        <TableHeaderColumn>Name</TableHeaderColumn>
+        <TableHeaderColumn>Repo / Site</TableHeaderColumn>
+        <TableHeaderColumn>Stars</TableHeaderColumn>
+        <TableHeaderColumn>Forks</TableHeaderColumn>
+        <TableHeaderColumn>Watchers</TableHeaderColumn>
+        <TableHeaderColumn>Open issues</TableHeaderColumn>
+        <TableHeaderColumn>File size</TableHeaderColumn>
+        <TableHeaderColumn>Remove</TableHeaderColumn>
+      </TableRow>
+    </TableHeader>
+    <TableBody showRowHover={true}>
+    {
+      repos.length ?
+        repos.map((repo) => <RepoWrapper key={repo.id} repo={repo} removeRepo={removeRepo} />)
+      :
+        <TableRow>
+          <TableRowColumn colSpan={8}>Add repos using the autocomplete.</TableRowColumn>
+        </TableRow>
+    }
+    </TableBody>
+  </Table>
 ))
 
-Table.propTypes = {
+TableEl.propTypes = {
   repos: PropTypes.observableArray,
   removeRepo: React.PropTypes.func.isRequired,
   removeAllRepos: React.PropTypes.func.isRequired
 }
 
-export default Table
+export default TableEl
