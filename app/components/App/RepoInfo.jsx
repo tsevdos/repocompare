@@ -1,9 +1,13 @@
 import React from 'react'
 import { observer, PropTypes } from 'mobx-react'
 import { TableRow, TableRowColumn } from 'material-ui/Table'
-import IconButton from 'material-ui/IconButton';
+import IconButton from 'material-ui/IconButton'
 import FontIcon from 'material-ui/FontIcon'
-import filesize from 'file-size'
+import prettyBytes from 'pretty-bytes'
+
+const tableRowColumnStyle = {
+  textAlign: 'right'
+}
 
 const RepoInfo = observer(({ repo, removeRepo }) => (
   !repo.hasError ?
@@ -15,12 +19,12 @@ const RepoInfo = observer(({ repo, removeRepo }) => (
           repo.data.homepage && <span> / <a href={repo.data.homepage} target="_blank">site</a></span>
         }
       </TableRowColumn>
-      <TableRowColumn>{repo.data.stargazers_count.toLocaleString()}</TableRowColumn>
-      <TableRowColumn>{repo.data.forks_count.toLocaleString()}</TableRowColumn>
-      <TableRowColumn>{repo.data.watchers_count.toLocaleString()}</TableRowColumn>
-      <TableRowColumn>{repo.data.open_issues_count.toLocaleString()}</TableRowColumn>
-      <TableRowColumn>{filesize(repo.data.size).human('jedec')}</TableRowColumn>
-      <TableRowColumn style={{ textAlign: 'right' }}>
+      <TableRowColumn style={tableRowColumnStyle}>{repo.data.stargazers_count.toLocaleString()}</TableRowColumn>
+      <TableRowColumn style={tableRowColumnStyle}>{repo.data.forks_count.toLocaleString()}</TableRowColumn>
+      <TableRowColumn style={tableRowColumnStyle}>{repo.data.watchers_count.toLocaleString()}</TableRowColumn>
+      <TableRowColumn style={tableRowColumnStyle}>{repo.data.open_issues_count.toLocaleString()}</TableRowColumn>
+      <TableRowColumn style={tableRowColumnStyle}>{prettyBytes(repo.data.size)}</TableRowColumn>
+      <TableRowColumn style={tableRowColumnStyle}>
         <IconButton onTouchTap={(e) => removeRepo(repo.id)}>
           <FontIcon className="material-icons">delete</FontIcon>
         </IconButton>

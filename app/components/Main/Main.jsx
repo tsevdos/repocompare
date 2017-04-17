@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react'
 import { Header, Footer } from 'components'
 
 const MainContainer = ({ children, location }) => (
-  <div className="container">
+  <div>
     <Header />
     {children}
     <Footer />

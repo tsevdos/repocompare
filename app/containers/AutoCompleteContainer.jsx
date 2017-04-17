@@ -5,6 +5,14 @@ import AutoComplete from 'material-ui/AutoComplete'
 import Repo from 'stores/models/Repo'
 import { getRepo } from 'helpers/ReposHelper'
 
+const autoCompleteStyle = {
+  margin: '0 0 1em'
+}
+
+const textFieldStyle = {
+  fontSize: '1.5em'
+}
+
 @inject('repoStore', 'autocompleteStore') @observer
 class AutoCompleteContainer extends Component {
   constructor(props) {
@@ -50,6 +58,8 @@ class AutoCompleteContainer extends Component {
       floatingLabelText='Search a repository'
       fullWidth={true}
       onNewRequest={this.handleNewRequest}
+      style={autoCompleteStyle}
+      textFieldStyle={textFieldStyle}
     />
   }
 }
