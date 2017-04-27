@@ -16,10 +16,7 @@ const Header = () =>
     title="RepoCompare"
     className="appbar"
     iconElementLeft={
-      <IconButton
-        containerElement={<Link to="/" />}
-        touch={true}
-      >
+      <IconButton containerElement={<Link to="/" />} touch={true}>
         <FontIcon className="material-icons">home</FontIcon>
       </IconButton>
     }

@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { PropTypes, inject } from 'mobx-react'
-import { Table } from 'components'
+import { Cards } from 'components'
 
 @inject('repoStore')
-class TableContainer extends Component {
+class CardsContainer extends Component {
   constructor(props) {
     super(props)
     this.removeRepo = this.removeRepo.bind(this)
@@ -20,7 +20,7 @@ class TableContainer extends Component {
 
   render() {
     return (
-      <Table
+      <Cards
         repos={this.props.repoStore.repos}
         removeRepo={this.removeRepo}
         removeAllRepos={this.removeAllRepos}
@@ -30,8 +30,8 @@ class TableContainer extends Component {
 
 }
 
-TableContainer.propTypes = {
+CardsContainer.propTypes = {
   repoStore: PropTypes.observableObject
 }
 
-export default TableContainer
+export default CardsContainer

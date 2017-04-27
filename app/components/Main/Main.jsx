@@ -1,11 +1,10 @@
 import React, { PropTypes } from 'react'
-import { Header, Footer } from 'components'
+import { Header } from 'components'
 
 const MainContainer = ({ children, location }) => (
   <div>
     <Header />
     {children}
-    <Footer />
   </div>
 )
 

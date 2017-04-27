@@ -6,7 +6,7 @@ import Repo from 'stores/models/Repo'
 import { getRepo } from 'helpers/ReposHelper'
 
 const autoCompleteStyle = {
-  margin: '0 0 1em'
+  margin: '0 0 2em'
 }
 
 const textFieldStyle = {

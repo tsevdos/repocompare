@@ -1,2 +1,2 @@
-export TableContainer from './TableContainer'
+export CardsContainer from './CardsContainer'
 export AutoCompleteContainer from './AutoCompleteContainer'

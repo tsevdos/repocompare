@@ -1,16 +1,19 @@
 import React from 'react'
-import { TableRow, TableRowColumn } from 'material-ui/Table'
+import { Card, CardTitle, CardText } from 'material-ui/Card'
 import CircularProgress from 'material-ui/CircularProgress'
 
-const columnStyle = {
+const cardTextStyle = {
   textAlign: 'center'
 }
 
 const Loader = () =>
 (
-  <TableRow>
-    <TableRowColumn colSpan={8} style={columnStyle}><CircularProgress /></TableRowColumn>
-  </TableRow>
+  <Card>
+    <CardTitle title="Loading..." />
+    <CardText style={cardTextStyle}>
+      <CircularProgress size={80} thickness={5} />
+    </CardText>
+  </Card>
 )
 
 export default Loader
