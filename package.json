@@ -49,13 +49,15 @@
   },
   "dependencies": {
     "axios": "0.15.3",
-    "file-size": "1.0.0",
+    "material-ui": "0.17.4",
     "mobx": "2.7.0",
     "mobx-react": "4.0.4",
     "react": "15.4.1",
-    "react-autocomplete": "1.4.0",
     "react-dom": "15.4.1",
-    "react-router": "3.0.0"
+    "react-router": "3.0.0",
+    "react-tap-event-plugin": "2.0.1",
+    "typography": "0.15.8",
+    "typography-theme-github": "0.15.1"
   },
   "jest": {
     "verbose": true,

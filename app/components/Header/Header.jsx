@@ -1,69 +1,40 @@
 import React from 'react'
 import { Link } from 'react-router'
+import AppBar from 'material-ui/AppBar'
+import IconButton from 'material-ui/IconButton'
+import FontIcon from 'material-ui/FontIcon'
+import IconMenu from 'material-ui/IconMenu'
+import MenuItem from 'material-ui/MenuItem'
 
-const Header = ({ displayReposMenu, addRepos }) =>
-(
-  <nav className="navbar navbar-default">
-    <div className="container">
-
-      <div className="navbar-header">
-        <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu" aria-expanded="false">
-          <span className="sr-only">Toggle navigation</span>
-          <span className="icon-bar" />
-          <span className="icon-bar" />
-          <span className="icon-bar" />
-        </button>
-        <Link className="navbar-brand" to="/">RepoCompare</Link>
-      </div>
-
-      <div className="collapse navbar-collapse" id="main-menu">
-
-        {
-          displayReposMenu &&
-            <ul className="nav navbar-nav">
-              <li className="dropdown">
-                <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">JS/Node <span className="caret" /></a>
-                <ul className="dropdown-menu">
-                  <li><a data-repos="js-frameworks-server" href="#" onClick={addRepos}>Node.js frameworks</a></li>
-                  <li><a data-repos="js-frameworks-client" href="#" onClick={addRepos}>Client-side frameworks</a></li>
-                  <li><a data-repos="js-libraries" href="#" onClick={addRepos}>Libraries</a></li>
-                  <li><a data-repos="js-testing" href="#" onClick={addRepos}>Testing</a></li>
-                  <li><a data-repos="js-documnetation" href="#" onClick={addRepos}>Documnetation</a></li>
-                </ul>
-              </li>
-              <li className="dropdown">
-                <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ruby <span className="caret" /></a>
-                <ul className="dropdown-menu">
-                  <li><a data-repos="ruby-frameworks" href="#" onClick={addRepos}>Frameworks</a></li>
-                  <li><a data-repos="ruby-libraries" href="#" onClick={addRepos}>Libraries</a></li>
-                  <li><a data-repos="ruby-testing" href="#" onClick={addRepos}>Testing</a></li>
-                  <li><a data-repos="ruby-documnetation" href="#" onClick={addRepos}>Documnetation</a></li>
-                </ul>
-              </li>
-              <li className="dropdown">
-                <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">PHP <span className="caret" /></a>
-                <ul className="dropdown-menu">
-                  <li><a data-repos="php-frameworks" href="#" onClick={addRepos}>Frameworks</a></li>
-                  <li><a data-repos="php-libraries" href="#" onClick={addRepos}>Libraries</a></li>
-                  <li><a data-repos="php-testing" href="#" onClick={addRepos}>Testing</a></li>
-                  <li><a data-repos="php-documnetation" href="#" onClick={addRepos}>Documnetation</a></li>
-                </ul>
-              </li>
-            </ul>
-        }
-
-        <ul className="nav navbar-nav navbar-right">
-          <li><Link to="about">About</Link></li>
-        </ul>
-      </div>
-
-    </div>
-  </nav>
-)
-
-Header.propTypes = {
-  addRepos: React.PropTypes.func.isRequired,
-  displayReposMenu: React.PropTypes.bool.isRequired
+const moreButtonStyle = {
+  margin: '7px 0 0'
 }
+
+const Header = () =>
+(
+  <AppBar
+    title="RepoCompare"
+    className="appbar"
+    iconElementLeft={
+      <IconButton containerElement={<Link to="/" />} touch={true}>
+        <FontIcon className="material-icons">home</FontIcon>
+      </IconButton>
+    }
+
+  >
+    <IconMenu
+      iconButtonElement={
+        <IconButton style={moreButtonStyle} touch={true}>
+          <FontIcon color='white' className="material-icons">more_vert</FontIcon>
+        </IconButton>
+      }
+      anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+      targetOrigin={{horizontal: 'right', vertical: 'top'}}
+    >
+      <MenuItem containerElement={<Link to="/about" />} primaryText="About" />
+      <MenuItem href="https://github.com/tsevdos/repocompare" target="_blank" primaryText="Github" />
+    </IconMenu>
+  </AppBar>
+)
 
 export default Header

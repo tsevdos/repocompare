@@ -1,15 +1,15 @@
 import React from 'react'
-import { FormContainer, TableContainer } from 'containers'
+import { AutoCompleteContainer, CardsContainer } from 'containers'
+
+const divStyle = {
+  padding: '0 24px'
+}
 
 const App = () =>
 (
-  <div>
-    <div className="jumbotron">
-      <FormContainer />
-    </div>
-    <div className="table-responsive">
-      <TableContainer />
-    </div>
+  <div style={divStyle}>
+    <AutoCompleteContainer />
+    <CardsContainer />
   </div>
 )
 

@@ -1,19 +1,19 @@
 import React from 'react'
 import { observer, PropTypes } from 'mobx-react'
 import Loader from './Loader'
-import RepoInfo from './RepoInfo'
+import CardInfo from './CardInfo'
 
-const RepoWrapper = observer(({ repo, removeRepo }) =>
+const CardWrapper = observer(({ repo, removeRepo }) =>
 (
   repo.isFetching ?
     <Loader />
   :
-    <RepoInfo repo={repo} removeRepo={removeRepo} />
+    <CardInfo repo={repo} removeRepo={removeRepo} />
 ))
 
-RepoWrapper.propTypes = {
+CardWrapper.propTypes = {
   repo: PropTypes.observableObject.isRequired,
   removeRepo: React.PropTypes.func.isRequired
 }
 
-export default RepoWrapper
+export default CardWrapper

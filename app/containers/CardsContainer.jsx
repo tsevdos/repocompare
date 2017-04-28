@@ -1,19 +1,16 @@
 import React, { Component } from 'react'
 import { PropTypes, inject } from 'mobx-react'
-import { Table } from 'components'
+import { Cards } from 'components'
 
 @inject('repoStore')
-class TableContainer extends Component {
-  constructor() {
-    super()
+class CardsContainer extends Component {
+  constructor(props) {
+    super(props)
     this.removeRepo = this.removeRepo.bind(this)
     this.removeAllRepos = this.removeAllRepos.bind(this)
   }
 
-  removeRepo(e) {
-    e.preventDefault()
-    const repoId = e.currentTarget.dataset.repoId
-
+  removeRepo(repoId) {
     this.props.repoStore.removeRepo(repoId)
   }
 
@@ -23,7 +20,7 @@ class TableContainer extends Component {
 
   render() {
     return (
-      <Table
+      <Cards
         repos={this.props.repoStore.repos}
         removeRepo={this.removeRepo}
         removeAllRepos={this.removeAllRepos}
@@ -33,8 +30,8 @@ class TableContainer extends Component {
 
 }
 
-TableContainer.propTypes = {
+CardsContainer.propTypes = {
   repoStore: PropTypes.observableObject
 }
 
-export default TableContainer
+export default CardsContainer

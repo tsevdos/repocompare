@@ -1,66 +1,72 @@
 import React, { Component } from 'react'
+import mobx from 'mobx'
 import { inject, observer, PropTypes } from 'mobx-react'
-import Autocomplete from 'react-autocomplete'
-import { highlightedItem, normalItem, inputStyles } from './AutoCompleteContainer.css'
+import AutoComplete from 'material-ui/AutoComplete'
+import Repo from 'stores/models/Repo'
+import { getRepo } from 'helpers/ReposHelper'
 
-@inject('autocompleteStore') @observer
+const autoCompleteStyle = {
+  margin: '0 0 2em'
+}
+
+const textFieldStyle = {
+  fontSize: '1.5em'
+}
+
+@inject('repoStore', 'autocompleteStore') @observer
 class AutoCompleteContainer extends Component {
-  constructor() {
-    super()
-    this.handleSelect = this.handleSelect.bind(this)
-    this.handleChange = this.handleChange.bind(this)
+  constructor(props) {
+    super(props)
+    this.handleUpdateInput = this.handleUpdateInput.bind(this)
+    this.handleNewRequest = this.handleNewRequest.bind(this)
   }
 
-  handleSelect(value, item) {
-    this.props.autocompleteStore.query = value
-  }
-
-  handleChange(event, value) {
-    this.props.autocompleteStore.query = value
+  handleUpdateInput(searchText) {
+    this.props.autocompleteStore.query = searchText
 
     if (this.props.autocompleteStore.query.length > 3) {
       this.props.autocompleteStore.search()
     }
   }
 
-  renderItem(item, isHighlighted) {
-    return (
-      <div
-        key={item.name}
-        className={isHighlighted ? highlightedItem : normalItem}
-        >
-        {item.name}
-      </div>
-    )
+  handleNewRequest(val, index) {
+    const repoToAddData = getRepo(val.trim())
+
+    const existingRepo = this.props.repoStore.repos.filter((repo) => {
+      return repo.id === `${repoToAddData.username}/${repoToAddData.reponame}`
+    })[0]
+
+    if (existingRepo) {
+      existingRepo.highlight()
+    } else {
+      const repoToAdd = new Repo(repoToAddData)
+      this.props.repoStore.addRepo(repoToAdd)
+    }
+
+    this.props.autocompleteStore.reset()
   }
 
   render() {
-    const inputProps = {
-      id: 'repo-name',
-      className: `form-control input-lg ${inputStyles}`,
-      placeholder: 'ex. lodash/lodash'
-    }
-
     // Convert to normal JS from MobX array observable
-    // more info: https://mobx.js.org/refguide/array.html
-    const results = this.props.autocompleteStore.results.slice()
+    const results = mobx.toJS(this.props.autocompleteStore.results)
 
-    return <Autocomplete
-      inputProps={inputProps}
-      ref="autocomplete"
-      value={this.props.autocompleteStore.query}
-      items={results}
-      getItemValue={(item) => item.name}
-      onSelect={this.handleSelect}
-      onChange={this.handleChange}
-      renderItem={this.renderItem}
-      wrapperStyle={{ display: 'block' }}
-      />
+    return <AutoComplete
+      hintText='ex. lodash/lodash'
+      searchText={this.props.autocompleteStore.query}
+      dataSource={results}
+      onUpdateInput={this.handleUpdateInput}
+      floatingLabelText='Search a repository'
+      fullWidth={true}
+      onNewRequest={this.handleNewRequest}
+      style={autoCompleteStyle}
+      textFieldStyle={textFieldStyle}
+    />
   }
 }
 
 AutoCompleteContainer.propTypes = {
-  autocompleteStore: PropTypes.observableObject
+  autocompleteStore: PropTypes.observableObject,
+  repoStore: PropTypes.observableObject
 }
 
 export default AutoCompleteContainer
