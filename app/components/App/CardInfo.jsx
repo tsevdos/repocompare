@@ -26,10 +26,6 @@ const listItemStyle = {
   fontSize: '1.2em'
 }
 
-const removeRepoBtnStyle = {
-  float: 'right'
-}
-
 const CardInfo = observer(({ repo, removeRepo }) => (
   !repo.hasError ?
     <Card style={cardStyle}>
@@ -60,7 +56,7 @@ const CardInfo = observer(({ repo, removeRepo }) => (
         {
           repo.data.homepage && <FlatButton href={repo.data.homepage} label="Site" target="_blank" primary={true} />
         }
-        <FlatButton style={removeRepoBtnStyle} label="Remove Card" onTouchTap={(e) => removeRepo(repo.id)} secondary={true} />
+        <FlatButton label="Remove Card" onTouchTap={(e) => removeRepo(repo.id)} secondary={true} />
       </CardActions>
     </Card>
   :
@@ -70,7 +66,7 @@ const CardInfo = observer(({ repo, removeRepo }) => (
         Repository {repo.id} cannot be fetched. Make sure repository {repo.id} exists!
       </CardText>
       <CardActions>
-        <FlatButton style={removeRepoBtnStyle} label="Remove Card" onTouchTap={(e) => removeRepo(repo.id)} secondary={true} />
+        <FlatButton label="Remove Card" onTouchTap={(e) => removeRepo(repo.id)} secondary={true} />
         <br style={{ clear: 'both' }} />
       </CardActions>
     </Card>

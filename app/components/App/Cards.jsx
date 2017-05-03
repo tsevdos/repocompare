@@ -1,24 +1,33 @@
 import React from 'react'
 import { observer, PropTypes } from 'mobx-react'
 import { Card, CardHeader, CardText } from 'material-ui/Card'
+import { Row, Col } from 'react-flexbox-grid'
 import CardWrapper from './CardWrapper'
 
 const Cards = observer(({ repos, removeRepo, removeAllRepos }) =>
 (
-  <div>
+  <Row>
     {
       repos.length ?
-        repos.map((repo) => <CardWrapper key={repo.id} repo={repo} removeRepo={removeRepo} />)
+        repos.map((repo) => {
+          return (
+            <Col xs={12} sm={6} md={4} key={repo.id}>
+              <CardWrapper repo={repo} removeRepo={removeRepo} />
+            </Col>
+          )
+        })
       :
-        <Card>
-          <CardHeader title="No repositories" />
-          <CardText>
-            Please repositories add repositories using the above autocomplete.
-          </CardText>
-        </Card>
+        <Col xs={12} sm={6} md={4}>
+          <Card>
+            <CardHeader title="No repositories" />
+            <CardText>
+              Please repositories add repositories using the above autocomplete.
+            </CardText>
+          </Card>
+        </Col>
     }
-  </div>
- ))
+  </Row>
+))
 
 Cards.propTypes = {
   repos: PropTypes.observableArray,
