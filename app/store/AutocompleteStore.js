@@ -1,28 +1,25 @@
-import { observable, action } from 'mobx'
+import { extendObservable, action } from 'mobx'
 import { searchRepo } from 'helpers/api'
 
-class AutocompleteStore {
-  @observable query = '';
-  @observable results = [];
-
+export default class AutocompleteStore {
   constructor(query = '') {
-    this.query = query
+    extendObservable(this, {
+      query,
+      results: []
+    })
   }
 
-  @action search() {
+  @action
+  search() {
     this.results.clear()
     searchRepo(this.query)
       .then((response) => response.data.items.map((repo) => repo.full_name))
       .then((data) => this.results.replace(data))
   }
 
-  @action reset() {
+  @action
+  reset() {
     this.query = ''
     this.results.clear()
   }
 }
-
-const autocompleteStore = new AutocompleteStore()
-
-export default autocompleteStore
-export { AutocompleteStore }

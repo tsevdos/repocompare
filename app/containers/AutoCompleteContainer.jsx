@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import mobx from 'mobx'
-import { inject, observer, PropTypes } from 'mobx-react'
+import { inject, observer } from 'mobx-react'
 import AutoComplete from 'material-ui/AutoComplete'
-import Repo from 'stores/models/Repo'
+import Repo from 'store/Repo'
 import { getRepo } from 'helpers/ReposHelper'
 
 const autoCompleteStyle = {
@@ -13,26 +13,29 @@ const textFieldStyle = {
   fontSize: '1.5em'
 }
 
-@inject('repoStore', 'autocompleteStore') @observer
+@inject('store')
+@observer
 class AutoCompleteContainer extends Component {
   constructor(props) {
     super(props)
+    this.autocompleteStore = props.store.autocompleteStore
+    this.repoStore = props.store.repoStore
     this.handleUpdateInput = this.handleUpdateInput.bind(this)
     this.handleNewRequest = this.handleNewRequest.bind(this)
   }
 
   handleUpdateInput(searchText) {
-    this.props.autocompleteStore.query = searchText
+    this.autocompleteStore.query = searchText
 
-    if (this.props.autocompleteStore.query.length > 3) {
-      this.props.autocompleteStore.search()
+    if (this.autocompleteStore.query.length > 3) {
+      this.autocompleteStore.search()
     }
   }
 
   handleNewRequest(val, index) {
     const repoToAddData = getRepo(val.trim())
 
-    const existingRepo = this.props.repoStore.repos.filter((repo) => {
+    const existingRepo = this.repoStore.repos.filter((repo) => {
       return repo.id === `${repoToAddData.username}/${repoToAddData.reponame}`
     })[0]
 
@@ -40,19 +43,19 @@ class AutoCompleteContainer extends Component {
       existingRepo.highlight()
     } else {
       const repoToAdd = new Repo(repoToAddData)
-      this.props.repoStore.addRepo(repoToAdd)
+      this.repoStore.addRepo(repoToAdd)
     }
 
-    this.props.autocompleteStore.reset()
+    this.autocompleteStore.reset()
   }
 
   render() {
     // Convert to normal JS from MobX array observable
-    const results = mobx.toJS(this.props.autocompleteStore.results)
+    const results = mobx.toJS(this.autocompleteStore.results)
 
     return <AutoComplete
       hintText='ex. lodash/lodash'
-      searchText={this.props.autocompleteStore.query}
+      searchText={this.autocompleteStore.query}
       dataSource={results}
       onUpdateInput={this.handleUpdateInput}
       floatingLabelText='Search a repository'
@@ -64,9 +67,8 @@ class AutoCompleteContainer extends Component {
   }
 }
 
-AutoCompleteContainer.propTypes = {
-  autocompleteStore: PropTypes.observableObject,
-  repoStore: PropTypes.observableObject
+AutoCompleteContainer.childContextTypes = {
+  store: PropTypes.object.isRequired
 }
 
 export default AutoCompleteContainer

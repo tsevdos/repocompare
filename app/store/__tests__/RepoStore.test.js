@@ -1,5 +1,5 @@
 import { RepoStore } from '../RepoStore'
-import Repo from '../models/Repo'
+import Repo from '../Repo'
 
 describe('RepoStore', () => {
   beforeEach(function() {
