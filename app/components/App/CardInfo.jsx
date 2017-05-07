@@ -12,6 +12,11 @@ const cardStyle = {
   margin: '0 0 1.5em'
 }
 
+const highlightedCardStyle = {
+  background: '#b3e5fc',
+  margin: '0 0 1.5em'
+}
+
 const cardTextStyle = {
   paddingTop: 0,
   paddingBottom: 0
@@ -28,7 +33,7 @@ const listItemStyle = {
 
 const CardInfo = observer(({ repo, removeRepo }) => (
   !repo.hasError ?
-    <Card style={cardStyle}>
+    <Card style={ repo.isHighlighted ? highlightedCardStyle : cardStyle}>
       <CardHeader
         title={repo.data.owner.login}
         subtitle={repo.data.owner.type}
