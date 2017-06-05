@@ -1,17 +1,16 @@
-import { observable, action } from 'mobx'
+import { extendObservable, action } from 'mobx'
 import { fetchRepoData } from 'helpers/api'
+import { addRepoToUrl } from 'helpers/browserHistory'
 
 export default class Repo {
-  @observable isFetching;
-  @observable isHighlighted;
-  @observable hasError;
-
   constructor({ username = '', reponame = '' } = {}) {
     this.id = `${username}/${reponame}`
-    this.isFetching = true
-    this.isHighlighted = false
-    this.hasError = false
     this.data = null
+    extendObservable(this, {
+      isFetching: true,
+      isHighlighted: false,
+      hasError: false
+    })
     this.setData()
   }
 
@@ -23,6 +22,9 @@ export default class Repo {
           this.isFetching = false
         })
       )
+      .then(() => {
+        addRepoToUrl(this.id)
+      })
       .catch(
         action(() => {
           this.hasError = true

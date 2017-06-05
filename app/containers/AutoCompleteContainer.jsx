@@ -33,17 +33,16 @@ class AutoCompleteContainer extends Component {
   }
 
   handleNewRequest(val, index) {
-    const repoToAddData = getRepo(val.trim())
-
+    const repoToAdd = getRepo(val.trim())
     const existingRepo = this.repoStore.repos.filter((repo) => {
-      return repo.id === `${repoToAddData.username}/${repoToAddData.reponame}`
+      return repo.id === `${repoToAdd.username}/${repoToAdd.reponame}`
     })[0]
 
     if (existingRepo) {
       existingRepo.highlight()
     } else {
-      const repoToAdd = new Repo(repoToAddData)
-      this.repoStore.addRepo(repoToAdd)
+      const repo = new Repo(repoToAdd)
+      this.repoStore.addRepo(repo)
     }
 
     this.autocompleteStore.reset()

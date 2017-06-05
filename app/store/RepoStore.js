@@ -1,4 +1,5 @@
 import { extendObservable, action } from 'mobx'
+import { removeRepoFromUrl } from 'helpers/browserHistory'
 
 export default class RepoStore {
   constructor() {
@@ -16,6 +17,7 @@ export default class RepoStore {
   removeRepo(repoId) {
     const repoIndex = this.repos.findIndex((repo) => repo.id === repoId)
     this.repos.splice(repoIndex, 1)
+    removeRepoFromUrl(repoId)
   }
 
   @action
