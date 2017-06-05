@@ -1,7 +1,5 @@
 import React from 'react'
-import {
-  ShareButtons
-} from 'react-share'
+import { ShareButtons } from 'react-share'
 
 const {
   FacebookShareButton,
@@ -17,7 +15,7 @@ const aboutDivStyles = {
 
 const shareButtonStyles = {
   display: 'inline-block',
-  'margin-right': '10px'
+  marginRight: '10px'
 }
 
 const About = () =>
