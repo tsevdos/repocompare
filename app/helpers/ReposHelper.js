@@ -1,8 +1,8 @@
 function getRepo(repoStr) {
-  const username = repoStr.split('/')[0]
-  const reponame = repoStr.split('/')[1]
+  const username = repoStr.split("/")[0];
+  const reponame = repoStr.split("/")[1];
 
-  return { username, reponame }
+  return { username, reponame };
 }
 
-export { getRepo }
+export { getRepo };

@@ -1,16 +1,14 @@
-import React from 'react'
-import { AutoCompleteContainer, CardsContainer } from 'containers'
+import React from "react";
+import { AutoCompleteContainer, CardsContainer } from "containers";
 
 const divStyle = {
-  padding: '0 24px'
-}
+  padding: "0 24px"
+};
 
 const App = () =>
-(
   <div style={divStyle}>
     <AutoCompleteContainer />
     <CardsContainer />
-  </div>
-)
+  </div>;
 
-export default App
+export default App;
