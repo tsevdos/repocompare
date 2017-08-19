@@ -15,13 +15,25 @@
   "plugins": [
     "react",
     "babel",
-    "jsx-a11y"
+    "jsx-a11y",
+    "prettier"
   ],
-  "extends": ["eslint:recommended", "plugin:react/recommended", "plugin:jsx-a11y/recommended", "standard"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:jsx-a11y/recommended",
+    "standard",
+    "prettier",
+    "prettier/react"
+  ],
   "rules": {
+    "prettier/prettier": "error",
+    "max-len": ["error", {"code": 100, "ignoreUrls": true}],
+    "no-mixed-operators": "error",
+    "no-tabs": "error",
+    "quotes": 0,
     "operator-linebreak": 0,
     "jsx-a11y/anchor-has-content": 0,
-    "react/prop-types": 0,
-    "space-before-function-paren": ["error", "never"]
+    "react/prop-types": 0
   }
 }

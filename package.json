@@ -8,7 +8,8 @@
     "test": "jest",
     "test:watch": "npm test -- --watch",
     "lint": "eslint --ext .jsx --ext .js app",
-    "lint:fix": "npm run lint -- --fix"
+    "lint:fix": "npm run lint -- --fix",
+    "eslint-check": "eslint --print-config .eslintrc.js | eslint-config-prettier-check"
   },
   "repository": {
     "type": "git",
@@ -32,9 +33,11 @@
     "css-loader": "0.26.1",
     "enzyme": "2.7.0",
     "eslint": "3.12.2",
+    "eslint-config-prettier": "2.3.0",
     "eslint-config-standard": "6.2.1",
     "eslint-plugin-babel": "4.0.0",
     "eslint-plugin-jsx-a11y": "2.2.3",
+    "eslint-plugin-prettier": "2.1.2",
     "eslint-plugin-promise": "3.4.0",
     "eslint-plugin-react": "6.8.0",
     "eslint-plugin-standard": "2.0.1",
@@ -43,6 +46,7 @@
     "jest-cli": "18.1.0",
     "json-loader": "0.5.4",
     "mobx-react-devtools": "4.2.10",
+    "prettier": "1.5.3",
     "style-loader": "0.13.1",
     "webpack": "1.14.0",
     "webpack-dev-server": "1.16.2"
