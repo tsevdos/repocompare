@@ -1,7 +1,7 @@
 import React from "react";
 import { observer, PropTypes } from "mobx-react";
 import { Card, CardHeader, CardText } from "material-ui/Card";
-import { Row, Col } from "react-flexbox-grid";
+import { Grid, Row, Col } from "react-flexbox-grid-aphrodite";
 import CardWrapper from "./CardWrapper";
 
 const Cards = observer(({ repos, removeRepo, removeAllRepos }) =>
@@ -9,12 +9,12 @@ const Cards = observer(({ repos, removeRepo, removeAllRepos }) =>
     {repos.length
       ? repos.map(repo => {
           return (
-            <Col xs={12} sm={6} md={4} key={repo.id}>
+            <Col xs={12} sm={6} md={4} lg={4} key={repo.id}>
               <CardWrapper repo={repo} removeRepo={removeRepo} />
             </Col>
           );
         })
-      : <Col xs={12} sm={6} md={4}>
+      : <Col xs={12} sm={6} md={4} lg={4}>
           <Card>
             <CardHeader title="No repositories" />
             <CardText>

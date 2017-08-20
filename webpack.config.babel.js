@@ -23,9 +23,7 @@ const HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
 
 // More optimization on bundle.js in production
 const productionPlugin = new webpack.DefinePlugin({
-  "process.env": {
-    NODE_ENV: JSON.stringify("production")
-  }
+  "process.env.NODE_ENV": JSON.stringify("production")
 });
 
 const baseConfig = {
@@ -36,28 +34,17 @@ const baseConfig = {
     publicPath: "dist/"
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: [/\.js$/, /\.jsx$/],
-        include: PATHS.app,
-        loader: "babel"
-      },
-      {
-        test: /\.json$/,
-        include: PATHS.app,
-        loader: "json"
-      },
-      {
-        test: /\.css$/,
-        loader: "style!css?modules",
-        include: /flexboxgrid/
+        use: ["babel-loader"],
+        include: PATHS.app
       }
     ]
   },
   resolve: {
-    root: path.resolve("./app"),
-    extensions: ["", ".js", ".jsx", ".json", ".css"],
-    modulesDirectories: ["node_modules"]
+    modules: [path.resolve("./app"), "node_modules"],
+    extensions: [".js", ".jsx", ".json", ".css"]
   }
 };
 
@@ -66,9 +53,7 @@ const developmentConfig = {
   devServer: {
     hot: true,
     inline: true,
-    progress: true,
-    port: 8080,
-    historyApiFallback: true
+    port: 8080
   },
   plugins: [HTMLWebpackPluginConfig]
 };
