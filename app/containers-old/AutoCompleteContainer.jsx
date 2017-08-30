@@ -2,8 +2,8 @@ import React, { Component, PropTypes } from "react";
 import mobx from "mobx";
 import { inject, observer } from "mobx-react";
 import AutoComplete from "material-ui/AutoComplete";
-import Repo from "store/Repo";
-import { getRepo } from "helpers/ReposHelper";
+// import Repo from "store/Repo";
+// import { getRepo } from "helpers/ReposHelper";
 
 const autoCompleteStyle = {
   margin: "0 0 2em"
@@ -13,8 +13,8 @@ const textFieldStyle = {
   fontSize: "1.5em"
 };
 
-@inject("store")
-@observer
+// @inject("store")
+// @observer
 class AutoCompleteContainer extends Component {
   constructor(props) {
     super(props);

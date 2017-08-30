@@ -1,5 +1,5 @@
 import axios from "axios";
-import { githubAPIUrl, basicAuth } from "config/config";
+import { githubAPIUrl, basicAuth } from "constants/config";
 
 function fetchRepoData(repo) {
   return axios.get(`${githubAPIUrl}/repos/${repo}`, { auth: basicAuth });
