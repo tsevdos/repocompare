@@ -1,47 +1,93 @@
 import React, { Component } from "react";
-import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import PropTypes from "prop-types";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
 import { withRouter } from "react-router";
-import App from "components/App";
+import _ from "lodash";
+import { fetchRepository } from "../actions/reposActions";
+import AutoComplete from "material-ui/AutoComplete";
+import { Cards } from "components";
+
+const autoCompleteStyle = {
+  margin: "0 0 2em"
+};
+
+const textFieldStyle = {
+  fontSize: "1.5em"
+};
+
+const divStyle = {
+  padding: "0 24px"
+};
 
 class AppContainer extends Component {
-  constructor(props) {
-    super(props);
-    this.addReposFromUrl();
+  static propTypes = {
+    repos: PropTypes.array.isRequired,
+    autocomplete: PropTypes.object.isRequired
+  };
+
+  componentWillMount() {
+    const { router } = this.props;
+    if (_.isEmpty(router.location.query)) {
+      router.push({
+        pathname: "/",
+        query: {
+          repos: "tsevdos/repocompare"
+        }
+      });
+    }
   }
 
-  addReposFromUrl() {
-    console.log(this.props.location.query)
-    // if (this.props.location.query && this.props.location.query.repos) {
-    //   const repoNamesArr = this.props.location.query.repos.split("-");
-    //   repoNamesArr.forEach(name => {
-    //     const repoName = getRepo(name);
-    //     const repoToAdd = new Repo(repoName);
-    //     this.repoStore.addRepo(repoToAdd);
-    //   });
-    // } else {
-    //   const repocompare = new Repo({
-    //     username: "tsevdos",
-    //     reponame: "repocompare"
-    //   });
-    //   this.repoStore.addRepo(repocompare);
-    // }
+  componentDidMount() {
+    const { fetchRepository, router } = this.props;
+    const repoNamesQuery = router.location.query.repos.split("-");
 
+    repoNamesQuery.forEach(name => {
+      const repoName = this._getRepo(name);
+      fetchRepository(repoName);
+    });
+  }
+
+  _getRepo(repoStr) {
+    const username = repoStr.split("/")[0];
+    const reponame = repoStr.split("/")[1];
+
+    return { username, reponame };
   }
 
   render() {
-    console.log(this.props);
+    const { repos } = this.props;
 
-    return <App />;
+    return (
+      <div style={divStyle}>
+        <AutoComplete
+          hintText="ex. lodash/lodash"
+          searchText="test"
+          dataSource={["test", "testing"]}
+          onUpdateInput={() => {}}
+          floatingLabelText="Search a repository"
+          fullWidth={true}
+          onNewRequest={() => {}}
+          style={autoCompleteStyle}
+          textFieldStyle={textFieldStyle}
+        />
+        <Cards repos={repos} removeRepo={() => {}} removeAllRepos={() => {}} />
+      </div>
+    );
   }
 }
 
 function mapStateToProps(state) {
   return {
     repos: state.repos,
-    searchTerm: state.searchTerm
+    autocomplete: state.autocomplete
   };
 }
 
-export default connect(mapStateToProps, null)(withRouter(AppContainer));
+function mapDispatchToProps(dispatch) {
+  return {
+    fetchRepository: bindActionCreators(fetchRepository, dispatch)
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(AppContainer));

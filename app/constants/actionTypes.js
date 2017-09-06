@@ -1,1 +1,3 @@
-export const TEST = 'TEST';
+export const FETCH_REPOSITORY = "FETCH_REPOSITORY";
+export const REPO_INITIALIZATION = "REPO_INITIALIZATION";
+export const ADD_REPO_DATA = "ADD_REPO_DATA";

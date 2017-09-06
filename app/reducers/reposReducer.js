@@ -1,17 +1,41 @@
-import * as actionTypes from '../constants/actionTypes';
+import * as ACTIONS from '../constants/actionTypes';
 import initialState from '../initialState';
 
 export default function reposReducer(state = initialState, action) {
-  const newstate = Object.assign({}, state);
+  switch (action.type) {
+    case ACTIONS.REPO_INITIALIZATION:
+      const { username, reponame } = action.payload;
+      const repo = {
+        id: `${username}/${reponame}`,
+        isFetching: true,
+        isHighlighted: false,
+        hasError: false,
+        data: null,
+      };
 
-  // switch (action.type) {
-  //   case actionTypes.APPEND_GENRES:
-  //     newstate.genres = action.payload;
+      return {
+        ...state,
+        repos: [...state.repos, repo]
+      }
+    case ACTIONS.ADD_REPO_DATA:
+      const { data, repoID } = action.payload;
 
-  //     return newstate;
-  //   default:
-  //     return state;
-  // }
+      return {
+        ...state,
+        repos: state.repos.map((repo) => {
+          const { id } = repo;
+          if (repoID === id) {
+            return {
+              ...repo,
+              isFetching: false,
+              data
+            };
+          }
+
+          return repo;
+        })
+      };
+  }
 
   return state;
 }

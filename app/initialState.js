@@ -1,9 +1,7 @@
 export default {
-  repos: [
-    {
-      user: 'tsevdos',
-      repo: 'repocompare'
-    }
-  ],
-  searchTerm: ''
+  repos: [],
+  autocomplete: {
+    searchTerm: "",
+    results: []
+  }
 };
