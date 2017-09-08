@@ -4,7 +4,13 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import _ from "lodash";
-import { fetchRepository } from "../actions/reposActions";
+import {
+  fetchRepository,
+  removeRepo,
+  searchRepositories,
+  hightlightRepo,
+  resetAutocomplete
+} from "../actions";
 import AutoComplete from "material-ui/AutoComplete";
 import { Cards } from "components";
 
@@ -25,6 +31,11 @@ class AppContainer extends Component {
     repos: PropTypes.array.isRequired,
     autocomplete: PropTypes.object.isRequired
   };
+
+  constructor(props) {
+    super(props);
+    this.fetchRepo = this.fetchRepo.bind(this);
+  }
 
   componentWillMount() {
     const { router } = this.props;
@@ -48,6 +59,22 @@ class AppContainer extends Component {
     });
   }
 
+  fetchRepo(val) {
+    const { repos, fetchRepository, resetAutocomplete, hightlightRepo } = this.props;
+    const repoToAdd = this._getRepo(val.trim());
+    const existingRepo = repos.filter(repo => {
+      return repo.id === `${repoToAdd.username}/${repoToAdd.reponame}`;
+    })[0];
+
+    if (existingRepo) {
+      hightlightRepo(existingRepo);
+    } else {
+      fetchRepository(repoToAdd);
+    }
+
+    resetAutocomplete();
+  }
+
   _getRepo(repoStr) {
     const username = repoStr.split("/")[0];
     const reponame = repoStr.split("/")[1];
@@ -56,22 +83,23 @@ class AppContainer extends Component {
   }
 
   render() {
-    const { repos } = this.props;
+    const { repos, autocomplete, searchRepositories, removeRepo } = this.props;
+    const { searchTerm, results } = autocomplete;
 
     return (
       <div style={divStyle}>
         <AutoComplete
           hintText="ex. lodash/lodash"
-          searchText="test"
-          dataSource={["test", "testing"]}
-          onUpdateInput={() => {}}
+          searchText={searchTerm}
+          dataSource={results}
+          onUpdateInput={searchRepositories}
           floatingLabelText="Search a repository"
           fullWidth={true}
-          onNewRequest={() => {}}
+          onNewRequest={this.fetchRepo}
           style={autoCompleteStyle}
           textFieldStyle={textFieldStyle}
         />
-        <Cards repos={repos} removeRepo={() => {}} removeAllRepos={() => {}} />
+        <Cards repos={repos} removeRepo={removeRepo} />
       </div>
     );
   }
@@ -86,7 +114,11 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetchRepository: bindActionCreators(fetchRepository, dispatch)
+    searchRepositories: bindActionCreators(searchRepositories, dispatch),
+    fetchRepository: bindActionCreators(fetchRepository, dispatch),
+    removeRepo: bindActionCreators(removeRepo, dispatch),
+    hightlightRepo: bindActionCreators(hightlightRepo, dispatch),
+    resetAutocomplete: bindActionCreators(resetAutocomplete, dispatch)
   };
 }
 

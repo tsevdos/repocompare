@@ -1,5 +1,5 @@
 import * as ACTIONS from "../constants/actionTypes";
-import { fetchRepoPromise } from "../api/api";
+import Api from "../api/api";
 
 function repoInit(repo) {
   return {
@@ -16,11 +16,11 @@ function addRepoData(data) {
 }
 
 export function fetchRepository(repoToFetch) {
-  return function (dispatch, getState) {
+  return function(dispatch, getState) {
     dispatch(repoInit(repoToFetch));
 
-    return fetchRepoPromise(repoToFetch)
-      .then((response) => {
+    return Api.fetchRepoPromise(repoToFetch)
+      .then(response => {
         const { username, reponame } = repoToFetch;
         const repoID = `${username}/${reponame}`;
         const data = {
@@ -30,9 +30,32 @@ export function fetchRepository(repoToFetch) {
 
         dispatch(addRepoData(data));
       })
-      .catch((error) => {
-        // debugger;
+      .catch(error => {
         console.log(error); // Handle error
       });
+  };
+}
+
+export function removeRepo(repoName) {
+  return {
+    type: ACTIONS.REMOVE_REPO,
+    payload: repoName
+  };
+}
+
+function toggleRepoHighlight(repo) {
+  return {
+    type: ACTIONS.TOGGLE_REPO_HIGHLIGHT,
+    payload: repo
+  };
+}
+
+export function hightlightRepo(repo) {
+  return function(dispatch, getState) {
+    dispatch(toggleRepoHighlight(repo));
+
+    setTimeout(() => {
+      dispatch(toggleRepoHighlight(repo));
+    }, 1000);
   };
 }

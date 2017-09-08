@@ -1,40 +1,59 @@
 import * as ACTIONS from '../constants/actionTypes';
 import initialState from '../initialState';
 
-export default function reposReducer(state = initialState, action) {
+export default function reposReducer(state = initialState.repos, action) {
+  const { payload } = action;
+
   switch (action.type) {
-    case ACTIONS.REPO_INITIALIZATION:
-      const { username, reponame } = action.payload;
+    case ACTIONS.REPO_INITIALIZATION: {
+      const { username, reponame } = payload;
       const repo = {
         id: `${username}/${reponame}`,
         isFetching: true,
         isHighlighted: false,
         hasError: false,
-        data: null,
+        data: null
       };
 
-      return {
-        ...state,
-        repos: [...state.repos, repo]
-      }
-    case ACTIONS.ADD_REPO_DATA:
-      const { data, repoID } = action.payload;
+      return [...state, repo];
+    }
+    case ACTIONS.ADD_REPO_DATA: {
+      const { data, repoID } = payload;
+      const repos = state.map(repo => {
+        const { id } = repo;
+        if (repoID === id) {
+          return {
+            ...repo,
+            isFetching: false,
+            data
+          };
+        }
 
-      return {
-        ...state,
-        repos: state.repos.map((repo) => {
-          const { id } = repo;
-          if (repoID === id) {
-            return {
-              ...repo,
-              isFetching: false,
-              data
-            };
-          }
+        return repo;
+      });
 
-          return repo;
-        })
-      };
+      return [...repos];
+    }
+    case ACTIONS.REMOVE_REPO: {
+      const repos = state.filter(repo => repo.id !== payload);
+      return [...repos];
+    }
+    case ACTIONS.TOGGLE_REPO_HIGHLIGHT: {
+      const repoToHighlightID = payload.id;
+      const repos = state.map(repo => {
+        const { id } = repo;
+        if (repoToHighlightID === id) {
+          return {
+            ...repo,
+            isHighlighted: !repo.isHighlighted
+          };
+        }
+
+        return repo;
+      });
+
+      return [...repos];
+    }
   }
 
   return state;

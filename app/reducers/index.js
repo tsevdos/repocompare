@@ -1,9 +1,10 @@
-// import { combineReducers } from 'redux';
-import reposReducer from './reposReducer';
+import { combineReducers } from "redux";
+import reposReducer from "./reposReducer";
+import autocompleteReducer from "./autocompleteReducer";
 
-// const rootReducer = combineReducers({
-//   app: reposReducer
-// });
+const rootReducer = combineReducers({
+  repos: reposReducer,
+  autocomplete: autocompleteReducer
+});
 
-// export default rootReducer;
-export default reposReducer;
+export default rootReducer;
