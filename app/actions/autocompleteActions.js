@@ -31,12 +31,13 @@ export function searchRepositories(query) {
 
     return Api.searchReposPromise(query)
       .then(response => {
-        const searchReposNames = response.data.items.map(repo => repo.full_name);
+        const searchReposNames = response.data.items.map(
+          repo => repo.full_name
+        );
         dispatch(addSearchResults(searchReposNames));
       })
-      .catch(error => {
-        // debugger;
-        console.log(error); // Handle error
+      .catch(response => {
+        console.log(response.message); // eslint-disable-line no-console
       });
   };
 }

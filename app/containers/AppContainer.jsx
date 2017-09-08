@@ -60,7 +60,12 @@ class AppContainer extends Component {
   }
 
   fetchRepo(val) {
-    const { repos, fetchRepository, resetAutocomplete, hightlightRepo } = this.props;
+    const {
+      repos,
+      fetchRepository,
+      resetAutocomplete,
+      hightlightRepo
+    } = this.props;
     const repoToAdd = this._getRepo(val.trim());
     const existingRepo = repos.filter(repo => {
       return repo.id === `${repoToAdd.username}/${repoToAdd.reponame}`;
@@ -122,4 +127,6 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(AppContainer));
+export default connect(mapStateToProps, mapDispatchToProps)(
+  withRouter(AppContainer)
+);

@@ -1,12 +1,12 @@
-import * as ACTIONS from '../constants/actionTypes';
-import initialState from '../initialState';
+import * as ACTIONS from "../constants/actionTypes";
+import initialState from "../initialState";
 
 export default function reposReducer(state = initialState.repos, action) {
   const { payload } = action;
 
   switch (action.type) {
     case ACTIONS.REPO_INITIALIZATION: {
-      const { username, reponame } = payload;
+      const { username = "", reponame = "" } = payload;
       const repo = {
         id: `${username}/${reponame}`,
         isFetching: true,
@@ -26,6 +26,23 @@ export default function reposReducer(state = initialState.repos, action) {
             ...repo,
             isFetching: false,
             data
+          };
+        }
+
+        return repo;
+      });
+
+      return [...repos];
+    }
+    case ACTIONS.REPO_NOT_FOUND: {
+      const repos = state.map(repo => {
+        const { username = "", reponame = "" } = payload;
+        const { id } = repo;
+        if (`${username}/${reponame}` === id) {
+          return {
+            ...repo,
+            isFetching: false,
+            hasError: true
           };
         }
 

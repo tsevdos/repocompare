@@ -6,7 +6,9 @@ axiosCancel(axios, { debug: false });
 
 function fetchRepoPromise(repo) {
   const { username, reponame } = repo;
-  return axios.get(`${githubAPIUrl}/repos/${username}/${reponame}`, { auth: basicAuth });
+  return axios.get(`${githubAPIUrl}/repos/${username}/${reponame}`, {
+    auth: basicAuth
+  });
 }
 
 function searchReposPromise(query) {

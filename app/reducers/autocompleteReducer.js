@@ -1,7 +1,10 @@
-import * as ACTIONS from '../constants/actionTypes';
-import initialState from '../initialState';
+import * as ACTIONS from "../constants/actionTypes";
+import initialState from "../initialState";
 
-export default function autocompleteReducer(state = initialState.autocomplete, action) {
+export default function autocompleteReducer(
+  state = initialState.autocomplete,
+  action
+) {
   const { payload } = action;
 
   switch (action.type) {

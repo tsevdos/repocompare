@@ -1,5 +1,6 @@
 import * as ACTIONS from "../constants/actionTypes";
 import Api from "../api/api";
+import { addRepoToUrl, removeRepoFromUrl } from "helpers/browserHistory";
 
 function repoInit(repo) {
   return {
@@ -12,6 +13,13 @@ function addRepoData(data) {
   return {
     type: ACTIONS.ADD_REPO_DATA,
     payload: data
+  };
+}
+
+function repoNotFound(repo) {
+  return {
+    type: ACTIONS.REPO_NOT_FOUND,
+    payload: repo
   };
 }
 
@@ -29,17 +37,22 @@ export function fetchRepository(repoToFetch) {
         };
 
         dispatch(addRepoData(data));
+        addRepoToUrl(repoID);
       })
-      .catch(error => {
-        console.log(error); // Handle error
+      .catch(response => {
+        dispatch(repoNotFound(repoToFetch));
+        console.log(response.message); // eslint-disable-line no-console
       });
   };
 }
 
 export function removeRepo(repoName) {
-  return {
-    type: ACTIONS.REMOVE_REPO,
-    payload: repoName
+  return function(dispatch, getState) {
+    dispatch({
+      type: ACTIONS.REMOVE_REPO,
+      payload: repoName
+    });
+    removeRepoFromUrl(repoName);
   };
 }
 

@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import {
   Card,
   CardActions,
@@ -38,10 +38,8 @@ const listItemStyle = {
 };
 
 const CardInfo = ({ repo, removeRepo }) => {
-  return (
-    !repo.hasError
-      ?
-      <Card style={repo.isHighlighted ? highlightedCardStyle : cardStyle}>
+  return !repo.hasError
+    ? <Card style={repo.isHighlighted ? highlightedCardStyle : cardStyle}>
         <CardHeader
           title={repo.data.owner.login}
           subtitle={repo.data.owner.type}
@@ -92,13 +90,11 @@ const CardInfo = ({ repo, removeRepo }) => {
           />
         </CardActions>
       </Card>
-      :
-      <Card style={cardStyle}>
+    : <Card style={cardStyle}>
         <CardTitle title="Error" />
         <CardText>
-          Repository {repo.id} cannot be fetched. Make sure repository{" "}
-          {repo.id} exists!
-          </CardText>
+          Repository {repo.id} cannot be found! Please ensure that it exists!
+        </CardText>
         <CardActions>
           <FlatButton
             label="Remove Card"
@@ -107,8 +103,7 @@ const CardInfo = ({ repo, removeRepo }) => {
           />
           <br style={{ clear: "both" }} />
         </CardActions>
-      </Card>
-  );
+      </Card>;
 };
 
 CardInfo.propTypes = {

@@ -1,6 +1,7 @@
 // Repositories Actions
-export const FETCH_REPOSITORY = "FETCH_REPOSITORY";
 export const REPO_INITIALIZATION = "REPO_INITIALIZATION";
+export const FETCH_REPOSITORY = "FETCH_REPOSITORY";
+export const REPO_NOT_FOUND = "REPO_NOT_FOUND";
 export const ADD_REPO_DATA = "ADD_REPO_DATA";
 export const REMOVE_REPO = "REMOVE_REPO";
 export const HIGHLIGHT_REPO = "HIGHLIGHT_REPO";

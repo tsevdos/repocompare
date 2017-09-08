@@ -1,2 +1,2 @@
-export *  from "./reposActions";
+export * from "./reposActions";
 export * from "./autocompleteActions";
