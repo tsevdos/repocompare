@@ -10,7 +10,7 @@
 ### [Live App](http://repocompare.io/)
 
 * Bundled with [webpack](https://webpack.github.io/)
-* State management by [Mobx](https://mobx.js.org/)
+* State management by [Redux](http://redux.js.org/)
 * Routing by [React Router](https://github.com/ReactTraining/react-router)
 * Made responsive with [Twitter Bootstrap](http://getbootstrap.com/)
 * Uses [CSS Modules](https://github.com/css-modules/css-modules)
@@ -27,6 +27,8 @@ open http://localhost:8080
 ```
 
 [![Standard - JavaScript Style Guide](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
+
+[![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
 ## License
 
