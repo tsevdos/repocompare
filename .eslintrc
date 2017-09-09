@@ -27,8 +27,9 @@
     "prettier/react"
   ],
   "rules": {
+    "no-case-declarations": 0,
     "prettier/prettier": "error",
-    "max-len": ["error", {"code": 100, "ignoreUrls": true}],
+    "max-len": ["error", {"code": 80, "ignoreUrls": true}],
     "no-mixed-operators": "error",
     "no-tabs": "error",
     "quotes": 0,
