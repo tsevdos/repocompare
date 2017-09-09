@@ -97,7 +97,7 @@ class AppContainer extends Component {
           hintText="ex. lodash/lodash"
           searchText={searchTerm}
           dataSource={results}
-          onUpdateInput={searchRepositories}
+          onUpdateInput={_.debounce(searchRepositories, 250)}
           floatingLabelText="Search a repository"
           fullWidth={true}
           onNewRequest={this.fetchRepo}
