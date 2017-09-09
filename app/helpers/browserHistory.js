@@ -6,7 +6,10 @@ const removeRepoFromUrl = repoId => {
     location.query && location.query.repos ? location.query.repos : "";
   const repos = urlRepos.split("-") || [];
   const repoToRemoveIndex = repos.indexOf(repoId);
-  repos.splice(repoToRemoveIndex, 1);
+
+  if (repoToRemoveIndex !== -1) {
+    repos.splice(repoToRemoveIndex, 1);
+  }
 
   if (repos.length === 0) {
     // clear the entire repos query including ?repos=

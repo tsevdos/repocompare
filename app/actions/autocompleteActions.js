@@ -25,7 +25,7 @@ export function searchRepositories(query) {
   return function(dispatch, getState) {
     dispatch(updateSearchTerm(query));
 
-    if (query.length < 3) {
+    if (query.length < 4) {
       return;
     }
 
