@@ -67,9 +67,9 @@ class AppContainer extends Component {
       hightlightRepo
     } = this.props;
     const repoToAdd = this._getRepo(val.trim());
-    const existingRepo = repos.filter(repo => {
-      return repo.id === `${repoToAdd.username}/${repoToAdd.reponame}`;
-    })[0];
+    const existingRepo = repos.find(
+      repo => repo.id === `${repoToAdd.username}/${repoToAdd.reponame}`
+    );
 
     if (existingRepo) {
       hightlightRepo(existingRepo);
