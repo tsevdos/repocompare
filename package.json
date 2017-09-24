@@ -9,7 +9,8 @@
     "test:watch": "npm test -- --watch",
     "lint": "eslint --ext .jsx --ext .js app",
     "lint:fix": "npm run lint -- --fix",
-    "eslint-check": "eslint --print-config .eslintrc.js | eslint-config-prettier-check"
+    "eslint-check": "eslint --print-config .eslintrc.js | eslint-config-prettier-check",
+    "webpack-stats": "webpack --json > stats.json"
   },
   "repository": {
     "type": "git",
