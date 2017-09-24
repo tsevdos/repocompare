@@ -3,9 +3,10 @@ import PropTypes from "prop-types";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
-import _ from "lodash";
 import AutoComplete from "material-ui/AutoComplete";
 import { Cards } from "components";
+import isEmpty from 'lodash/isEmpty';
+import debounce from 'lodash/debounce';
 // Actions
 import {
   searchRepositories,
@@ -42,7 +43,7 @@ class AppContainer extends Component {
 
   componentWillMount() {
     const { router } = this.props;
-    if (_.isEmpty(router.location.query)) {
+    if (isEmpty(router.location.query)) {
       router.push({
         pathname: "/",
         query: {
@@ -100,7 +101,7 @@ class AppContainer extends Component {
           hintText="ex. lodash/lodash"
           searchText={searchTerm}
           dataSource={results}
-          onUpdateInput={_.debounce(searchRepositories, 250)}
+          onUpdateInput={debounce(searchRepositories, 250)}
           floatingLabelText="Search a repository"
           fullWidth={true}
           onNewRequest={this.fetchRepo}
