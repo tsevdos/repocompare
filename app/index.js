@@ -4,7 +4,7 @@ import injectTapEventPlugin from "react-tap-event-plugin";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import { Provider } from "react-redux";
 import store from "redux/store";
-import routers from "./constants/routes";
+import routers from "constants/routes";
 import Typography from "typography";
 import githubTheme from "typography-theme-github";
 

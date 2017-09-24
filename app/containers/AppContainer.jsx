@@ -7,8 +7,15 @@ import _ from "lodash";
 import AutoComplete from "material-ui/AutoComplete";
 import { Cards } from "components";
 // Actions
-import { searchRepositories, resetAutocomplete } from "../redux/modules/autocompleteReducer";
-import { fetchRepository, removeRepo, hightlightRepo } from "../redux/modules/reposReducer";
+import {
+  searchRepositories,
+  resetAutocomplete
+} from "redux/modules/autocomplete";
+import {
+  fetchRepository,
+  removeRepo,
+  hightlightRepo
+} from "redux/modules/repos";
 
 const autoCompleteStyle = {
   margin: "0 0 2em"

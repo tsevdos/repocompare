@@ -1,6 +1,6 @@
 import React from "react";
 import { Router, Route, IndexRoute, hashHistory } from "react-router";
-import AppContainer from "../containers/AppContainer";
+import AppContainer from "containers/AppContainer";
 import { Main, About } from "components";
 
 const routes = (

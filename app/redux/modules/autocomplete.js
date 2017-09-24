@@ -1,10 +1,10 @@
 import initialState from "../initialState";
-import Api from "../../lib/githubApi";
+import Api from "lib/githubApi";
 
 // Actions
-const UPDATE_SEARCH_TERM = "autoComplete/UPDATE_SEARCH_TERM";
-const ADD_SEARCH_RESULTS = "autoComplete/ADD_SEARCH_RESULTS";
-const RESET_AUTOCOMPLETE = "autoComplete/RESET_AUTOCOMPLETE";
+const UPDATE_SEARCH_TERM = "autocomplete/UPDATE_SEARCH_TERM";
+const ADD_SEARCH_RESULTS = "autocomplete/ADD_SEARCH_RESULTS";
+const RESET_AUTOCOMPLETE = "autocomplete/RESET_AUTOCOMPLETE";
 
 // Action Creators
 export function searchRepositories(query) {

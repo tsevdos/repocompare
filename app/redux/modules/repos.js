@@ -1,6 +1,6 @@
 import initialState from "../initialState";
-import Api from "../../lib/githubApi";
-import { addRepoToUrl, removeRepoFromUrl } from "../../lib/helpers/browserHistory";
+import Api from "lib/githubApi";
+import { addRepoToUrl, removeRepoFromUrl } from "lib/helpers/browserHistory";
 
 // Actions
 const REPO_INITIALIZATION = "repos/REPO_INITIALIZATION";
