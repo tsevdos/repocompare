@@ -4,15 +4,11 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import _ from "lodash";
-import {
-  fetchRepository,
-  removeRepo,
-  searchRepositories,
-  hightlightRepo,
-  resetAutocomplete
-} from "../actions";
 import AutoComplete from "material-ui/AutoComplete";
 import { Cards } from "components";
+// Actions
+import { searchRepositories, resetAutocomplete } from "../redux/modules/autocompleteReducer";
+import { fetchRepository, removeRepo, hightlightRepo } from "../redux/modules/reposReducer";
 
 const autoCompleteStyle = {
   margin: "0 0 2em"
