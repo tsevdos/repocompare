@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Card, CardHeader, CardText } from "material-ui/Card";
-import { Row, Col } from "react-flexbox-grid-aphrodite";
+import { Row, Col } from "react-flexbox-grid";
 import CardWrapper from "./CardWrapper";
 
 const Cards = ({ repos, removeRepo }) => {

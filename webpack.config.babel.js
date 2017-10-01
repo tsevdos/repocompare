@@ -39,6 +39,11 @@ const baseConfig = {
         test: [/\.js$/, /\.jsx$/],
         use: ["babel-loader"],
         include: PATHS.app
+      },
+      {
+        test: /\.css$/,
+        loader: 'style-loader!css-loader',
+        include: /flexboxgrid/
       }
     ]
   },
