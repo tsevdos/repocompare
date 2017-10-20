@@ -1,5 +1,6 @@
 import React from "react";
 import { ShareButtons } from "react-share";
+import { Header } from "components";
 
 const {
   FacebookShareButton,
@@ -19,6 +20,8 @@ const shareButtonStyles = {
 };
 
 const About = () =>
+  <div>
+  <Header />
   <div style={aboutDivStyles}>
     <h2>About</h2>
     <p>
@@ -82,6 +85,7 @@ const About = () =>
         Reddit
       </a>
     </RedditShareButton>
-  </div>;
+  </div>
+</div>;
 
 export default About;

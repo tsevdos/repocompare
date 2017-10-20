@@ -3,8 +3,9 @@ import PropTypes from "prop-types";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
+import qs from "qs";
 import AutoComplete from "material-ui/AutoComplete";
-import { Cards } from "components";
+import { Header, Cards } from "components";
 import isEmpty from 'lodash/isEmpty';
 import debounce from 'lodash/debounce';
 // Actions
@@ -42,22 +43,21 @@ class AppContainer extends Component {
   }
 
   componentWillMount() {
-    const { router } = this.props;
-    if (isEmpty(router.location.query)) {
-      router.push({
+    const { history } = this.props;
+    if (isEmpty(history.location.search)) {
+      history.push({
         pathname: "/",
-        query: {
-          repos: "tsevdos/repocompare"
-        }
+        search: "?repos=tsevdos%2Frepocompare"
       });
     }
   }
 
   componentDidMount() {
-    const { fetchRepository, router } = this.props;
-    const repoNamesQuery = router.location.query.repos.split("-");
+    const { fetchRepository, history } = this.props;
+    const urlQuery = qs.parse(history.location.search.substr(1));
+    const repoNames = urlQuery.repos.split("-");
 
-    repoNamesQuery.forEach(name => {
+    repoNames.forEach(name => {
       const repoName = this._getRepo(name);
       fetchRepository(repoName);
     });
@@ -96,19 +96,22 @@ class AppContainer extends Component {
     const { searchTerm, results } = autocomplete;
 
     return (
-      <div style={divStyle}>
-        <AutoComplete
-          hintText="ex. lodash/lodash"
-          searchText={searchTerm}
-          dataSource={results}
-          onUpdateInput={debounce(searchRepositories, 250)}
-          floatingLabelText="Search a repository"
-          fullWidth={true}
-          onNewRequest={this.fetchRepo}
-          style={autoCompleteStyle}
-          textFieldStyle={textFieldStyle}
-        />
-        <Cards repos={repos} removeRepo={removeRepo} />
+      <div>
+        <Header />
+        <div style={divStyle}>
+          <AutoComplete
+            hintText="ex. lodash/lodash"
+            searchText={searchTerm}
+            dataSource={results}
+            onUpdateInput={debounce(searchRepositories, 250)}
+            floatingLabelText="Search a repository"
+            fullWidth={true}
+            onNewRequest={this.fetchRepo}
+            style={autoCompleteStyle}
+            textFieldStyle={textFieldStyle}
+          />
+          <Cards repos={repos} removeRepo={removeRepo} />
+        </div>
       </div>
     );
   }
