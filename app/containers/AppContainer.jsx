@@ -6,8 +6,7 @@ import { withRouter } from "react-router";
 import qs from "qs";
 import AutoComplete from "material-ui/AutoComplete";
 import { Header, Cards } from "components";
-import isEmpty from 'lodash/isEmpty';
-import debounce from 'lodash/debounce';
+
 // Actions
 import {
   searchRepositories,
@@ -44,10 +43,10 @@ class AppContainer extends Component {
 
   componentWillMount() {
     const { history } = this.props;
-    if (isEmpty(history.location.search)) {
+    if (!history.location.search) {
       history.push({
         pathname: "/",
-        search: "?repos=tsevdos%2Frepocompare"
+        search: "?repos=tsevdos/repocompare"
       });
     }
   }
@@ -59,7 +58,7 @@ class AppContainer extends Component {
 
     repoNames.forEach(name => {
       const repoName = this._getRepo(name);
-      fetchRepository(repoName);
+      fetchRepository(repoName, history);
     });
   }
 
@@ -68,7 +67,8 @@ class AppContainer extends Component {
       repos,
       fetchRepository,
       resetAutocomplete,
-      hightlightRepo
+      hightlightRepo,
+      history
     } = this.props;
     const repoToAdd = this._getRepo(val.trim());
     const existingRepo = repos.find(
@@ -78,7 +78,7 @@ class AppContainer extends Component {
     if (existingRepo) {
       hightlightRepo(existingRepo);
     } else {
-      fetchRepository(repoToAdd);
+      fetchRepository(repoToAdd, history);
     }
 
     resetAutocomplete();
@@ -103,7 +103,7 @@ class AppContainer extends Component {
             hintText="ex. lodash/lodash"
             searchText={searchTerm}
             dataSource={results}
-            onUpdateInput={debounce(searchRepositories, 250)}
+            onUpdateInput={searchRepositories}
             floatingLabelText="Search a repository"
             fullWidth={true}
             onNewRequest={this.fetchRepo}

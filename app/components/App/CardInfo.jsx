@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { withRouter } from "react-router";
 import {
   Card,
   CardActions,
@@ -37,7 +38,7 @@ const listItemStyle = {
   fontSize: "1.2em"
 };
 
-const CardInfo = ({ repo, removeRepo }) => {
+const CardInfo = ({ repo, removeRepo, history }) => {
   return !repo.hasError
     ? <Card style={repo.isHighlighted ? highlightedCardStyle : cardStyle}>
         <CardHeader
@@ -85,7 +86,7 @@ const CardInfo = ({ repo, removeRepo }) => {
             />}
           <FlatButton
             label="Remove Card"
-            onTouchTap={e => removeRepo(repo.id)}
+            onTouchTap={e => removeRepo(repo.id, history)}
             secondary={true}
           />
         </CardActions>
@@ -98,7 +99,7 @@ const CardInfo = ({ repo, removeRepo }) => {
         <CardActions>
           <FlatButton
             label="Remove Card"
-            onTouchTap={e => removeRepo(repo.id)}
+            onTouchTap={e => removeRepo(repo.id, history)}
             secondary={true}
           />
           <br style={{ clear: "both" }} />
@@ -111,4 +112,4 @@ CardInfo.propTypes = {
   removeRepo: PropTypes.func.isRequired
 };
 
-export default CardInfo;
+export default withRouter(CardInfo);
