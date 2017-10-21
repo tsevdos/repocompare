@@ -6,12 +6,13 @@ const cardTextStyle = {
   textAlign: "center"
 };
 
-const Loader = () =>
+const Loader = () => (
   <Card>
     <CardTitle title="Loading..." />
     <CardText style={cardTextStyle}>
       <CircularProgress size={80} thickness={5} />
     </CardText>
-  </Card>;
+  </Card>
+);
 
 export default Loader;

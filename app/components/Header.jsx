@@ -10,7 +10,7 @@ const moreButtonStyle = {
   margin: "7px 0 0"
 };
 
-const Header = () =>
+const Header = () => (
   <AppBar
     title="RepoCompare"
     className="appbar"
@@ -38,6 +38,7 @@ const Header = () =>
         primaryText="Github"
       />
     </IconMenu>
-  </AppBar>;
+  </AppBar>
+);
 
 export default Header;

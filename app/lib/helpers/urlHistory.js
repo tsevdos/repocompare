@@ -28,9 +28,12 @@ const addRepoToUrl = (repo, history) => {
   const repos = urlRepos.repos ? urlRepos.repos.split("-") : [];
 
   if (repos.length === 0) {
-    replaceUrlQuery(history, repository);
+    const newQuery = `?repos=${repository}`;
+    replaceUrlQuery(history, newQuery);
   } else {
-    const repoisAlreadyInUrl = repos.filter(repoName => repoName === repository);
+    const repoisAlreadyInUrl = repos.filter(
+      repoName => repoName === repository
+    );
     const newQuery = repoisAlreadyInUrl.length
       ? location.search
       : `${location.search}-${repository}`;

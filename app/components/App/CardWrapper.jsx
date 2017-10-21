@@ -4,9 +4,11 @@ import Loader from "./Loader";
 import CardInfo from "./CardInfo";
 
 const CardWrapper = ({ repo, removeRepo }) => {
-  return repo.isFetching
-    ? <Loader />
-    : <CardInfo repo={repo} removeRepo={removeRepo} />;
+  return repo.isFetching ? (
+    <Loader />
+  ) : (
+    <CardInfo repo={repo} removeRepo={removeRepo} />
+  );
 };
 
 CardWrapper.propTypes = {
