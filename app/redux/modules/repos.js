@@ -1,5 +1,5 @@
 import initialState from "../initialState";
-import Api from "lib/githubApi";
+import Api from "lib/api/github";
 import { addRepoToUrl, removeRepoFromUrl } from "lib/helpers/urlHistory";
 
 // Actions
