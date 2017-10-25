@@ -18,22 +18,22 @@ const shareButtonStyles = {
   marginRight: "10px"
 };
 
-const About = () =>
+const About = () => (
   <div style={aboutDivStyles}>
     <h2>About</h2>
     <p>
-      RepoCompare is a pet project made with love by{" "}
+      RepoCompare is a pet project made with love by
       <a target="_blank" rel="noopener noreferrer" href="http://tsevdos.me">
         John Tsevdos
-      </a>. Feel free to{" "}
+      </a>. Feel free to
       <a
         target="_blank"
         rel="noopener noreferrer"
         href="https://github.com/tsevdos/repocompare"
       >
         contribute
-      </a>{" "}
-      or request{" "}
+      </a>
+      or request
       <a
         target="_blank"
         rel="noopener noreferrer"
@@ -44,7 +44,7 @@ const About = () =>
     </p>
     <h2>How to use</h2>
     <p>
-      Just search and add as many Github repositories as you like using the{" "}
+      Just search and add as many Github repositories as you like using the
       <code>username/repository name</code> pattern on the search form. Then
       compare the repos with ease on things that matter such as stars, forks,
       open issues and other helpful details!
@@ -82,6 +82,7 @@ const About = () =>
         Reddit
       </a>
     </RedditShareButton>
-  </div>;
+  </div>
+);
 
 export default About;

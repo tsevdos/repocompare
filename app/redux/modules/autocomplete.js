@@ -1,5 +1,5 @@
 import initialState from "../initialState";
-import Api from "lib/githubApi";
+import Api from "lib/api/github";
 
 // Actions
 const UPDATE_SEARCH_TERM = "autocomplete/UPDATE_SEARCH_TERM";

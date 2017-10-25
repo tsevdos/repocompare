@@ -2,11 +2,11 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { withRouter } from "react-router";
+import { withRouter } from "react-router-dom";
+import qs from "qs";
 import AutoComplete from "material-ui/AutoComplete";
 import { Cards } from "components";
-import isEmpty from 'lodash/isEmpty';
-import debounce from 'lodash/debounce';
+
 // Actions
 import {
   searchRepositories,
@@ -42,24 +42,23 @@ class AppContainer extends Component {
   }
 
   componentWillMount() {
-    const { router } = this.props;
-    if (isEmpty(router.location.query)) {
-      router.push({
+    const { history } = this.props;
+    if (history.location.search === "") {
+      history.push({
         pathname: "/",
-        query: {
-          repos: "tsevdos/repocompare"
-        }
+        search: "?repos=tsevdos/repocompare"
       });
     }
   }
 
   componentDidMount() {
-    const { fetchRepository, router } = this.props;
-    const repoNamesQuery = router.location.query.repos.split("-");
+    const { fetchRepository, history } = this.props;
+    const urlQuery = qs.parse(history.location.search.substr(1));
+    const repoNames = urlQuery.repos.split(",");
 
-    repoNamesQuery.forEach(name => {
+    repoNames.forEach(name => {
       const repoName = this._getRepo(name);
-      fetchRepository(repoName);
+      fetchRepository(repoName, history);
     });
   }
 
@@ -68,7 +67,8 @@ class AppContainer extends Component {
       repos,
       fetchRepository,
       resetAutocomplete,
-      hightlightRepo
+      hightlightRepo,
+      history
     } = this.props;
     const repoToAdd = this._getRepo(val.trim());
     const existingRepo = repos.find(
@@ -78,7 +78,7 @@ class AppContainer extends Component {
     if (existingRepo) {
       hightlightRepo(existingRepo);
     } else {
-      fetchRepository(repoToAdd);
+      fetchRepository(repoToAdd, history);
     }
 
     resetAutocomplete();
@@ -101,7 +101,7 @@ class AppContainer extends Component {
           hintText="ex. lodash/lodash"
           searchText={searchTerm}
           dataSource={results}
-          onUpdateInput={debounce(searchRepositories, 250)}
+          onUpdateInput={searchRepositories}
           floatingLabelText="Search a repository"
           fullWidth={true}
           onNewRequest={this.fetchRepo}

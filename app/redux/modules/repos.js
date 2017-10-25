@@ -1,6 +1,6 @@
 import initialState from "../initialState";
-import Api from "lib/githubApi";
-import { addRepoToUrl, removeRepoFromUrl } from "lib/helpers/browserHistory";
+import Api from "lib/api/github";
+import { addRepoToUrl, removeRepoFromUrl } from "lib/helpers/urlHistory";
 
 // Actions
 const REPO_INITIALIZATION = "repos/REPO_INITIALIZATION";
@@ -10,36 +10,42 @@ const REMOVE_REPO = "repos/REMOVE_REPO";
 const TOGGLE_REPO_HIGHLIGHT = "repos/TOGGLE_REPO_HIGHLIGHT";
 
 // Action Creators
-export function fetchRepository(repoToFetch) {
+export function fetchRepository(repoToFetch, history) {
   return function(dispatch, getState) {
-    dispatch(repoInit(repoToFetch));
+    const currentState = getState();
+    const { username, reponame } = repoToFetch;
+    const repoID = `${username}/${reponame}`;
+    const repoAlreadyInStore = currentState.repos.filter(
+      repo => repo.id === repoID
+    );
 
+    if (repoAlreadyInStore.length) {
+      return; // Repo already in store. Cancel fetch.
+    }
+
+    dispatch(repoInit(repoToFetch));
     return Api.fetchRepoPromise(repoToFetch)
       .then(response => {
-        const { username, reponame } = repoToFetch;
-        const repoID = `${username}/${reponame}`;
         const data = {
           data: response.data,
           repoID
         };
-
         dispatch(addRepoData(data));
-        addRepoToUrl(repoID);
+        addRepoToUrl(repoToFetch, history);
       })
       .catch(response => {
         dispatch(repoNotFound(repoToFetch));
-        console.log(response.message); // eslint-disable-line no-console
       });
   };
 }
 
-export function removeRepo(repoName) {
+export function removeRepo(repoName, history) {
   return function(dispatch, getState) {
     dispatch({
       type: REMOVE_REPO,
       payload: repoName
     });
-    removeRepoFromUrl(repoName);
+    removeRepoFromUrl(repoName, history);
   };
 }
 
