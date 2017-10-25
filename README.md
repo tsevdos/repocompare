@@ -32,4 +32,4 @@ open http://localhost:8080
 
 ## License
 
-GPL3 (&#390;) John Tsevdos
+MIT John Tsevdos

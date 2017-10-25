@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { withRouter } from "react-router";
+import { withRouter } from "react-router-dom";
 import qs from "qs";
 import AutoComplete from "material-ui/AutoComplete";
 import { Cards } from "components";
@@ -54,7 +54,7 @@ class AppContainer extends Component {
   componentDidMount() {
     const { fetchRepository, history } = this.props;
     const urlQuery = qs.parse(history.location.search.substr(1));
-    const repoNames = urlQuery.repos.split("-");
+    const repoNames = urlQuery.repos.split(",");
 
     repoNames.forEach(name => {
       const repoName = this._getRepo(name);

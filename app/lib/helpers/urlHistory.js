@@ -3,7 +3,7 @@ import qs from "qs";
 const removeRepoFromUrl = (repoId, history) => {
   const { location } = history;
   const urlRepos = qs.parse(location.search.substr(1));
-  const repos = urlRepos.repos.split("-") || [];
+  const repos = urlRepos.repos.split(",") || [];
   const repoToRemoveIndex = repos.indexOf(repoId);
 
   if (repoToRemoveIndex !== -1) {
@@ -13,7 +13,7 @@ const removeRepoFromUrl = (repoId, history) => {
   if (repos.length === 0) {
     clearUrlQuery(history);
   } else {
-    const newQuery = `?repos=${repos.join("-")}`;
+    const newQuery = `?repos=${repos.join(",")}`;
     replaceUrlQuery(history, newQuery);
   }
 
@@ -25,7 +25,7 @@ const addRepoToUrl = (repo, history) => {
   const { username, reponame } = repo;
   const repository = `${username}/${reponame}`;
   const urlRepos = qs.parse(location.search.substr(1));
-  const repos = urlRepos.repos ? urlRepos.repos.split("-") : [];
+  const repos = urlRepos.repos ? urlRepos.repos.split(",") : [];
 
   if (repos.length === 0) {
     const newQuery = `?repos=${repository}`;
@@ -36,7 +36,7 @@ const addRepoToUrl = (repo, history) => {
     );
     const newQuery = repoisAlreadyInUrl.length
       ? location.search
-      : `${location.search}-${repository}`;
+      : `${location.search},${repository}`;
     replaceUrlQuery(history, newQuery);
   }
 
