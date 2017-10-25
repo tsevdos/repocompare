@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { withRouter } from "react-router";
 import AppBar from "material-ui/AppBar";
 import IconButton from "material-ui/IconButton";
 import FontIcon from "material-ui/FontIcon";
@@ -10,12 +11,17 @@ const moreButtonStyle = {
   margin: "7px 0 0"
 };
 
-const Header = () => (
+const Header = ({ location }) => (
   <AppBar
     title="RepoCompare"
     className="appbar"
     iconElementLeft={
-      <IconButton containerElement={<Link to="/" />} touch={true}>
+      <IconButton
+        containerElement={
+          <Link to={{ pathname: "/", search: location.search }} />
+        }
+        touch={true}
+      >
         <FontIcon className="material-icons">home</FontIcon>
       </IconButton>
     }
@@ -31,7 +37,12 @@ const Header = () => (
       anchorOrigin={{ horizontal: "right", vertical: "top" }}
       targetOrigin={{ horizontal: "right", vertical: "top" }}
     >
-      <MenuItem containerElement={<Link to="/about" />} primaryText="About" />
+      <MenuItem
+        containerElement={
+          <Link to={{ pathname: "/about", search: location.search }} />
+        }
+        primaryText="About"
+      />
       <MenuItem
         href="https://github.com/tsevdos/repocompare"
         target="_blank"
@@ -41,4 +52,4 @@ const Header = () => (
   </AppBar>
 );
 
-export default Header;
+export default withRouter(Header);

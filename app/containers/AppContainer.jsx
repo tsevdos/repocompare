@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import qs from "qs";
 import AutoComplete from "material-ui/AutoComplete";
-import { Header, Cards } from "components";
+import { Cards } from "components";
 
 // Actions
 import {
@@ -43,7 +43,7 @@ class AppContainer extends Component {
 
   componentWillMount() {
     const { history } = this.props;
-    if (!history.location.search) {
+    if (history.location.search === "") {
       history.push({
         pathname: "/",
         search: "?repos=tsevdos/repocompare"
@@ -96,22 +96,19 @@ class AppContainer extends Component {
     const { searchTerm, results } = autocomplete;
 
     return (
-      <div>
-        <Header />
-        <div style={divStyle}>
-          <AutoComplete
-            hintText="ex. lodash/lodash"
-            searchText={searchTerm}
-            dataSource={results}
-            onUpdateInput={searchRepositories}
-            floatingLabelText="Search a repository"
-            fullWidth={true}
-            onNewRequest={this.fetchRepo}
-            style={autoCompleteStyle}
-            textFieldStyle={textFieldStyle}
-          />
-          <Cards repos={repos} removeRepo={removeRepo} />
-        </div>
+      <div style={divStyle}>
+        <AutoComplete
+          hintText="ex. lodash/lodash"
+          searchText={searchTerm}
+          dataSource={results}
+          onUpdateInput={searchRepositories}
+          floatingLabelText="Search a repository"
+          fullWidth={true}
+          onNewRequest={this.fetchRepo}
+          style={autoCompleteStyle}
+          textFieldStyle={textFieldStyle}
+        />
+        <Cards repos={repos} removeRepo={removeRepo} />
       </div>
     );
   }

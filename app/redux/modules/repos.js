@@ -12,11 +12,20 @@ const TOGGLE_REPO_HIGHLIGHT = "repos/TOGGLE_REPO_HIGHLIGHT";
 // Action Creators
 export function fetchRepository(repoToFetch, history) {
   return function(dispatch, getState) {
+    const currentState = getState();
+    const { username, reponame } = repoToFetch;
+    const repoID = `${username}/${reponame}`;
+    const repoAlreadyInStore = currentState.repos.filter(
+      repo => repo.id === repoID
+    );
+
+    if (repoAlreadyInStore.length) {
+      return; // Repo already in store. Cancel fetch.
+    }
+
     dispatch(repoInit(repoToFetch));
     return Api.fetchRepoPromise(repoToFetch)
       .then(response => {
-        const { username, reponame } = repoToFetch;
-        const repoID = `${username}/${reponame}`;
         const data = {
           data: response.data,
           repoID
@@ -26,7 +35,6 @@ export function fetchRepository(repoToFetch, history) {
       })
       .catch(response => {
         dispatch(repoNotFound(repoToFetch));
-        console.log(response.message); // eslint-disable-line no-console
       });
   };
 }
