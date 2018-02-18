@@ -4,41 +4,31 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import qs from "qs";
-import AutoComplete from "material-ui/AutoComplete";
-import { Cards } from "components";
-
+import { GitHubAutoComplete, Cards } from "components";
 // Actions
-import {
-  searchRepositories,
-  resetAutocomplete
-} from "redux/modules/autocomplete";
 import {
   fetchRepository,
   removeRepo,
   hightlightRepo
 } from "redux/modules/repos";
 
-const autoCompleteStyle = {
-  margin: "0 0 2em"
-};
-
-const textFieldStyle = {
-  fontSize: "1.5em"
-};
-
-const divStyle = {
-  padding: "0 24px"
-};
-
 class AppContainer extends Component {
   static propTypes = {
-    repos: PropTypes.array.isRequired,
-    autocomplete: PropTypes.object.isRequired
+    repos: PropTypes.array.isRequired
   };
 
   constructor(props) {
     super(props);
+    this.state = {
+      searchterm: ""
+    };
+
     this.fetchRepo = this.fetchRepo.bind(this);
+    this.searchRepositories = this.searchRepositories.bind(this);
+  }
+
+  searchRepositories(query) {
+    this.setState({ searchterm: query });
   }
 
   componentWillMount() {
@@ -92,21 +82,14 @@ class AppContainer extends Component {
   }
 
   render() {
-    const { repos, autocomplete, searchRepositories, removeRepo } = this.props;
-    const { searchTerm, results } = autocomplete;
+    const { repos, removeRepo } = this.props;
+    const { searchterm } = this.state;
 
     return (
-      <div style={divStyle}>
-        <AutoComplete
-          hintText="ex. lodash/lodash"
-          searchText={searchTerm}
-          dataSource={results}
-          onUpdateInput={searchRepositories}
-          floatingLabelText="Search a repository"
-          fullWidth={true}
-          onNewRequest={this.fetchRepo}
-          style={autoCompleteStyle}
-          textFieldStyle={textFieldStyle}
+      <div style={{ padding: "0 24px" }}>
+        <GitHubAutoComplete
+          searchterm={searchterm}
+          onUpdateInput={this.searchRepositories}
         />
         <Cards repos={repos} removeRepo={removeRepo} />
       </div>
@@ -116,18 +99,15 @@ class AppContainer extends Component {
 
 function mapStateToProps(state) {
   return {
-    repos: state.repos,
-    autocomplete: state.autocomplete
+    repos: state.repos
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    searchRepositories: bindActionCreators(searchRepositories, dispatch),
     fetchRepository: bindActionCreators(fetchRepository, dispatch),
     removeRepo: bindActionCreators(removeRepo, dispatch),
-    hightlightRepo: bindActionCreators(hightlightRepo, dispatch),
-    resetAutocomplete: bindActionCreators(resetAutocomplete, dispatch)
+    hightlightRepo: bindActionCreators(hightlightRepo, dispatch)
   };
 }
 
