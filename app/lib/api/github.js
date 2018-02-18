@@ -11,17 +11,6 @@ function fetchRepoPromise(repo) {
   });
 }
 
-function searchReposPromise(query) {
-  return axios.get(
-    `${githubAPIUrl}/search/repositories?q=${query}&sort=stars`,
-    {
-      auth: basicAuth,
-      requestId: "searchRepos"
-    }
-  );
-}
-
 export default {
-  fetchRepoPromise,
-  searchReposPromise
+  fetchRepoPromise
 };

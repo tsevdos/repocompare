@@ -53,12 +53,17 @@
     "webpack-dev-server": "2.9.3"
   },
   "dependencies": {
+    "apollo-client-preset": "1.0.5",
+    "apollo-link-context": "1.0.5",
     "axios": "0.17.0",
     "axios-cancel": "0.2.2",
+    "graphql": "0.12.3",
+    "graphql-tag": "2.6.1",
     "material-ui": "0.19.4",
     "prop-types": "15.6.0",
     "qs": "6.5.1",
     "react": "16.0.0",
+    "react-apollo": "2.0.4",
     "react-dom": "16.0.0",
     "react-flexbox-grid": "1.1.5",
     "react-redux": "5.0.6",

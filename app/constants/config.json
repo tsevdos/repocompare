@@ -3,5 +3,7 @@
   "basicAuth": {
     "username": "tsevdos",
     "password": "986fccdbff8807a07a295614652a0fc2815bc310"
-  }
+  },
+  "githubGraphQLUrl": "https://api.github.com/graphql",
+  "token": "986fccdbff8807a07a295614652a0fc2815bc310"
 }
