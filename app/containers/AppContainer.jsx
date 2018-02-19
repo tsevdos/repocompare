@@ -1,34 +1,17 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import qs from "qs";
 import { GitHubAutoComplete, Cards } from "components";
-// Actions
-import {
-  fetchRepository,
-  removeRepo,
-  hightlightRepo
-} from "redux/modules/repos";
 
 class AppContainer extends Component {
-  static propTypes = {
-    repos: PropTypes.array.isRequired
-  };
-
   constructor(props) {
     super(props);
     this.state = {
-      searchterm: ""
+      searchterm: "",
+      repos: []
     };
 
-    this.fetchRepo = this.fetchRepo.bind(this);
     this.searchRepositories = this.searchRepositories.bind(this);
-  }
-
-  searchRepositories(query) {
-    this.setState({ searchterm: query });
   }
 
   componentWillMount() {
@@ -42,14 +25,15 @@ class AppContainer extends Component {
   }
 
   componentDidMount() {
-    const { fetchRepository, history } = this.props;
+    const { history } = this.props;
     const urlQuery = qs.parse(history.location.search.substr(1));
     const repoNames = urlQuery.repos.split(",");
+    const reposOnUrlQuery = repoNames.map((name) => this._getRepo(name));
+    this.setState({ repos: reposOnUrlQuery });
+  }
 
-    repoNames.forEach(name => {
-      const repoName = this._getRepo(name);
-      fetchRepository(repoName, history);
-    });
+  searchRepositories(query) {
+    this.setState({ searchterm: query });
   }
 
   fetchRepo(val) {
@@ -75,15 +59,15 @@ class AppContainer extends Component {
   }
 
   _getRepo(repoStr) {
-    const username = repoStr.split("/")[0];
-    const reponame = repoStr.split("/")[1];
+    const owner = repoStr.split("/")[0];
+    const name = repoStr.split("/")[1];
 
-    return { username, reponame };
+    return { id: repoStr, owner, name };
   }
 
   render() {
-    const { repos, removeRepo } = this.props;
-    const { searchterm } = this.state;
+    const { searchterm, repos } = this.state;
+    console.log(repos);
 
     return (
       <div style={{ padding: "0 24px" }}>
@@ -91,26 +75,13 @@ class AppContainer extends Component {
           searchterm={searchterm}
           onUpdateInput={this.searchRepositories}
         />
-        <Cards repos={repos} removeRepo={removeRepo} />
+        <Cards
+          repos={repos}
+          removeRepo={'removeRepo'}
+        />
       </div>
     );
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    repos: state.repos
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    fetchRepository: bindActionCreators(fetchRepository, dispatch),
-    removeRepo: bindActionCreators(removeRepo, dispatch),
-    hightlightRepo: bindActionCreators(hightlightRepo, dispatch)
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(
-  withRouter(AppContainer)
-);
+export default withRouter(AppContainer);
