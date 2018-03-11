@@ -28,9 +28,6 @@ query ($owner: String!, $name: String! ) {
     watchers {
       totalCount
     },
-    collaborators {
-      totalCount
-    },
     issues (states: OPEN){
       totalCount
     }

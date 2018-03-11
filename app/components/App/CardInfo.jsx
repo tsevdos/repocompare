@@ -39,8 +39,6 @@ const listItemStyle = {
 };
 
 const CardInfo = ({ repository, removeRepo }) => {
-
-  console.log(repository)
   const {
     owner,
     nameWithOwner,
@@ -50,7 +48,7 @@ const CardInfo = ({ repository, removeRepo }) => {
     issues,
     watchers,
     url,
-    homepageUrl,
+    homepageUrl
   } = repository;
 
   return (
@@ -102,7 +100,7 @@ const CardInfo = ({ repository, removeRepo }) => {
         }
         <FlatButton
           label="Remove Card"
-          onTouchTap={e => console.log('remove repo')}
+          onTouchTap={e => removeRepo(nameWithOwner)}
           secondary={true}
         />
       </CardActions>

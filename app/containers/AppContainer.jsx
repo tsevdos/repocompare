@@ -12,6 +12,8 @@ class AppContainer extends Component {
     };
 
     this.searchRepositories = this.searchRepositories.bind(this);
+    this.addRepo = this.addRepo.bind(this);
+    this.removeRepo = this.removeRepo.bind(this);
   }
 
   componentWillMount() {
@@ -36,26 +38,18 @@ class AppContainer extends Component {
     this.setState({ searchterm: query });
   }
 
-  fetchRepo(val) {
-    const {
-      repos,
-      fetchRepository,
-      resetAutocomplete,
-      hightlightRepo,
-      history
-    } = this.props;
-    const repoToAdd = this._getRepo(val.trim());
-    const existingRepo = repos.find(
-      repo => repo.id === `${repoToAdd.username}/${repoToAdd.reponame}`
-    );
+  addRepo(reponame) {
+    // TODO if already exists highlight it
+    const repoToAdd = this._getRepo(reponame);
+    const newRepos = this.state.repos.slice();
+    newRepos.push(repoToAdd);
+    this.setState({ searchterm: "", repos: newRepos });
+  }
 
-    if (existingRepo) {
-      hightlightRepo(existingRepo);
-    } else {
-      fetchRepository(repoToAdd, history);
-    }
-
-    resetAutocomplete();
+  removeRepo(repoId) {
+    // Todo remove it from URL as well.
+    const newRepos = this.state.repos.filter((repo) => repo.id !== repoId);
+    this.setState({ repos: newRepos });
   }
 
   _getRepo(repoStr) {
@@ -74,10 +68,11 @@ class AppContainer extends Component {
         <GitHubAutoComplete
           searchterm={searchterm}
           onUpdateInput={this.searchRepositories}
+          onNewRequest={this.addRepo}
         />
         <Cards
           repos={repos}
-          removeRepo={'removeRepo'}
+          removeRepo={this.removeRepo}
         />
       </div>
     );
