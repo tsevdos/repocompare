@@ -17,7 +17,14 @@ query ($owner: String!, $name: String! ) {
       nickname
     },
     primaryLanguage {
-      name
+      name,
+      color
+    },
+		languages(first:5) {
+      nodes {
+        name,
+        color
+      }
     },
     stargazers {
       totalCount

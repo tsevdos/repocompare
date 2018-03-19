@@ -11,7 +11,7 @@ const cardStyle = {
   margin: "0 0 1.5em"
 };
 
-const CardWrapper = ({ data, id, owner, name, removeRepo }) => {
+const CardWrapper = ({ data, id, owner, name, isHighlighted, removeRepo }) => {
   const { loading, error, repository } = data;
 
   if (loading) {
@@ -37,7 +37,9 @@ const CardWrapper = ({ data, id, owner, name, removeRepo }) => {
     );
   }
 
-  return <CardInfo repository={repository} removeRepo={removeRepo} />;
+
+
+  return <CardInfo repository={repository} isHighlighted={isHighlighted} removeRepo={removeRepo} />;
 };
 
 CardWrapper.propTypes = {
