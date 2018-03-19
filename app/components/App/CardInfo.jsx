@@ -10,6 +10,7 @@ import {
 } from "material-ui/Card";
 import { List, ListItem } from "material-ui/List";
 import FlatButton from "material-ui/FlatButton";
+import FontIcon from "material-ui/FontIcon";
 
 const titleStyle = {
   paddingTop: "0"
@@ -38,7 +39,11 @@ const listItemStyle = {
   fontSize: "1.2em"
 };
 
-const CardInfo = ({ repository, removeRepo }) => {
+const listIconStyle = {
+  fontSize: '1em'
+};
+
+const CardInfo = ({ repository, isHighlighted, removeRepo }) => {
   const {
     owner,
     nameWithOwner,
@@ -48,11 +53,14 @@ const CardInfo = ({ repository, removeRepo }) => {
     issues,
     watchers,
     url,
-    homepageUrl
+    homepageUrl,
+    diskUsage,
+    licenseInfo,
+    languages
   } = repository;
 
   return (
-    <Card style={false ? highlightedCardStyle : cardStyle}>
+    <Card style={isHighlighted ? highlightedCardStyle : cardStyle}>
       <CardHeader
         title={owner.login}
         subtitle={owner.__typename}
@@ -79,6 +87,30 @@ const CardInfo = ({ repository, removeRepo }) => {
           <ListItem style={listItemStyle} disabled={true}>
             Subscribers: <strong>{watchers.totalCount.toLocaleString()}</strong>
           </ListItem>
+
+          <ListItem style={listItemStyle} disabled={true}>
+            Repository file size: <strong>{diskUsage} KB</strong>
+          </ListItem>
+          {
+            licenseInfo.nickname &&
+              <ListItem style={listItemStyle} disabled={true}>
+                License: <strong>{licenseInfo.nickname}</strong>
+              </ListItem>
+          }
+
+          <ListItem style={listItemStyle} disabled={true}>
+            Languages:&nbsp;
+            {
+              languages.nodes.map((language) => (
+                <span key={language.name}>
+                  <FontIcon className="material-icons" color={language.color} style={listIconStyle}>lens</FontIcon>
+                  &nbsp;<strong>{language.name}</strong>&nbsp;
+                </span>
+              ))
+            }
+
+          </ListItem>
+
         </List>
       </CardText>
 
