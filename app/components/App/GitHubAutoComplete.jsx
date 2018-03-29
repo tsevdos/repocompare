@@ -4,11 +4,17 @@ import { graphql } from "react-apollo";
 import searchRepositories from "queries/searchRepositories.gql";
 import AutoComplete from "material-ui/AutoComplete";
 
-const GitHubAutoComplete = ({ searchterm, data, onUpdateInput, onNewRequest }) => {
+const GitHubAutoComplete = ({
+  searchterm,
+  data,
+  onUpdateInput,
+  onNewRequest
+}) => {
   const { loading, error } = data;
-  const searchResults = (!loading && !error)
-    ? data.search.edges.map((repo) => repo.node.nameWithOwner)
-    : [];
+  const searchResults =
+    !loading && !error
+      ? data.search.edges.map(repo => repo.node.nameWithOwner)
+      : [];
 
   return (
     <AutoComplete
@@ -41,7 +47,7 @@ GitHubAutoComplete.propTypes = {
 };
 
 export default graphql(searchRepositories, {
-  options: (props) => ({
+  options: props => ({
     variables: {
       searchterm: props.searchterm
     }

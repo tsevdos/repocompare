@@ -26,7 +26,9 @@ class AppContainer extends Component {
       });
     }
 
-    const reposOnUrlQuery = this._getReposOnSearchQueryUrl().map((name) => this._getRepo(name));
+    const reposOnUrlQuery = this._getReposOnSearchQueryUrl().map(name =>
+      this._getRepo(name)
+    );
     this.setState({ repos: reposOnUrlQuery });
   }
 
@@ -36,7 +38,9 @@ class AppContainer extends Component {
 
   addRepo(reponame) {
     const repoToAdd = this._getRepo(reponame);
-    const existingRepoIndex = this.state.repos.findIndex((repo) => repo.id === repoToAdd.id);
+    const existingRepoIndex = this.state.repos.findIndex(
+      repo => repo.id === repoToAdd.id
+    );
 
     if (existingRepoIndex > -1) {
       this.markRepoHighlighted(existingRepoIndex);
@@ -52,7 +56,7 @@ class AppContainer extends Component {
   }
 
   removeRepo(repoId) {
-    const newRepos = this.state.repos.filter((repo) => repo.id !== repoId);
+    const newRepos = this.state.repos.filter(repo => repo.id !== repoId);
 
     this.setState({ repos: newRepos });
     removeRepoFromUrl(repoId, this.props.history);

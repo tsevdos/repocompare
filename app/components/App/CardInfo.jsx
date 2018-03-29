@@ -40,7 +40,7 @@ const listItemStyle = {
 };
 
 const listIconStyle = {
-  fontSize: '1em'
+  fontSize: "1em"
 };
 
 const CardInfo = ({ repository, isHighlighted, removeRepo }) => {
@@ -91,26 +91,27 @@ const CardInfo = ({ repository, isHighlighted, removeRepo }) => {
           <ListItem style={listItemStyle} disabled={true}>
             Repository file size: <strong>{diskUsage} KB</strong>
           </ListItem>
-          {
-            licenseInfo.nickname &&
-              <ListItem style={listItemStyle} disabled={true}>
-                License: <strong>{licenseInfo.nickname}</strong>
-              </ListItem>
-          }
+          {licenseInfo.nickname && (
+            <ListItem style={listItemStyle} disabled={true}>
+              License: <strong>{licenseInfo.nickname}</strong>
+            </ListItem>
+          )}
 
           <ListItem style={listItemStyle} disabled={true}>
             Languages:&nbsp;
-            {
-              languages.nodes.map((language) => (
-                <span key={language.name}>
-                  <FontIcon className="material-icons" color={language.color} style={listIconStyle}>lens</FontIcon>
-                  &nbsp;<strong>{language.name}</strong>&nbsp;
-                </span>
-              ))
-            }
-
+            {languages.nodes.map(language => (
+              <span key={language.name}>
+                <FontIcon
+                  className="material-icons"
+                  color={language.color}
+                  style={listIconStyle}
+                >
+                  lens
+                </FontIcon>
+                &nbsp;<strong>{language.name}</strong>&nbsp;
+              </span>
+            ))}
           </ListItem>
-
         </List>
       </CardText>
 
@@ -121,15 +122,14 @@ const CardInfo = ({ repository, isHighlighted, removeRepo }) => {
           target="_blank"
           primary={true}
         />
-        {
-          homepageUrl &&
-            <FlatButton
-              href={homepageUrl}
-              label="Site"
-              target="_blank"
-              primary={true}
-            />
-        }
+        {homepageUrl && (
+          <FlatButton
+            href={homepageUrl}
+            label="Site"
+            target="_blank"
+            primary={true}
+          />
+        )}
         <FlatButton
           label="Remove Card"
           onTouchTap={e => removeRepo(nameWithOwner)}
