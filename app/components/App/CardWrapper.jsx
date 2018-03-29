@@ -37,9 +37,13 @@ const CardWrapper = ({ data, id, owner, name, isHighlighted, removeRepo }) => {
     );
   }
 
-
-
-  return <CardInfo repository={repository} isHighlighted={isHighlighted} removeRepo={removeRepo} />;
+  return (
+    <CardInfo
+      repository={repository}
+      isHighlighted={isHighlighted}
+      removeRepo={removeRepo}
+    />
+  );
 };
 
 CardWrapper.propTypes = {
@@ -52,7 +56,7 @@ CardWrapper.propTypes = {
 };
 
 export default graphql(repositoryDetails, {
-  options: (props) => ({
+  options: props => ({
     variables: {
       owner: props.owner,
       name: props.name
