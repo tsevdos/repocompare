@@ -1,0 +1,11 @@
+query($searchterm: String!) {
+  search(type: REPOSITORY, query: $searchterm, first: 15) {
+    edges {
+      node {
+        ... on Repository {
+          nameWithOwner
+        }
+      }
+    }
+  }
+}

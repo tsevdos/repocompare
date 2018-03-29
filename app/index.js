@@ -1,12 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { Provider } from "react-redux";
+import { ApolloProvider } from "react-apollo";
 import { HashRouter, Route } from "react-router-dom";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import Typography from "typography";
 import githubTheme from "typography-theme-github";
 import injectTapEventPlugin from "react-tap-event-plugin";
-import store from "redux/store";
+import apolloClient from "./ApolloClient";
 import AppContainer from "containers/AppContainer";
 import { About, Header } from "components";
 
@@ -18,7 +18,7 @@ typography.injectStyles();
 injectTapEventPlugin();
 
 ReactDOM.render(
-  <Provider store={store}>
+  <ApolloProvider client={apolloClient}>
     <MuiThemeProvider>
       <HashRouter>
         <div>
@@ -28,6 +28,6 @@ ReactDOM.render(
         </div>
       </HashRouter>
     </MuiThemeProvider>
-  </Provider>,
+  </ApolloProvider>,
   document.getElementById("app")
 );

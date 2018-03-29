@@ -10,6 +10,7 @@ import {
 } from "material-ui/Card";
 import { List, ListItem } from "material-ui/List";
 import FlatButton from "material-ui/FlatButton";
+import FontIcon from "material-ui/FontIcon";
 
 const titleStyle = {
   paddingTop: "0"
@@ -38,48 +39,92 @@ const listItemStyle = {
   fontSize: "1.2em"
 };
 
-const CardInfo = ({ repo, removeRepo, history }) => {
-  return !repo.hasError ? (
-    <Card style={repo.isHighlighted ? highlightedCardStyle : cardStyle}>
+const listIconStyle = {
+  fontSize: "1em"
+};
+
+const CardInfo = ({ repository, isHighlighted, removeRepo }) => {
+  const {
+    owner,
+    nameWithOwner,
+    description,
+    stargazers,
+    forks,
+    issues,
+    watchers,
+    url,
+    homepageUrl,
+    diskUsage,
+    licenseInfo,
+    languages
+  } = repository;
+
+  return (
+    <Card style={isHighlighted ? highlightedCardStyle : cardStyle}>
       <CardHeader
-        title={repo.data.owner.login}
-        subtitle={repo.data.owner.type}
-        avatar={repo.data.owner.avatar_url}
+        title={owner.login}
+        subtitle={owner.__typename}
+        avatar={owner.avatarUrl}
+        style={{ cursor: "pointer" }}
+        onClick={() => window.open(owner.url)}
       />
       <CardTitle
-        title={repo.id}
-        subtitle={repo.data.description}
+        title={nameWithOwner}
+        subtitle={description}
         style={titleStyle}
       />
       <CardText style={cardTextStyle}>
         <List style={listStyle}>
           <ListItem style={listItemStyle} disabled={true}>
-            Stars:{" "}
-            <strong>{repo.data.stargazers_count.toLocaleString()}</strong>
+            Stars: <strong>{stargazers.totalCount.toLocaleString()}</strong>
           </ListItem>
           <ListItem style={listItemStyle} disabled={true}>
-            Forks: <strong>{repo.data.forks_count.toLocaleString()}</strong>
+            Forks: <strong>{forks.totalCount.toLocaleString()}</strong>
           </ListItem>
           <ListItem style={listItemStyle} disabled={true}>
-            Open Issues:{" "}
-            <strong>{repo.data.open_issues_count.toLocaleString()}</strong>
+            Open Issues: <strong>{issues.totalCount.toLocaleString()}</strong>
           </ListItem>
           <ListItem style={listItemStyle} disabled={true}>
-            Subscribers:{" "}
-            <strong>{repo.data.subscribers_count.toLocaleString()}</strong>
+            Subscribers: <strong>{watchers.totalCount.toLocaleString()}</strong>
+          </ListItem>
+
+          <ListItem style={listItemStyle} disabled={true}>
+            Repository file size: <strong>{diskUsage} KB</strong>
+          </ListItem>
+          {licenseInfo.nickname && (
+            <ListItem style={listItemStyle} disabled={true}>
+              License: <strong>{licenseInfo.nickname}</strong>
+            </ListItem>
+          )}
+
+          <ListItem style={listItemStyle} disabled={true}>
+            Languages:&nbsp;
+            {languages.nodes.map(language => (
+              <span key={language.name}>
+                <FontIcon
+                  className="material-icons"
+                  color={language.color}
+                  style={listIconStyle}
+                >
+                  lens
+                </FontIcon>
+                &nbsp;<strong>{language.name}</strong>&nbsp;
+              </span>
+            ))}
           </ListItem>
         </List>
       </CardText>
+
       <CardActions>
         <FlatButton
-          href={repo.data.html_url}
+          href={url}
           label="Repository"
           target="_blank"
           primary={true}
         />
-        {repo.data.homepage && (
+        {homepageUrl && (
           <FlatButton
-            href={repo.data.homepage}
+            href={homepageUrl}
             label="Site"
             target="_blank"
             primary={true}
@@ -87,31 +132,16 @@ const CardInfo = ({ repo, removeRepo, history }) => {
         )}
         <FlatButton
           label="Remove Card"
-          onTouchTap={e => removeRepo(repo.id, history)}
+          onTouchTap={e => removeRepo(nameWithOwner)}
           secondary={true}
         />
-      </CardActions>
-    </Card>
-  ) : (
-    <Card style={cardStyle}>
-      <CardTitle title="Error" />
-      <CardText>
-        Repository {repo.id} cannot be found! Please ensure that it exists!
-      </CardText>
-      <CardActions>
-        <FlatButton
-          label="Remove Card"
-          onTouchTap={e => removeRepo(repo.id, history)}
-          secondary={true}
-        />
-        <br style={{ clear: "both" }} />
       </CardActions>
     </Card>
   );
 };
 
 CardInfo.propTypes = {
-  repo: PropTypes.object.isRequired,
+  repository: PropTypes.object.isRequired,
   removeRepo: PropTypes.func.isRequired
 };
 

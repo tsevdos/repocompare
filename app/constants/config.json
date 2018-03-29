@@ -1,7 +1,4 @@
 {
-  "githubAPIUrl": "https://api.github.com",
-  "basicAuth": {
-    "username": "tsevdos",
-    "password": "64437714f992388a48569ae0f45f5c8b9d7e0cc7"
-  }
+  "githubGraphQLUrl": "https://api.github.com/graphql",
+  "token": "64437714f992388a48569ae0f45f5c8b9d7e0cc7"
 }

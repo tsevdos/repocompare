@@ -1,47 +1,23 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import qs from "qs";
-import AutoComplete from "material-ui/AutoComplete";
-import { Cards } from "components";
-
-// Actions
-import {
-  searchRepositories,
-  resetAutocomplete
-} from "redux/modules/autocomplete";
-import {
-  fetchRepository,
-  removeRepo,
-  hightlightRepo
-} from "redux/modules/repos";
-
-const autoCompleteStyle = {
-  margin: "0 0 2em"
-};
-
-const textFieldStyle = {
-  fontSize: "1.5em"
-};
-
-const divStyle = {
-  padding: "0 24px"
-};
+import { GitHubAutoComplete, Cards } from "components";
+import { addRepoToUrl, removeRepoFromUrl } from "lib/helpers/urlHistory";
 
 class AppContainer extends Component {
-  static propTypes = {
-    repos: PropTypes.array.isRequired,
-    autocomplete: PropTypes.object.isRequired
-  };
-
   constructor(props) {
     super(props);
-    this.fetchRepo = this.fetchRepo.bind(this);
+    this.state = {
+      searchterm: "",
+      repos: []
+    };
+
+    this.searchRepositories = this.searchRepositories.bind(this);
+    this.addRepo = this.addRepo.bind(this);
+    this.removeRepo = this.removeRepo.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const { history } = this.props;
     if (history.location.search === "") {
       history.push({
@@ -49,88 +25,82 @@ class AppContainer extends Component {
         search: "?repos=tsevdos/repocompare"
       });
     }
+
+    const reposOnUrlQuery = this._getReposOnSearchQueryUrl().map(name =>
+      this._getRepo(name)
+    );
+    this.setState({ repos: reposOnUrlQuery });
   }
 
-  componentDidMount() {
-    const { fetchRepository, history } = this.props;
-    const urlQuery = qs.parse(history.location.search.substr(1));
-    const repoNames = urlQuery.repos.split(",");
-
-    repoNames.forEach(name => {
-      const repoName = this._getRepo(name);
-      fetchRepository(repoName, history);
-    });
+  searchRepositories(query) {
+    this.setState({ searchterm: query });
   }
 
-  fetchRepo(val) {
-    const {
-      repos,
-      fetchRepository,
-      resetAutocomplete,
-      hightlightRepo,
-      history
-    } = this.props;
-    const repoToAdd = this._getRepo(val.trim());
-    const existingRepo = repos.find(
-      repo => repo.id === `${repoToAdd.username}/${repoToAdd.reponame}`
+  addRepo(reponame) {
+    const repoToAdd = this._getRepo(reponame);
+    const existingRepoIndex = this.state.repos.findIndex(
+      repo => repo.id === repoToAdd.id
     );
 
-    if (existingRepo) {
-      hightlightRepo(existingRepo);
+    if (existingRepoIndex > -1) {
+      this.markRepoHighlighted(existingRepoIndex);
     } else {
-      fetchRepository(repoToAdd, history);
+      const newRepos = this.state.repos.slice();
+      newRepos.push(repoToAdd);
+
+      this.setState({ repos: newRepos });
+      addRepoToUrl(repoToAdd.id, this.props.history);
     }
 
-    resetAutocomplete();
+    this.setState({ searchterm: "" });
+  }
+
+  removeRepo(repoId) {
+    const newRepos = this.state.repos.filter(repo => repo.id !== repoId);
+
+    this.setState({ repos: newRepos });
+    removeRepoFromUrl(repoId, this.props.history);
+  }
+
+  markRepoHighlighted(repoIndex) {
+    this._toggleRepoHighlight(repoIndex);
+    setTimeout(() => this._toggleRepoHighlight(repoIndex), 1000);
   }
 
   _getRepo(repoStr) {
-    const username = repoStr.split("/")[0];
-    const reponame = repoStr.split("/")[1];
+    const owner = repoStr.split("/")[0];
+    const name = repoStr.split("/")[1];
 
-    return { username, reponame };
+    return { id: repoStr, owner, name, isHighlighted: false };
+  }
+
+  _getReposOnSearchQueryUrl() {
+    const { history } = this.props;
+    const urlQuery = qs.parse(history.location.search.substr(1));
+
+    return urlQuery.repos.split(",");
+  }
+
+  _toggleRepoHighlight(repoIndex) {
+    const newRepos = this.state.repos.slice();
+    newRepos[repoIndex].isHighlighted = !newRepos[repoIndex].isHighlighted;
+    this.setState({ repos: newRepos });
   }
 
   render() {
-    const { repos, autocomplete, searchRepositories, removeRepo } = this.props;
-    const { searchTerm, results } = autocomplete;
+    const { searchterm, repos } = this.state;
 
     return (
-      <div style={divStyle}>
-        <AutoComplete
-          hintText="ex. lodash/lodash"
-          searchText={searchTerm}
-          dataSource={results}
-          onUpdateInput={searchRepositories}
-          floatingLabelText="Search a repository"
-          fullWidth={true}
-          onNewRequest={this.fetchRepo}
-          style={autoCompleteStyle}
-          textFieldStyle={textFieldStyle}
+      <div style={{ padding: "0 24px" }}>
+        <GitHubAutoComplete
+          searchterm={searchterm}
+          onUpdateInput={this.searchRepositories}
+          onNewRequest={this.addRepo}
         />
-        <Cards repos={repos} removeRepo={removeRepo} />
+        <Cards repos={repos} removeRepo={this.removeRepo} />
       </div>
     );
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    repos: state.repos,
-    autocomplete: state.autocomplete
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    searchRepositories: bindActionCreators(searchRepositories, dispatch),
-    fetchRepository: bindActionCreators(fetchRepository, dispatch),
-    removeRepo: bindActionCreators(removeRepo, dispatch),
-    hightlightRepo: bindActionCreators(hightlightRepo, dispatch),
-    resetAutocomplete: bindActionCreators(resetAutocomplete, dispatch)
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(
-  withRouter(AppContainer)
-);
+export default withRouter(AppContainer);

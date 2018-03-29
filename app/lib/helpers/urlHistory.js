@@ -20,23 +20,19 @@ const removeRepoFromUrl = (repoId, history) => {
   return repos;
 };
 
-const addRepoToUrl = (repo, history) => {
+const addRepoToUrl = (repoId, history) => {
   const { location } = history;
-  const { username, reponame } = repo;
-  const repository = `${username}/${reponame}`;
   const urlRepos = qs.parse(location.search.substr(1));
   const repos = urlRepos.repos ? urlRepos.repos.split(",") : [];
 
   if (repos.length === 0) {
-    const newQuery = `?repos=${repository}`;
+    const newQuery = `?repos=${repoId}`;
     replaceUrlQuery(history, newQuery);
   } else {
-    const repoisAlreadyInUrl = repos.filter(
-      repoName => repoName === repository
-    );
-    const newQuery = repoisAlreadyInUrl.length
+    const repoIsAlreadyInUrl = repos.filter(repoName => repoName === repoId);
+    const newQuery = repoIsAlreadyInUrl.length
       ? location.search
-      : `${location.search},${repository}`;
+      : `${location.search},${repoId}`;
     replaceUrlQuery(history, newQuery);
   }
 

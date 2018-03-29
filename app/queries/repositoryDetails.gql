@@ -1,0 +1,42 @@
+query ($owner: String!, $name: String! ) {
+  repository(owner: $owner, name: $name) {
+    owner {
+      avatarUrl(size: 50)
+      login
+      url
+      __typename
+    },
+    nameWithOwner
+    description
+    diskUsage
+    forkCount
+    homepageUrl
+    url
+    shortDescriptionHTML
+    licenseInfo {
+      nickname
+    }
+    primaryLanguage {
+      name
+      color
+    }
+		languages(first:5) {
+      nodes {
+        name
+        color
+      }
+    }
+    stargazers {
+      totalCount
+    }
+    forks {
+      totalCount
+    }
+    watchers {
+      totalCount
+    }
+    issues (states: OPEN){
+      totalCount
+    }
+  }
+}
