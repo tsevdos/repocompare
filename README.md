@@ -32,4 +32,4 @@ open http://localhost:8080
 
 ## License
 
-MIT John Tsevdos
+MIT [John Tsevdos](http://tsevdos.me)
