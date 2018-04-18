@@ -1,12 +1,10 @@
 import React from "react";
-import { ShareButtons } from "react-share";
-
-const {
+import {
   FacebookShareButton,
   GooglePlusShareButton,
   TwitterShareButton,
   RedditShareButton
-} = ShareButtons;
+} from "react-share";
 
 const aboutDivStyles = {
   margin: "1em 0",
