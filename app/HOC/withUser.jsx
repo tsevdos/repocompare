@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import firebase, { auth, provider } from "lib/firebase";
+import { auth, provider } from "lib/firebase";
 import Cookies from "js-cookie";
 
 function withUser(WrappedComponent) {
@@ -10,13 +10,9 @@ function withUser(WrappedComponent) {
     }
 
     componentDidMount() {
-      firebase.auth().onAuthStateChanged(user => {
+      auth.onAuthStateChanged(user => {
         if (user) {
           this.setState({ user });
-          window.user = user;
-          window.token = Cookies.get("token");
-          // console.log(Cookies.get("token"));
-          // console.log(user);
         }
       });
     }
@@ -37,9 +33,12 @@ function withUser(WrappedComponent) {
     };
 
     render() {
+      const isLoggedIn = Boolean(this.state.user && Cookies.get("token"));
+
       return (
         <WrappedComponent
           user={this.state.user}
+          isLoggedIn={isLoggedIn}
           loginUser={this.loginUser}
           logoutUser={this.logoutUser}
           {...this.props}

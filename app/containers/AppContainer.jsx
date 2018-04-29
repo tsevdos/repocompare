@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import qs from "qs";
 import { GitHubAutoComplete, Cards } from "components";
+import { Card, CardActions, CardHeader } from "material-ui/Card";
+import FlatButton from "material-ui/FlatButton";
+import withUser from "HOC/withUser.jsx";
 import { addRepoToUrl, removeRepoFromUrl } from "lib/helpers/urlHistory";
 
 class AppContainer extends Component {
@@ -89,6 +92,28 @@ class AppContainer extends Component {
 
   render() {
     const { searchterm, repos } = this.state;
+    const { isLoggedIn, loginUser } = this.props;
+
+    if (!isLoggedIn) {
+      return (
+        <div style={{ padding: "24px" }}>
+          <Card>
+            <CardHeader
+              title="Login to Github"
+              subtitle="Please login to Github and start comparing repositories"
+            />
+            <CardActions>
+              <FlatButton
+                label="Github Login"
+                onTouchTap={loginUser}
+                secondary={true}
+              />
+            </CardActions>
+          </Card>
+          <p />
+        </div>
+      );
+    }
 
     return (
       <div style={{ padding: "0 24px" }}>
@@ -103,4 +128,4 @@ class AppContainer extends Component {
   }
 }
 
-export default withRouter(AppContainer);
+export default withUser(withRouter(AppContainer));
