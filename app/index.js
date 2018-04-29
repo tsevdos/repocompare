@@ -8,7 +8,8 @@ import githubTheme from "typography-theme-github";
 import injectTapEventPlugin from "react-tap-event-plugin";
 import apolloClient from "./ApolloClient";
 import AppContainer from "containers/AppContainer";
-import { About, Header } from "components";
+import HeaderContainer from "containers/HeaderContainer";
+import { About } from "components";
 
 const typography = new Typography(githubTheme);
 typography.injectStyles();
@@ -22,7 +23,7 @@ ReactDOM.render(
     <MuiThemeProvider>
       <HashRouter>
         <div>
-          <Header />
+          <HeaderContainer />
           <Route exact path="/" component={AppContainer} />
           <Route exact path="/about" component={About} />
         </div>
