@@ -6,6 +6,7 @@ import FontIcon from "material-ui/FontIcon";
 import FlatButton from "material-ui/FlatButton";
 import IconMenu from "material-ui/IconMenu";
 import MenuItem from "material-ui/MenuItem";
+import withUser from "HOC/withUser.jsx";
 
 const loginIcon = (user, loginUser, logoutUser) => {
   if (user) {
@@ -69,4 +70,4 @@ const Header = ({ location, user, loginUser, logoutUser }) => (
   </AppBar>
 );
 
-export default withRouter(Header);
+export default withUser(withRouter(Header));
