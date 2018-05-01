@@ -25,7 +25,8 @@ function withUser(WrappedComponent) {
       });
     };
 
-    logoutUser = () => {
+    logoutUser = e => {
+      e.preventDefault();
       auth.signOut().then(() => {
         this.setState({ user: null });
         Cookies.remove("token");

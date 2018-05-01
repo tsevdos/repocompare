@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import qs from "qs";
-import { GitHubAutoComplete, Cards } from "components";
 import { Card, CardActions, CardHeader } from "material-ui/Card";
 import FlatButton from "material-ui/FlatButton";
+import { GitHubAutoComplete, Cards } from "components";
 import withUser from "HOC/withUser.jsx";
 import { addRepoToUrl, removeRepoFromUrl } from "lib/helpers/urlHistory";
 

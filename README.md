@@ -1,19 +1,20 @@
 # RepoCompare
+
 [![dependencies Status](https://david-dm.org/tsevdos/repocompare/status.svg)](https://david-dm.org/tsevdos/repocompare)
 [![devDependencies Status](https://david-dm.org/tsevdos/repocompare/dev-status.svg)](https://david-dm.org/tsevdos/repocompare?type=dev)
 [![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/repocompare/Lobby)
 
 > A React powered single page application that you can easily compare [Github](https://github.com) repositories. You can view the site on [repocompare.io](http://repocompare.io).
 
-## App details
+## Technologies
 
-### [Live App](http://repocompare.io/)
+App is live and well at [repocompare.io](http://repocompare.io/)
 
+* [Firebase](https://firebase.google.com/) (Firebase Authentication) for handling [Github OAuth](https://developer.github.com/apps/building-oauth-apps/authorization-options-for-oauth-apps/)
+* [Apollo Client](https://www.apollographql.com/client/) for consuming [Github's GraphQL API](https://developer.github.com/v4/)
+* [React Router](https://github.com/ReactTraining/react-router) for routing
+* [Material-UI](https://www.material-ui.com/) for UI elements
 * Bundled with [webpack](https://webpack.github.io/)
-* State management by [Redux](http://redux.js.org/)
-* Routing by [React Router](https://github.com/ReactTraining/react-router)
-* Made responsive with [Twitter Bootstrap](http://getbootstrap.com/)
-* Uses [CSS Modules](https://github.com/css-modules/css-modules)
 * Tested with [Jest](https://facebook.github.io/jest/)
 
 ## Run locally
