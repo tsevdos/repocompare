@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "description": "A React powered single page application that you can easily compare Github repositories.",
   "scripts": {
-    "start": "webpack-dev-server --hot --inline --progress --colors --watch",
-    "build": "webpack -p --progress",
+    "start": "webpack-dev-server --mode development --hot --inline --progress --colors --watch",
+    "build": "webpack --mode production",
     "test": "jest",
     "test:watch": "npm test -- --watch",
     "lint": "eslint --ext .jsx --ext .js app",
@@ -48,8 +48,9 @@
     "jest-cli": "22.4.3",
     "prettier": "1.12.1",
     "style-loader": "0.21.0",
-    "webpack": "3.10.0",
-    "webpack-dev-server": "2.11.2"
+    "webpack": "4.16.1",
+    "webpack-cli": "3.0.8",
+    "webpack-dev-server": "3.1.4"
   },
   "dependencies": {
     "apollo-client-preset": "1.0.8",
