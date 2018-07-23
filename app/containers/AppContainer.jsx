@@ -105,7 +105,7 @@ class AppContainer extends Component {
             <CardActions>
               <FlatButton
                 label="Github Login"
-                onTouchTap={loginUser}
+                onClick={loginUser}
                 secondary={true}
               />
             </CardActions>

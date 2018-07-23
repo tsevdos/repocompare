@@ -132,7 +132,7 @@ const CardInfo = ({ repository, isHighlighted, removeRepo }) => {
         )}
         <FlatButton
           label="Remove Card"
-          onTouchTap={e => removeRepo(nameWithOwner)}
+          onClick={e => removeRepo(nameWithOwner)}
           secondary={true}
         />
       </CardActions>

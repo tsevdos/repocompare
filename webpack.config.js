@@ -1,5 +1,6 @@
 const webpack = require("webpack");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const path = require("path");
 
 // Set up PATHS constants
@@ -54,7 +55,6 @@ const htmlPlugin = new HtmlWebPackPlugin({
 });
 
 module.exports = (_env, argv) => {
-
   if (argv.mode === "development") {
     config.mode = "development";
     config.devtool = "cheap-module-inline-source-map";
@@ -72,6 +72,9 @@ module.exports = (_env, argv) => {
         }
       })
     ];
+    config.optimization = {
+      minimizer: [new UglifyJsPlugin()]
+    };
   }
 
   return Object.assign({}, config);
