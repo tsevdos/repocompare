@@ -11,7 +11,7 @@ const cardStyle = {
   margin: "0 0 1.5em"
 };
 
-const CardWrapper = ({ data, id, owner, name, isHighlighted, removeRepo }) => {
+const CardWrapper = ({ data, id, isHighlighted, removeRepo }) => {
   const { loading, error, repository } = data;
 
   if (loading) {
@@ -28,7 +28,7 @@ const CardWrapper = ({ data, id, owner, name, isHighlighted, removeRepo }) => {
         <CardActions>
           <FlatButton
             label="Remove Card"
-            onTouchTap={removeRepo}
+            onClick={removeRepo}
             secondary={true}
           />
           <br style={{ clear: "both" }} />
