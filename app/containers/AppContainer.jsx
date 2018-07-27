@@ -1,11 +1,23 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import qs from "qs";
-import { Card, CardActions, CardHeader } from "material-ui/Card";
-import FlatButton from "material-ui/FlatButton";
+import { withStyles } from "@material-ui/core/styles";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import CardActions from "@material-ui/core/CardActions";
+import Button from "@material-ui/core/Button";
 import { GitHubAutoComplete, Cards } from "components";
 import withUser from "HOC/withUser.jsx";
 import { addRepoToUrl, removeRepoFromUrl } from "lib/helpers/urlHistory";
+
+const styles = (theme) => ({
+  root: {
+    flexGrow: 1,
+    padding: theme.spacing.unit * 2
+  }
+});
 
 class AppContainer extends Component {
   constructor(props) {
@@ -92,40 +104,42 @@ class AppContainer extends Component {
 
   render() {
     const { searchterm, repos } = this.state;
-    const { isLoggedIn, loginUser } = this.props;
-
-    if (!isLoggedIn) {
-      return (
-        <div style={{ padding: "24px" }}>
-          <Card>
-            <CardHeader
-              title="Login to Github"
-              subtitle="Please login to Github and start comparing repositories"
-            />
-            <CardActions>
-              <FlatButton
-                label="Github Login"
-                onClick={loginUser}
-                secondary={true}
-              />
-            </CardActions>
-          </Card>
-          <p />
-        </div>
-      );
-    }
+    const { isLoggedIn, loginUser, classes } = this.props;
 
     return (
-      <div style={{ padding: "0 24px" }}>
-        <GitHubAutoComplete
-          searchterm={searchterm}
-          onUpdateInput={this.searchRepositories}
-          onNewRequest={this.addRepo}
-        />
-        <Cards repos={repos} removeRepo={this.removeRepo} />
+      <div className={classes.root}>
+        <Grid container spacing={16}>
+        {
+          (!isLoggedIn) ?
+            <Grid item xs={12} md={6}>
+              <Card>
+                <CardContent>
+                  <Typography gutterBottom variant="headline" component="h2">
+                    Login to Github
+                  </Typography>
+                  <Typography gutterBottom variant="subheading" component="p">
+                    Please login to Github and start comparing repositories
+                  </Typography>
+                </CardContent>
+                <CardActions>
+                  <Button color="primary" onClick={loginUser}>Login</Button>
+                </CardActions>
+              </Card>
+            </Grid>
+          :
+            <Grid item xs={12}>
+              {/* <GitHubAutoComplete
+                searchterm={searchterm}
+                onUpdateInput={this.searchRepositories}
+                onNewRequest={this.addRepo}
+              />*/}
+              <Cards repos={repos} removeRepo={this.removeRepo} />
+            </Grid>
+        }
+        </Grid>
       </div>
     );
   }
 }
 
-export default withUser(withRouter(AppContainer));
+export default withRouter(withUser(withStyles(styles)(AppContainer)));

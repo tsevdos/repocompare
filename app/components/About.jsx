@@ -1,9 +1,8 @@
 import React from "react";
+import Typography from "@material-ui/core/Typography";
 import {
-  FacebookShareButton,
-  GooglePlusShareButton,
-  TwitterShareButton,
-  RedditShareButton
+  FacebookShareButton, GooglePlusShareButton,
+  TwitterShareButton, RedditShareButton
 } from "react-share";
 
 const aboutDivStyles = {
@@ -11,27 +10,32 @@ const aboutDivStyles = {
   padding: "0 24px"
 };
 
-const shareButtonStyles = {
+const shareContainerStyles = {
   display: "inline-block",
   marginRight: "10px"
 };
 
+const shareLink = {
+  fontWeight: "bold",
+  textDecoration: "none"
+};
+
 const About = () => (
   <div style={aboutDivStyles}>
-    <h2>About</h2>
-    <p>
-      RepoCompare is a pet project made with love by
+    <Typography variant="title" gutterBottom>About</Typography>
+    <Typography paragraph gutterBottom>
+      RepoCompare is a pet project made with love by&nbsp;
       <a target="_blank" rel="noopener noreferrer" href="http://tsevdos.me">
         John Tsevdos
-      </a>. Feel free to
+      </a>. Feel free to&nbsp;
       <a
         target="_blank"
         rel="noopener noreferrer"
         href="https://github.com/tsevdos/repocompare"
       >
         contribute
-      </a>
-      or request
+      </a>&nbsp;
+      or request &nbsp;
       <a
         target="_blank"
         rel="noopener noreferrer"
@@ -39,17 +43,17 @@ const About = () => (
       >
         a feature
       </a>.
-    </p>
-    <h2>How to use</h2>
-    <p>
-      Just search and add as many Github repositories as you like using the
+    </Typography>
+    <Typography variant="title" gutterBottom>How to use</Typography>
+    <Typography paragraph gutterBottom>
+      Just search and add as many Github repositories as you like using the&nbsp;
       <code>username/repository name</code> pattern on the search form. Then
       compare the repos with ease on things that matter such as stars, forks,
       open issues and other helpful details!
-    </p>
-    <h2>Share</h2>
-    <FacebookShareButton url="http://repocompare.io" style={shareButtonStyles}>
-      <a href="#facebook" style={{ color: "#3b5998" }}>
+    </Typography>
+    <Typography variant="title" gutterBottom>Share</Typography>
+    <FacebookShareButton url="http://repocompare.io" style={shareContainerStyles}>
+      <a href="#facebook" style={Object.assign({ color: "#3b5998" }, shareLink)}>
         Facebook
       </a>
     </FacebookShareButton>
@@ -57,26 +61,26 @@ const About = () => (
       title="Compare Github repositories"
       via="tsevdos"
       url="http://repocompare.io"
-      style={shareButtonStyles}
+      style={shareContainerStyles}
     >
-      <a href="#twitter" style={{ color: "#00b6f1" }}>
+      <a href="#twitter" style={Object.assign({ color: "#00b6f1" }, shareLink)}>
         Twitter
       </a>
     </TwitterShareButton>
     <GooglePlusShareButton
       url="http://repocompare.io"
-      style={shareButtonStyles}
+      style={shareContainerStyles}
     >
-      <a href="#googleplus" style={{ color: "#df4a32" }}>
+      <a href="#googleplus" style={Object.assign({ color: "#df4a32" }, shareLink)}>
         Google+
       </a>
     </GooglePlusShareButton>
     <RedditShareButton
       title="Compare Github repositories"
       url="http://repocompare.io"
-      style={shareButtonStyles}
+      style={shareContainerStyles}
     >
-      <a href="#reddit" style={{ color: "#ff5700" }}>
+      <a href="#reddit" style={Object.assign({ color: "#ff5700" }, shareLink)}>
         Reddit
       </a>
     </RedditShareButton>

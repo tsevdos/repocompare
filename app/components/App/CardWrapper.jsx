@@ -2,14 +2,13 @@ import React from "react";
 import PropTypes from "prop-types";
 import { graphql } from "react-apollo";
 import repositoryDetails from "queries/repositoryDetails.gql";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import CardActions from "@material-ui/core/CardActions";
+import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
 import Loader from "./Loader";
 import CardInfo from "./CardInfo";
-import { Card, CardActions, CardTitle, CardText } from "material-ui/Card";
-import FlatButton from "material-ui/FlatButton";
-
-const cardStyle = {
-  margin: "0 0 1.5em"
-};
 
 const CardWrapper = ({ data, id, isHighlighted, removeRepo }) => {
   const { loading, error, repository } = data;
@@ -20,19 +19,18 @@ const CardWrapper = ({ data, id, isHighlighted, removeRepo }) => {
 
   if (error) {
     return (
-      <Card style={cardStyle}>
-        <CardTitle title="Error" />
-        <CardText>
-          Repository {`${id}`} cannot be found! Please ensure it exists!
-        </CardText>
-        <CardActions>
-          <FlatButton
-            label="Remove Card"
-            onClick={removeRepo}
-            secondary={true}
-          />
-          <br style={{ clear: "both" }} />
-        </CardActions>
+      <Card>
+        <CardContent>
+          <Typography gutterBottom variant="headline" component="h2">
+            Error
+          </Typography>
+          <Typography gutterBottom variant="subheading" component="p">
+            Repository {`${id}`} cannot be found! Please ensure it exists!
+          </Typography>
+          <CardActions>
+            <Button color="secondary" onClick={removeRepo}>Remove Card</Button>
+          </CardActions>
+        </CardContent>
       </Card>
     );
   }

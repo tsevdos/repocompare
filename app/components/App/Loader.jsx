@@ -1,18 +1,26 @@
 import React from "react";
-import { Card, CardTitle, CardText } from "material-ui/Card";
-import CircularProgress from "material-ui/CircularProgress";
+import { withStyles } from "@material-ui/core/styles";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Typography from "@material-ui/core/Typography";
 
-const cardTextStyle = {
-  textAlign: "center"
-};
+const styles = (theme) => ({
+  root: {
+    textAlign: "center"
+  },
+  progress: {
+    margin: theme.spacing.unit * 2
+  }
+});
 
-const Loader = () => (
+const Loader = ({ classes }) => (
   <Card>
-    <CardTitle title="Loading..." />
-    <CardText style={cardTextStyle}>
-      <CircularProgress size={80} thickness={5} />
-    </CardText>
+    <CardContent className={classes.root}>
+      <CircularProgress className={classes.progress} size={50} />
+      <Typography component="p">Loading...</Typography>
+    </CardContent>
   </Card>
 );
 
-export default Loader;
+export default withStyles(styles)(Loader);
