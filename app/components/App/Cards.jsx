@@ -8,7 +8,7 @@ import CardWrapper from "./CardWrapper";
 
 const Cards = ({ repos, removeRepo }) => {
   return (
-    <div>
+    <Grid container spacing={16}>
     {
       repos.length ?
         repos.map(repo => (
@@ -35,7 +35,7 @@ const Cards = ({ repos, removeRepo }) => {
           </Card>
         </Grid>
     }
-    </div>
+    </Grid>
   );
 };
 

@@ -42,7 +42,8 @@ const config = {
   devServer: {
     hot: true,
     inline: true,
-    port: 8080
+    port: 8080,
+    overlay: true
   }
 };
 
