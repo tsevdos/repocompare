@@ -1,34 +1,41 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Card, CardHeader, CardText } from "material-ui/Card";
-import { Row, Col } from "react-flexbox-grid";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
 import CardWrapper from "./CardWrapper";
 
 const Cards = ({ repos, removeRepo }) => {
   return (
-    <Row>
-      {repos.length ? (
+    <Grid container spacing={16}>
+    {
+      repos.length ?
         repos.map(repo => (
-          <Col xs={12} sm={6} md={4} lg={4} key={repo.id}>
+          <Grid item xs={12} sm={6} md={4} key={repo.id}>
             <CardWrapper
               owner={repo.owner}
               name={repo.name}
               isHighlighted={repo.isHighlighted}
-              removeRepo={removeRepo}
+              removeRepo={() => removeRepo(repo.id)}
             />
-          </Col>
+          </Grid>
         ))
-      ) : (
-        <Col xs={12} sm={6} md={4} lg={4}>
+      :
+        <Grid item xs={12} md={6}>
           <Card>
-            <CardHeader title="No repositories" />
-            <CardText>
-              Please add repositories using the above autocomplete.
-            </CardText>
+            <CardContent>
+              <Typography gutterBottom variant="headline" component="h2">
+                No repositories
+              </Typography>
+              <Typography gutterBottom variant="subheading" component="p">
+                Please add repositories using the above autocomplete.
+              </Typography>
+            </CardContent>
           </Card>
-        </Col>
-      )}
-    </Row>
+        </Grid>
+    }
+    </Grid>
   );
 };
 

@@ -1,11 +1,26 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
-import qs from "qs";
-import { Card, CardActions, CardHeader } from "material-ui/Card";
-import FlatButton from "material-ui/FlatButton";
+import { withStyles } from "@material-ui/core/styles";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import CardActions from "@material-ui/core/CardActions";
+import Button from "@material-ui/core/Button";
+import Divider from "@material-ui/core/Divider";
 import { GitHubAutoComplete, Cards } from "components";
 import withUser from "HOC/withUser.jsx";
-import { addRepoToUrl, removeRepoFromUrl } from "lib/helpers/urlHistory";
+import { mapReposToURL } from "lib/helpers/urlHistory";
+
+const styles = (theme) => ({
+  root: {
+    flexGrow: 1,
+    padding: theme.spacing.unit * 2
+  },
+  divider: {
+    margin: `${theme.spacing.unit * 2}px 0`
+  }
+});
 
 class AppContainer extends Component {
   constructor(props) {
@@ -16,8 +31,8 @@ class AppContainer extends Component {
     };
 
     this.searchRepositories = this.searchRepositories.bind(this);
-    this.addRepo = this.addRepo.bind(this);
     this.removeRepo = this.removeRepo.bind(this);
+    this.handleReposChange = this.handleReposChange.bind(this);
   }
 
   componentDidMount() {
@@ -28,7 +43,6 @@ class AppContainer extends Component {
         search: "?repos=tsevdos/repocompare"
       });
     }
-
     const reposOnUrlQuery = this._getReposOnSearchQueryUrl().map(name =>
       this._getRepo(name)
     );
@@ -39,30 +53,17 @@ class AppContainer extends Component {
     this.setState({ searchterm: query });
   }
 
-  addRepo(reponame) {
-    const repoToAdd = this._getRepo(reponame);
-    const existingRepoIndex = this.state.repos.findIndex(
-      repo => repo.id === repoToAdd.id
-    );
-
-    if (existingRepoIndex > -1) {
-      this.markRepoHighlighted(existingRepoIndex);
-    } else {
-      const newRepos = this.state.repos.slice();
-      newRepos.push(repoToAdd);
-
-      this.setState({ repos: newRepos });
-      addRepoToUrl(repoToAdd.id, this.props.history);
-    }
-
-    this.setState({ searchterm: "" });
-  }
-
   removeRepo(repoId) {
     const newRepos = this.state.repos.filter(repo => repo.id !== repoId);
-
     this.setState({ repos: newRepos });
-    removeRepoFromUrl(repoId, this.props.history);
+
+    mapReposToURL(newRepos, this.props.history);
+  }
+
+  handleReposChange(repos) {
+    const newRepos = repos.map(({ value }) => this._getRepo(value));
+    this.setState({ repos: newRepos });
+    mapReposToURL(newRepos, this.props.history);
   }
 
   markRepoHighlighted(repoIndex) {
@@ -79,9 +80,9 @@ class AppContainer extends Component {
 
   _getReposOnSearchQueryUrl() {
     const { history } = this.props;
-    const urlQuery = qs.parse(history.location.search.substr(1));
+    const urlQuery = history.location.search.substr(1).replace('repos=', '');
 
-    return urlQuery.repos.split(",");
+    return urlQuery.split(",");
   }
 
   _toggleRepoHighlight(repoIndex) {
@@ -92,40 +93,44 @@ class AppContainer extends Component {
 
   render() {
     const { searchterm, repos } = this.state;
-    const { isLoggedIn, loginUser } = this.props;
-
-    if (!isLoggedIn) {
-      return (
-        <div style={{ padding: "24px" }}>
-          <Card>
-            <CardHeader
-              title="Login to Github"
-              subtitle="Please login to Github and start comparing repositories"
-            />
-            <CardActions>
-              <FlatButton
-                label="Github Login"
-                onClick={loginUser}
-                secondary={true}
-              />
-            </CardActions>
-          </Card>
-          <p />
-        </div>
-      );
-    }
+    const { isLoggedIn, loginUser, classes } = this.props;
 
     return (
-      <div style={{ padding: "0 24px" }}>
-        <GitHubAutoComplete
-          searchterm={searchterm}
-          onUpdateInput={this.searchRepositories}
-          onNewRequest={this.addRepo}
-        />
-        <Cards repos={repos} removeRepo={this.removeRepo} />
+      <div className={classes.root}>
+        <Grid container spacing={16}>
+        {
+          (!isLoggedIn) ?
+            <Grid item xs={12} md={6}>
+              <Card>
+                <CardContent>
+                  <Typography gutterBottom variant="headline" component="h2">
+                    Login to Github
+                  </Typography>
+                  <Typography gutterBottom variant="subheading" component="p">
+                    Please login to Github and start comparing repositories
+                  </Typography>
+                </CardContent>
+                <CardActions>
+                  <Button color="primary" onClick={loginUser}>Login</Button>
+                </CardActions>
+              </Card>
+            </Grid>
+          :
+            <Grid item xs={12}>
+              <GitHubAutoComplete
+                repos={repos}
+                searchterm={searchterm}
+                onUpdateInput={this.searchRepositories}
+                onSelectChange={this.handleReposChange}
+              />
+              <Divider className={classes.divider} />
+              <Cards repos={repos} removeRepo={this.removeRepo} />
+            </Grid>
+        }
+        </Grid>
       </div>
     );
   }
 }
 
-export default withUser(withRouter(AppContainer));
+export default withRouter(withUser(withStyles(styles)(AppContainer)));

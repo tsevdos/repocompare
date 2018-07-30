@@ -1,141 +1,92 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { withRouter } from "react-router-dom";
-import {
-  Card,
-  CardActions,
-  CardHeader,
-  CardTitle,
-  CardText
-} from "material-ui/Card";
-import { List, ListItem } from "material-ui/List";
-import FlatButton from "material-ui/FlatButton";
-import FontIcon from "material-ui/FontIcon";
+import { withStyles } from "@material-ui/core/styles";
+import Card from "@material-ui/core/Card";
+import CardHeader from "@material-ui/core/CardHeader";
+import CardContent from "@material-ui/core/CardContent";
+import CardActions from "@material-ui/core/CardActions";
+import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
+import Avatar from "@material-ui/core/Avatar";
+import Divider from "@material-ui/core/Divider";
+import CircleIcon from "@material-ui/icons/Lens";
 
-const titleStyle = {
-  paddingTop: "0"
-};
+const styles = (theme) => ({
+  cardHeader: {
+    cursor: "pointer"
+  },
+  divider: {
+    margin: `${theme.spacing.unit * 2}px 0`
+  }
+});
 
-const cardStyle = {
-  margin: "0 0 1.5em"
-};
-
-const highlightedCardStyle = {
-  background: "#b3e5fc",
-  margin: "0 0 1.5em"
-};
-
-const cardTextStyle = {
-  paddingTop: 0,
-  paddingBottom: 0
-};
-
-const listStyle = {
-  padding: 0
-};
-
-const listItemStyle = {
-  padding: "5px 0",
-  fontSize: "1.2em"
-};
-
-const listIconStyle = {
-  fontSize: "1em"
-};
-
-const CardInfo = ({ repository, isHighlighted, removeRepo }) => {
+const CardInfo = ({ repository, isHighlighted, removeRepo, classes }) => {
   const {
-    owner,
-    nameWithOwner,
-    description,
-    stargazers,
-    forks,
-    issues,
-    watchers,
-    url,
-    homepageUrl,
-    diskUsage,
-    licenseInfo,
-    languages
+    owner, nameWithOwner, description, stargazers, forks, issues,
+    watchers, url, homepageUrl, diskUsage, licenseInfo, languages
   } = repository;
 
   return (
-    <Card style={isHighlighted ? highlightedCardStyle : cardStyle}>
+    <Card>
       <CardHeader
+        avatar={<Avatar alt={owner.login} src={owner.avatarUrl} />}
         title={owner.login}
-        subtitle={owner.__typename}
-        avatar={owner.avatarUrl}
-        style={{ cursor: "pointer" }}
+        subheader={owner.__typename}
         onClick={() => window.open(owner.url)}
+        className={classes.cardHeader}
       />
-      <CardTitle
-        title={nameWithOwner}
-        subtitle={description}
-        style={titleStyle}
-      />
-      <CardText style={cardTextStyle}>
-        <List style={listStyle}>
-          <ListItem style={listItemStyle} disabled={true}>
-            Stars: <strong>{stargazers.totalCount.toLocaleString()}</strong>
-          </ListItem>
-          <ListItem style={listItemStyle} disabled={true}>
-            Forks: <strong>{forks.totalCount.toLocaleString()}</strong>
-          </ListItem>
-          <ListItem style={listItemStyle} disabled={true}>
-            Open Issues: <strong>{issues.totalCount.toLocaleString()}</strong>
-          </ListItem>
-          <ListItem style={listItemStyle} disabled={true}>
-            Subscribers: <strong>{watchers.totalCount.toLocaleString()}</strong>
-          </ListItem>
+      <CardContent>
+        <Typography gutterBottom variant="headline" component="h2">
+          {nameWithOwner}
+        </Typography>
+        <Typography gutterBottom component="p">
+          {description}
+        </Typography>
 
-          <ListItem style={listItemStyle} disabled={true}>
-            Repository file size: <strong>{diskUsage} KB</strong>
-          </ListItem>
-          {licenseInfo.nickname && (
-            <ListItem style={listItemStyle} disabled={true}>
+        <Divider className={classes.divider} />
+
+        <Typography gutterBottom variant="subheading" component="p">
+          Stars: <strong>{stargazers.totalCount.toLocaleString()}</strong>
+        </Typography>
+        <Typography gutterBottom variant="subheading" component="p">
+          Forks: <strong>{forks.totalCount.toLocaleString()}</strong>
+        </Typography>
+        <Typography gutterBottom variant="subheading" component="p">
+          Open Issues: <strong>{issues.totalCount.toLocaleString()}</strong>
+        </Typography>
+        <Typography gutterBottom variant="subheading" component="p">
+          Subscribers: <strong>{watchers.totalCount.toLocaleString()}</strong>
+        </Typography>
+        <Typography gutterBottom variant="subheading" component="p">
+          Repository file size: <strong>{diskUsage} KB</strong>
+        </Typography>
+        {
+          licenseInfo.nickname &&
+            <Typography gutterBottom variant="subheading" component="p">
               License: <strong>{licenseInfo.nickname}</strong>
-            </ListItem>
-          )}
-
-          <ListItem style={listItemStyle} disabled={true}>
-            Languages:&nbsp;
-            {languages.nodes.map(language => (
+            </Typography>
+        }
+        <Typography gutterBottom variant="subheading" component="p">
+          Languages:&nbsp;
+          {
+            languages.nodes.map(language => (
               <span key={language.name}>
-                <FontIcon
-                  className="material-icons"
-                  color={language.color}
-                  style={listIconStyle}
-                >
-                  lens
-                </FontIcon>
-                &nbsp;<strong>{language.name}</strong>&nbsp;
-              </span>
-            ))}
-          </ListItem>
-        </List>
-      </CardText>
+                <CircleIcon style={{color: language.color}} fontSize="inherit" />
+                  &nbsp;<strong>{language.name}</strong>&nbsp;
+                </span>
+              ))
+          }
+        </Typography>
 
-      <CardActions>
-        <FlatButton
-          href={url}
-          label="Repository"
-          target="_blank"
-          primary={true}
-        />
-        {homepageUrl && (
-          <FlatButton
-            href={homepageUrl}
-            label="Site"
-            target="_blank"
-            primary={true}
-          />
-        )}
-        <FlatButton
-          label="Remove Card"
-          onClick={e => removeRepo(nameWithOwner)}
-          secondary={true}
-        />
-      </CardActions>
+        <CardActions>
+          <Button color="primary" href={url} target="_blank">Repository</Button>
+          {
+            homepageUrl &&
+              <Button color="primary" href={homepageUrl} target="_blank" >Homepage</Button>
+          }
+          <Button color="secondary" onClick={e => removeRepo(nameWithOwner)}>Delete</Button>
+        </CardActions>
+      </CardContent>
     </Card>
   );
 };
@@ -145,4 +96,4 @@ CardInfo.propTypes = {
   removeRepo: PropTypes.func.isRequired
 };
 
-export default withRouter(CardInfo);
+export default withStyles(styles)(CardInfo);
