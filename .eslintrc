@@ -23,6 +23,11 @@
     "plugin:jsx-a11y/recommended"
   ],
   "rules": {
-
+    "max-len": ["error", {"code": 80, "ignoreUrls": true}],
+    "no-mixed-operators": "error",
+    "no-tabs": "error",
+    "jsx-quotes": ["error", "prefer-double"],
+    "quotes": ["error", "double"],
+    "object-curly-spacing": ["error", "always"]
   }
 }
