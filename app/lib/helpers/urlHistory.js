@@ -1,42 +1,11 @@
-import qs from "qs";
-
-const removeRepoFromUrl = (repoId, history) => {
-  const { location } = history;
-  const urlRepos = qs.parse(location.search.substr(1));
-  const repos = urlRepos.repos.split(",") || [];
-  const repoToRemoveIndex = repos.indexOf(repoId);
-
-  if (repoToRemoveIndex !== -1) {
-    repos.splice(repoToRemoveIndex, 1);
-  }
-
+const mapReposToURL = (repos, history) => {
   if (repos.length === 0) {
     clearUrlQuery(history);
-  } else {
-    const newQuery = `?repos=${repos.join(",")}`;
-    replaceUrlQuery(history, newQuery);
+    return;
   }
 
-  return repos;
-};
-
-const addRepoToUrl = (repoId, history) => {
-  const { location } = history;
-  const urlRepos = qs.parse(location.search.substr(1));
-  const repos = urlRepos.repos ? urlRepos.repos.split(",") : [];
-
-  if (repos.length === 0) {
-    const newQuery = `?repos=${repoId}`;
-    replaceUrlQuery(history, newQuery);
-  } else {
-    const repoIsAlreadyInUrl = repos.filter(repoName => repoName === repoId);
-    const newQuery = repoIsAlreadyInUrl.length
-      ? location.search
-      : `${location.search},${repoId}`;
-    replaceUrlQuery(history, newQuery);
-  }
-
-  return repos;
+  const query = repos.map(({id}) => id).join(',');
+  replaceUrlQuery(history, `?repos=${query}`);
 };
 
 const replaceUrlQuery = (history, query) => {
@@ -53,4 +22,4 @@ const clearUrlQuery = history => {
   });
 };
 
-export { addRepoToUrl, removeRepoFromUrl };
+export { mapReposToURL };

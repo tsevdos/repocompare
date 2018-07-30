@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
-import qs from "qs";
 import { withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
@@ -8,14 +7,18 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import Button from "@material-ui/core/Button";
+import Divider from "@material-ui/core/Divider";
 import { GitHubAutoComplete, Cards } from "components";
 import withUser from "HOC/withUser.jsx";
-import { addRepoToUrl, removeRepoFromUrl } from "lib/helpers/urlHistory";
+import { mapReposToURL } from "lib/helpers/urlHistory";
 
 const styles = (theme) => ({
   root: {
     flexGrow: 1,
     padding: theme.spacing.unit * 2
+  },
+  divider: {
+    margin: `${theme.spacing.unit * 2}px 0`
   }
 });
 
@@ -28,8 +31,8 @@ class AppContainer extends Component {
     };
 
     this.searchRepositories = this.searchRepositories.bind(this);
-    this.addRepo = this.addRepo.bind(this);
     this.removeRepo = this.removeRepo.bind(this);
+    this.handleReposChange = this.handleReposChange.bind(this);
   }
 
   componentDidMount() {
@@ -40,7 +43,6 @@ class AppContainer extends Component {
         search: "?repos=tsevdos/repocompare"
       });
     }
-
     const reposOnUrlQuery = this._getReposOnSearchQueryUrl().map(name =>
       this._getRepo(name)
     );
@@ -51,30 +53,17 @@ class AppContainer extends Component {
     this.setState({ searchterm: query });
   }
 
-  addRepo(reponame) {
-    const repoToAdd = this._getRepo(reponame);
-    const existingRepoIndex = this.state.repos.findIndex(
-      repo => repo.id === repoToAdd.id
-    );
-
-    if (existingRepoIndex > -1) {
-      this.markRepoHighlighted(existingRepoIndex);
-    } else {
-      const newRepos = this.state.repos.slice();
-      newRepos.push(repoToAdd);
-
-      this.setState({ repos: newRepos });
-      addRepoToUrl(repoToAdd.id, this.props.history);
-    }
-
-    this.setState({ searchterm: "" });
-  }
-
   removeRepo(repoId) {
     const newRepos = this.state.repos.filter(repo => repo.id !== repoId);
-
     this.setState({ repos: newRepos });
-    removeRepoFromUrl(repoId, this.props.history);
+
+    mapReposToURL(newRepos, this.props.history);
+  }
+
+  handleReposChange(repos) {
+    const newRepos = repos.map(({ value }) => this._getRepo(value));
+    this.setState({ repos: newRepos });
+    mapReposToURL(newRepos, this.props.history);
   }
 
   markRepoHighlighted(repoIndex) {
@@ -91,9 +80,9 @@ class AppContainer extends Component {
 
   _getReposOnSearchQueryUrl() {
     const { history } = this.props;
-    const urlQuery = qs.parse(history.location.search.substr(1));
+    const urlQuery = history.location.search.substr(1).replace('repos=', '');
 
-    return urlQuery.repos.split(",");
+    return urlQuery.split(",");
   }
 
   _toggleRepoHighlight(repoIndex) {
@@ -128,11 +117,13 @@ class AppContainer extends Component {
             </Grid>
           :
             <Grid item xs={12}>
-              {/* <GitHubAutoComplete
+              <GitHubAutoComplete
+                repos={repos}
                 searchterm={searchterm}
                 onUpdateInput={this.searchRepositories}
-                onNewRequest={this.addRepo}
-              />*/}
+                onSelectChange={this.handleReposChange}
+              />
+              <Divider className={classes.divider} />
               <Cards repos={repos} removeRepo={this.removeRepo} />
             </Grid>
         }
