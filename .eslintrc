@@ -15,26 +15,14 @@
   "plugins": [
     "react",
     "babel",
-    "jsx-a11y",
-    "prettier"
+    "jsx-a11y"
   ],
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
-    "plugin:jsx-a11y/recommended",
-    "standard",
-    "prettier",
-    "prettier/react"
+    "plugin:jsx-a11y/recommended"
   ],
   "rules": {
-    "no-case-declarations": 0,
-    "prettier/prettier": "error",
-    "max-len": ["error", {"code": 80, "ignoreUrls": true}],
-    "no-mixed-operators": "error",
-    "no-tabs": "error",
-    "quotes": 0,
-    "operator-linebreak": 0,
-    "jsx-a11y/anchor-has-content": 0,
-    "react/prop-types": 0
+
   }
 }

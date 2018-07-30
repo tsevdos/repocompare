@@ -24,11 +24,6 @@ const config = {
         include: PATHS.app
       },
       {
-        test: /\.css$/,
-        loader: "style-loader!css-loader",
-        include: /flexboxgrid/
-      },
-      {
         test: /\.(graphql|gql)$/,
         exclude: /node_modules/,
         loader: "graphql-tag/loader"

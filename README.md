@@ -10,11 +10,13 @@
 
 App is live and well at [repocompare.io](http://repocompare.io/)
 
+* [React](https://facebook.github.io/react/) for building and rendering components
 * [Firebase](https://firebase.google.com/) (Firebase Authentication) for handling [Github OAuth](https://developer.github.com/apps/building-oauth-apps/authorization-options-for-oauth-apps/)
 * [Apollo Client](https://www.apollographql.com/client/) for consuming [Github's GraphQL API](https://developer.github.com/v4/)
+* [Material-UI](https://www.material-ui.com/) for UI components and elements
 * [React Router](https://github.com/ReactTraining/react-router) for routing
-* [Material-UI](https://www.material-ui.com/) for UI elements
-* Bundled with [webpack](https://webpack.github.io/)
+* [Babel.js](https://babeljs.io/) for using ES6 features, compiling JSX, etc.
+* [Webpack](https://webpack.github.io/) for building and bundling
 * Tested with [Jest](https://facebook.github.io/jest/)
 
 ## Run locally
@@ -26,10 +28,6 @@ npm install
 npm start
 open http://localhost:8080
 ```
-
-[![Standard - JavaScript Style Guide](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
-
-[![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
 ## License
 
