@@ -8,7 +8,8 @@ import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import Button from "@material-ui/core/Button";
 import Divider from "@material-ui/core/Divider";
-import { GitHubAutoComplete, Cards } from "components";
+import GitHubAutoComplete from "components/GitHubAutoComplete";
+import Cards from "components/Cards/Cards";
 import styles from "./styles";
 
 const App = ({

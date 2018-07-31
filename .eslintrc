@@ -28,6 +28,7 @@
     "no-tabs": "error",
     "jsx-quotes": ["error", "prefer-double"],
     "quotes": ["error", "double"],
-    "object-curly-spacing": ["error", "always"]
+    "object-curly-spacing": ["error", "always"],
+    "react/prop-types": ["error", { "skipUndeclared": true }]
   }
 }

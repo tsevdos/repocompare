@@ -7,7 +7,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import Loader from "./Loader";
+import Loader from "components/Loader";
 import CardInfo from "./CardInfo";
 
 const CardWrapper = ({ data, id, isHighlighted, removeRepo }) => {

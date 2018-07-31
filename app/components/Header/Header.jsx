@@ -1,8 +1,6 @@
-import React, { Component } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import { withRouter, Link } from "react-router-dom";
-import withUser from "HOC/withUser.jsx";
-import { withStyles } from "@material-ui/core/styles";
+import { Link } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
@@ -14,105 +12,89 @@ import HomeIcon from "@material-ui/icons/Home";
 import PersonIcon from "@material-ui/icons/Person";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Avatar from "@material-ui/core/Avatar";
-import styles from "./styles";
 
-class Header extends Component {
-  static propTypes = {
-    location: PropTypes.object.isRequired,
-    user: PropTypes.object,
-    classes: PropTypes.object.isRequired,
-    loginUser: PropTypes.func.isRequired,
-    logoutUser: PropTypes.func.isRequired,
-  };
-
-  state = {
-    anchorEl: null
-  };
-
-  handleIconClick = (e) => {
-    this.setState({ anchorEl: e.currentTarget });
-  }
-
-  handleGoToURLAndCloseMenu = (url) => {
-    window.open(url, "_blank");
-    this.setState({ anchorEl: null });
-  }
-
-  handleCloseMenu = () => {
-    this.setState({ anchorEl: null });
-  }
-
-  render() {
-    const { location, user, loginUser, logoutUser, classes } = this.props;
-    const { anchorEl } = this.state;
-
-    return (
-      <div className={classes.root}>
-        <AppBar position="static">
-          <Toolbar>
-            <IconButton
+const Header = ({
+  location, user, loginUser, logoutUser, classes, anchorEl,
+  handleIconClick, handleCloseMenu, handleGoToURLAndCloseMenu
+}) => {
+  return (
+    <div className={classes.root}>
+      <AppBar position="static">
+        <Toolbar>
+          <IconButton
+            component={Link}
+            to={{ pathname: "/", search: location.search }}
+            className={classes.menuButton}
+            color="inherit"
+            aria-label="Home"
+          >
+            <HomeIcon />
+          </IconButton>
+          <Typography
+            variant="title"
+            color="inherit"
+            className={classes.flex}
+          >
+            RepoCompare
+          </Typography>
+          {
+            user ?
+              <div className={classes.avatarContainer}>
+                <Button color="inherit" onClick={logoutUser}>Logout</Button>
+                <Avatar
+                  className={classes.avatar}
+                  alt={user.displayName || user.email}
+                  src={user.photoURL}
+                />
+              </div>
+            :
+              <Button color="inherit" onClick={loginUser}>
+                Login
+                <PersonIcon className={classes.rightIcon} />
+              </Button>
+          }
+          <IconButton
+            color="inherit"
+            aria-label="More options"
+            onClick={handleIconClick}
+          >
+            <MoreVertIcon />
+          </IconButton>
+          <Menu
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            onClose={handleCloseMenu}
+          >
+            <MenuItem
               component={Link}
-              to={{ pathname: "/", search: location.search }}
-              className={classes.menuButton}
-              color="inherit"
-              aria-label="Home"
+              to={{ pathname: "/about", search: location.search }}
+              onClick={handleCloseMenu}
             >
-              <HomeIcon />
-            </IconButton>
-            <Typography
-              variant="title"
-              color="inherit"
-              className={classes.flex}
+              About
+            </MenuItem>
+            <MenuItem
+              onClick={() =>
+                handleGoToURLAndCloseMenu("https://github.com/tsevdos/repocompare")}
             >
-              RepoCompare
-            </Typography>
-            {
-              user ?
-                  <div className={classes.avatarContainer}>
-                    <Button color="inherit" onClick={logoutUser}>Logout</Button>
-                    <Avatar
-                      className={classes.avatar}
-                      alt={user.displayName || user.email}
-                      src={user.photoURL}
-                    />
-                  </div>
-                :
-                  <Button color="inherit" onClick={loginUser}>
-                    Login
-                    <PersonIcon className={classes.rightIcon} />
-                  </Button>
-            }
-            <IconButton
-              color="inherit"
-              aria-label="More options"
-              onClick={this.handleIconClick}
-            >
-              <MoreVertIcon />
-            </IconButton>
-            <Menu
-              anchorEl={anchorEl}
-              open={Boolean(anchorEl)}
-              onClose={this.handleCloseMenu}
-            >
-              <MenuItem
-                component={Link}
-                to={{ pathname: "/about", search: location.search }}
-                onClick={this.handleCloseMenu}
-              >
-                About
-              </MenuItem>
-              <MenuItem
-                onClick={() =>
-                  this.handleGoToURLAndCloseMenu("https://github.com/tsevdos/repocompare")}
-              >
-                Github
-              </MenuItem>
-            </Menu>
-          </Toolbar>
-        </AppBar>
-      </div>
-    );
-  }
+              Github
+            </MenuItem>
+          </Menu>
+        </Toolbar>
+      </AppBar>
+    </div>
+  );
 }
 
-export default withRouter(withUser(withStyles(styles)(Header)));
+Header.propTypes = {
+  location: PropTypes.object.isRequired,
+  user: PropTypes.object,
+  loginUser: PropTypes.func.isRequired,
+  logoutUser: PropTypes.func.isRequired,
+  classes: PropTypes.object.isRequired,
+  anchorEl: PropTypes.object,
+  handleIconClick: PropTypes.func.isRequired,
+  handleCloseMenu: PropTypes.func.isRequired,
+  handleGoToURLAndCloseMenu: PropTypes.func.isRequired
+};
+
+export default Header;

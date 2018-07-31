@@ -4,7 +4,7 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import CardWrapper from "./CardWrapper";
+import CardWrapper from "components/App/CardWrapper";
 
 const Cards = ({ repos, removeRepo }) => {
   return (

@@ -1,52 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { graphql } from "react-apollo";
-import searchRepositories from "queries/searchRepositories.gql";
-import { withStyles } from "@material-ui/core/styles";
 import classNames from "classnames";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import Chip from "@material-ui/core/Chip";
 import MenuItem from "@material-ui/core/MenuItem";
-import { emphasize } from "@material-ui/core/styles/colorManipulator";
 import Select from "react-select";
-
-const styles = (theme) => ({
-  root: {
-    flexGrow: 1
-  },
-  input: {
-    display: 'flex',
-    padding: 0,
-  },
-  valueContainer: {
-    display: 'flex',
-    flex: 1,
-    alignItems: 'center',
-  },
-  chip: {
-    margin: `${theme.spacing.unit / 2}px ${theme.spacing.unit / 4}px`,
-  },
-  chipFocused: {
-    backgroundColor: emphasize(
-      theme.palette.type === 'light' ? theme.palette.grey[300] : theme.palette.grey[700],
-      0.08,
-    ),
-  },
-  noOptionsMessage: {
-    fontSize: 18,
-    padding: `${theme.spacing.unit}px ${theme.spacing.unit * 2}px`,
-  },
-  singleValue: {
-    fontSize: 18,
-  },
-  placeholder: {
-    position: 'absolute',
-    left: 2,
-    fontSize: 18,
-  },
-});
-
 
 function NoOptionsMessage(props) {
   return (
@@ -111,14 +70,21 @@ function Placeholder(props) {
 
 function SingleValue(props) {
   return (
-    <Typography className={props.selectProps.classes.singleValue} {...props.innerProps}>
+    <Typography
+      className={props.selectProps.classes.singleValue}
+      {...props.innerProps}
+    >
       {props.children}
     </Typography>
   );
 }
 
 function ValueContainer(props) {
-  return <div className={props.selectProps.classes.valueContainer}>{props.children}</div>;
+  return (
+    <div className={props.selectProps.classes.valueContainer}>
+      {props.children}
+    </div>
+  );
 }
 
 function MultiValue(props) {
@@ -148,25 +114,9 @@ const components = {
 };
 
 const GitHubAutoComplete = ({
-  repos, searchterm, data, onUpdateInput, onSelectChange, classes
+  searchterm, onUpdateInput, onSelectChange, classes,
+  searchResults, displayedRepos
 }) => {
-  const { loading, error } = data;
-  const searchResults =
-    (!loading && !error)
-      ? data.search.edges.map(repo => {
-        return {
-          value: repo.node.nameWithOwner,
-          label: repo.node.nameWithOwner
-        };
-      })
-      : [];
-
-  const displayedRepos = repos.map(({id}) => {
-    return {
-      value: id,
-      label: id
-    };
-  });
 
   return (
     <div className={classes.root}>
@@ -189,19 +139,21 @@ const GitHubAutoComplete = ({
 
 GitHubAutoComplete.propTypes = {
   searchterm: PropTypes.string.isRequired,
-  data: PropTypes.shape({
-    loading: PropTypes.bool,
-    error: PropTypes.object,
-    search: PropTypes.object
-  }).isRequired,
   onUpdateInput: PropTypes.func.isRequired,
-  onSelectChange: PropTypes.func.isRequired
+  onSelectChange: PropTypes.func.isRequired,
+  classes: PropTypes.object.isRequired,
+  searchResults: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired
+    })
+  ).isRequired,
+  displayedRepos: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired
+    })
+  ).isRequired
 };
 
-export default graphql(searchRepositories, {
-  options: props => ({
-    variables: {
-      searchterm: props.searchterm
-    }
-  })
-})(withStyles(styles)(GitHubAutoComplete));
+export default GitHubAutoComplete;
