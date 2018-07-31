@@ -11,11 +11,11 @@ export default (theme) => ({
     textDecoration: "none"
   },
   normalLink: {
-    color: theme.palette.secondary[400],
+    color: theme.palette.primary[300],
     textDecoration: "none",
     fontWeight: "bold",
     "&:hover": {
-      color: theme.palette.primary[300]
+      color: theme.palette.secondary[400]
     }
   }
 });

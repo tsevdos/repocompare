@@ -29,6 +29,7 @@
     "jsx-quotes": ["error", "prefer-double"],
     "quotes": ["error", "double"],
     "object-curly-spacing": ["error", "always"],
-    "react/prop-types": ["error", { "skipUndeclared": true }]
+    "react/prop-types": ["error", { "skipUndeclared": true }],
+    "arrow-parens": ["error", "always"]
   }
 }

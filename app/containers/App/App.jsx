@@ -15,43 +15,41 @@ import styles from "./styles";
 const App = ({
   isLoggedIn, loginUser, classes, searchterm, repos,
   searchRepositories, handleReposChange, removeRepo
-}) => {
-  return (
-    <div className={classes.root}>
-      <Grid container spacing={16}>
-      {
-        (!isLoggedIn) ?
-          <Grid item xs={12} md={6}>
-            <Card>
-              <CardContent>
-                <Typography gutterBottom variant="headline" component="h2">
-                  Login to Github
-                </Typography>
-                <Typography gutterBottom variant="subheading" component="p">
-                  Please login to Github and start comparing repositories
-                </Typography>
-              </CardContent>
-              <CardActions>
-                <Button color="primary" onClick={loginUser}>Login</Button>
-              </CardActions>
-            </Card>
-          </Grid>
-        :
-          <Grid item xs={12}>
-            <GitHubAutoComplete
-              repos={repos}
-              searchterm={searchterm}
-              onUpdateInput={searchRepositories}
-              onSelectChange={handleReposChange}
-            />
-            <Divider className={classes.divider} />
-            <Cards repos={repos} removeRepo={removeRepo} />
-          </Grid>
-      }
-      </Grid>
-    </div>
-  );
-}
+}) => (
+  <div className={classes.root}>
+    <Grid container spacing={16}>
+    {
+      (!isLoggedIn) ?
+        <Grid item xs={12} md={6}>
+          <Card>
+            <CardContent>
+              <Typography gutterBottom variant="headline" component="h2">
+                Login to Github
+              </Typography>
+              <Typography gutterBottom variant="subheading" component="p">
+                Please login to Github and start comparing repositories
+              </Typography>
+            </CardContent>
+            <CardActions>
+              <Button color="primary" onClick={loginUser}>Login</Button>
+            </CardActions>
+          </Card>
+        </Grid>
+      :
+        <Grid item xs={12}>
+          <GitHubAutoComplete
+            repos={repos}
+            searchterm={searchterm}
+            onUpdateInput={searchRepositories}
+            onSelectChange={handleReposChange}
+          />
+          <Divider className={classes.divider} />
+          <Cards repos={repos} removeRepo={removeRepo} />
+        </Grid>
+    }
+    </Grid>
+  </div>
+);
 
 App.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,

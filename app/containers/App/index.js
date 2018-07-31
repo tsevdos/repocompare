@@ -24,7 +24,7 @@ class AppContainer extends Component {
       });
     }
     const reposOnUrlQuery =
-      this._getReposOnSearchQueryUrl().map(name => this._getRepo(name));
+      this._getReposOnSearchQueryUrl().map((name) => this._getRepo(name));
     this.setState({ repos: reposOnUrlQuery });
   }
 
@@ -33,7 +33,7 @@ class AppContainer extends Component {
   }
 
   removeRepo = (repoId) => {
-    const newRepos = this.state.repos.filter(repo => repo.id !== repoId);
+    const newRepos = this.state.repos.filter((repo) => repo.id !== repoId);
     this.setState({ repos: newRepos });
     mapReposToURL(newRepos, this.props.history);
   }

@@ -20,7 +20,7 @@ function NoOptionsMessage(props) {
 }
 
 function inputComponent({ inputRef, ...props }) {
-  return <div ref={inputRef} {...props} />;
+  return (<div ref={inputRef} {...props} />);
 }
 
 function Control(props) {
@@ -95,7 +95,7 @@ function MultiValue(props) {
       className={classNames(props.selectProps.classes.chip, {
         [props.selectProps.classes.chipFocused]: props.isFocused
       })}
-      onDelete={event => {
+      onDelete={(event) => {
         props.removeProps.onClick();
         props.removeProps.onMouseDown(event);
       }}
@@ -116,26 +116,23 @@ const components = {
 const GitHubAutoComplete = ({
   searchterm, onUpdateInput, onSelectChange, classes,
   searchResults, displayedRepos
-}) => {
-
-  return (
-    <div className={classes.root}>
-      <Select
-        classes={classes}
-        components={components}
-        defaultValue={displayedRepos}
-        value={displayedRepos}
-        inputValue={searchterm}
-        options={searchResults}
-        onChange={onSelectChange}
-        onInputChange={onUpdateInput}
-        placeholder="ex. react"
-        menuIsOpen={Boolean(searchResults.length)}
-        isMulti
-      />
-    </div>
-  );
-};
+}) => (
+  <div className={classes.root}>
+    <Select
+      classes={classes}
+      components={components}
+      defaultValue={displayedRepos}
+      value={displayedRepos}
+      inputValue={searchterm}
+      options={searchResults}
+      onChange={onSelectChange}
+      onInputChange={onUpdateInput}
+      placeholder="ex. react"
+      menuIsOpen={Boolean(searchResults.length)}
+      isMulti
+    />
+  </div>
+);
 
 GitHubAutoComplete.propTypes = {
   searchterm: PropTypes.string.isRequired,

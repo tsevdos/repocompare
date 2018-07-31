@@ -26,7 +26,7 @@ const About = ({ classes }) => (
         className={classes.normalLink}
       >
         contribute
-      </a>&nbsp; or request &nbsp;
+      </a> or request&nbsp;
       <a
         target="_blank"
         rel="noopener noreferrer"

@@ -11,20 +11,15 @@ const GitHubAutoCompleteContainer = (props) => {
   const { loading, error } = data;
   const searchResults =
     (!loading && !error)
-      ? data.search.edges.map((repo) => {
-        return {
+      ? data.search.edges.map((repo) => ({
           value: repo.node.nameWithOwner,
           label: repo.node.nameWithOwner
-        };
-      })
+        }))
       : [];
-
-  const displayedRepos = repos.map(({ id }) => {
-    return {
-      value: id,
-      label: id
-    };
-  });
+  const displayedRepos = repos.map(({ id }) => ({
+    value: id,
+    label: id
+  }));
 
   return (
     <GitHubAutoComplete
@@ -48,7 +43,7 @@ GitHubAutoCompleteContainer.propTypes = {
 };
 
 export default graphql(searchRepositories, {
-  options: props => ({
+  options: (props) => ({
     variables: {
       searchterm: props.searchterm
     }
