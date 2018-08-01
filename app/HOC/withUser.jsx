@@ -4,9 +4,8 @@ import Cookies from "js-cookie";
 
 function withUser(WrappedComponent) {
   return class UserComponent extends Component {
-    constructor(props) {
-      super(props);
-      this.state = { user: null };
+    state = {
+      user: null
     }
 
     componentDidMount() {

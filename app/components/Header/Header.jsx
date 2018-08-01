@@ -17,13 +17,15 @@ const Header = ({
   location, user, loginUser, logoutUser, classes, anchorEl,
   handleIconClick, handleCloseMenu, handleGoToURLAndCloseMenu
 }) => {
+  const urlQuery = location.hash.split("?")[1];
+
   return (
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
           <IconButton
             component={Link}
-            to={{ pathname: "/", search: location.search }}
+            to={{ pathname: "/", search: `?${urlQuery}` }}
             className={classes.menuButton}
             color="inherit"
             aria-label="Home"
@@ -67,7 +69,7 @@ const Header = ({
           >
             <MenuItem
               component={Link}
-              to={{ pathname: "/about", search: location.search }}
+              to={{ pathname: "/about", search: `?${urlQuery}` }}
               onClick={handleCloseMenu}
             >
               About

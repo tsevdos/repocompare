@@ -7,7 +7,11 @@ import App from "./App";
 
 class AppContainer extends Component {
   static propTypes = {
-    history: PropTypes.object.isRequired
+    history: PropTypes.object.isRequired,
+    user: PropTypes.object,
+    isLoggedIn: PropTypes.bool.isRequired,
+    loginUser: PropTypes.func.isRequired,
+    logoutUser: PropTypes.func.isRequired
   };
 
   state = {
