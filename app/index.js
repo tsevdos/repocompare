@@ -6,8 +6,9 @@ import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import blue from "@material-ui/core/colors/blue";
 import pink from "@material-ui/core/colors/pink";
-import AppContainer from "containers/AppContainer";
-import { About, Header } from "components";
+import AppContainer from "containers/App";
+import Header from "components/Header";
+import About from "components/About";
 import apolloClient from "lib/apolloClient";
 
 const theme = createMuiTheme({

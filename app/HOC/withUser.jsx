@@ -4,13 +4,12 @@ import Cookies from "js-cookie";
 
 function withUser(WrappedComponent) {
   return class UserComponent extends Component {
-    constructor(props) {
-      super(props);
-      this.state = { user: null };
+    state = {
+      user: null
     }
 
     componentDidMount() {
-      auth.onAuthStateChanged(user => {
+      auth.onAuthStateChanged((user) => {
         if (user) {
           this.setState({ user });
         }
@@ -19,13 +18,13 @@ function withUser(WrappedComponent) {
 
     loginUser = () => {
       provider.addScope("public_repo");
-      auth.signInWithPopup(provider).then(result => {
+      auth.signInWithPopup(provider).then((result) => {
         Cookies.set("token", result.credential.accessToken);
         this.setState({ user: result.user });
       });
     };
 
-    logoutUser = e => {
+    logoutUser = (e) => {
       e.preventDefault();
       auth.signOut().then(() => {
         this.setState({ user: null });

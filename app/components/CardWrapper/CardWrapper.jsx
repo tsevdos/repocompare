@@ -1,16 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { graphql } from "react-apollo";
-import repositoryDetails from "queries/repositoryDetails.gql";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import Loader from "./Loader";
-import CardInfo from "./CardInfo";
+import Loader from "components/Loader";
+import CardInfo from "components/CardInfo";
 
-const CardWrapper = ({ data, id, isHighlighted, removeRepo }) => {
+const CardWrapper = ({  id, data, removeRepo }) => {
   const { loading, error, repository } = data;
 
   if (loading) {
@@ -36,15 +34,12 @@ const CardWrapper = ({ data, id, isHighlighted, removeRepo }) => {
   }
 
   return (
-    <CardInfo
-      repository={repository}
-      isHighlighted={isHighlighted}
-      removeRepo={removeRepo}
-    />
+    <CardInfo repository={repository} removeRepo={removeRepo} />
   );
 };
 
 CardWrapper.propTypes = {
+  id: PropTypes.string.isRequired,
   data: PropTypes.shape({
     loading: PropTypes.bool,
     error: PropTypes.object,
@@ -53,11 +48,4 @@ CardWrapper.propTypes = {
   removeRepo: PropTypes.func.isRequired
 };
 
-export default graphql(repositoryDetails, {
-  options: props => ({
-    variables: {
-      owner: props.owner,
-      name: props.name
-    }
-  })
-})(CardWrapper);
+export default CardWrapper;
