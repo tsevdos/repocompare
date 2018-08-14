@@ -10,49 +10,60 @@ import Button from "@material-ui/core/Button";
 import Divider from "@material-ui/core/Divider";
 import GitHubAutoComplete from "components/GitHubAutoComplete";
 import Cards from "components/Cards/Cards";
+import User from "containers/User/User";
 import styles from "./styles";
 
 const App = ({
-  isLoggedIn, loginUser, classes, searchterm, repos,
+  classes, searchterm, repos,
   searchRepositories, handleReposChange, removeRepo
 }) => (
   <div className={classes.root}>
     <Grid container spacing={16}>
-    {
-      (!isLoggedIn) ?
-        <Grid item xs={12} md={6}>
-          <Card>
-            <CardContent>
-              <Typography gutterBottom variant="headline" component="h2">
-                Login to Github
-              </Typography>
-              <Typography gutterBottom variant="subheading" component="p">
-                Please login to Github and start comparing repositories
-              </Typography>
-            </CardContent>
-            <CardActions>
-              <Button color="primary" onClick={loginUser}>Login</Button>
-            </CardActions>
-          </Card>
-        </Grid>
-      :
-        <Grid item xs={12}>
-          <GitHubAutoComplete
-            repos={repos}
-            searchterm={searchterm}
-            onUpdateInput={searchRepositories}
-            onSelectChange={handleReposChange}
-          />
-          <Divider className={classes.divider} />
-          <Cards repos={repos} removeRepo={removeRepo} />
-        </Grid>
-    }
+      <User>
+        {
+
+          (_user, isLoggedIn, loginUser) => {
+
+            if (isLoggedIn) {
+              return (
+                <Grid item xs={12}>
+                  <GitHubAutoComplete
+                    repos={repos}
+                    searchterm={searchterm}
+                    onUpdateInput={searchRepositories}
+                    onSelectChange={handleReposChange}
+                  />
+                  <Divider className={classes.divider} />
+                  <Cards repos={repos} removeRepo={removeRepo} />
+                </Grid>
+              )
+            }
+
+            return (
+              <Grid item xs={12} md={6}>
+                <Card>
+                  <CardContent>
+                    <Typography gutterBottom variant="headline" component="h2">
+                      Login to Github
+                    </Typography>
+                    <Typography gutterBottom variant="subheading" component="p">
+                      Please login to Github and start comparing repositories
+                    </Typography>
+                  </CardContent>
+                  <CardActions>
+                    <Button color="primary" onClick={loginUser}>Login</Button>
+                  </CardActions>
+                </Card>
+              </Grid>
+            )
+          }
+        }
+      </User>
     </Grid>
   </div>
 );
 
 App.propTypes = {
-  isLoggedIn: PropTypes.bool.isRequired,
   searchterm: PropTypes.string.isRequired,
   repos: PropTypes.arrayOf(
     PropTypes.shape({
@@ -62,7 +73,6 @@ App.propTypes = {
     })
   ).isRequired,
   classes: PropTypes.object.isRequired,
-  loginUser: PropTypes.func.isRequired,
   searchRepositories: PropTypes.func.isRequired,
   handleReposChange: PropTypes.func.isRequired,
   removeRepo: PropTypes.func.isRequired

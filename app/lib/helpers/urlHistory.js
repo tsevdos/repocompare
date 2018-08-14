@@ -3,7 +3,7 @@ const mapReposToURL = (repos, history) => {
     clearUrlQuery(history);
     return;
   }
-  const query = repos.map(({id}) => id).join(",");
+  const query = repos.map(({ id }) => id).join(",");
 
   replaceUrlQuery(history, `?repos=${query}`);
 };
