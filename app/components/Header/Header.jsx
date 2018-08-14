@@ -12,10 +12,11 @@ import HomeIcon from "@material-ui/icons/Home";
 import PersonIcon from "@material-ui/icons/Person";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Avatar from "@material-ui/core/Avatar";
+import User from "containers/User/User";
 
 const Header = ({
-  location, user, loginUser, logoutUser, classes, anchorEl,
-  handleIconClick, handleCloseMenu, handleGoToURLAndCloseMenu
+  location, classes, anchorEl, handleIconClick,
+  handleCloseMenu, handleGoToURLAndCloseMenu
 }) => {
   const urlQuery = location.hash.split("?")[1];
 
@@ -39,22 +40,33 @@ const Header = ({
           >
             RepoCompare
           </Typography>
-          {
-            user ?
-              <div className={classes.avatarContainer}>
-                <Button color="inherit" onClick={logoutUser}>Logout</Button>
-                <Avatar
-                  className={classes.avatar}
-                  alt={user.displayName || user.email}
-                  src={user.photoURL}
-                />
-              </div>
-            :
-              <Button color="inherit" onClick={loginUser}>
-                Login
-                <PersonIcon className={classes.rightIcon} />
-              </Button>
-          }
+          <User>
+            {
+              (user, isLoggedIn, loginUser, logoutUser) => {
+                if (isLoggedIn) {
+                  return (
+                    <div className={classes.avatarContainer}>
+                      <Button color="inherit" onClick={logoutUser}>
+                        Logout
+                      </Button>
+                      <Avatar
+                        className={classes.avatar}
+                        alt={user.displayName || user.email}
+                        src={user.photoURL}
+                      />
+                    </div>
+                  )
+                }
+
+                return (
+                  <Button color="inherit" onClick={loginUser}>
+                    Login
+                    <PersonIcon className={classes.rightIcon} />
+                  </Button>
+                )
+              }
+            }
+          </User>
           <IconButton
             color="inherit"
             aria-label="More options"
@@ -75,8 +87,7 @@ const Header = ({
               About
             </MenuItem>
             <MenuItem
-              onClick={() =>
-                handleGoToURLAndCloseMenu("https://github.com/tsevdos/repocompare")}
+              onClick={() => handleGoToURLAndCloseMenu("https://github.com/tsevdos/repocompare")}
             >
               Github
             </MenuItem>
@@ -89,9 +100,6 @@ const Header = ({
 
 Header.propTypes = {
   location: PropTypes.object.isRequired,
-  user: PropTypes.object,
-  loginUser: PropTypes.func.isRequired,
-  logoutUser: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   anchorEl: PropTypes.object,
   handleIconClick: PropTypes.func.isRequired,

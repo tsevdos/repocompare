@@ -1,17 +1,12 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
-import withUser from "HOC/withUser.jsx";
 import { mapReposToURL } from "lib/helpers/urlHistory";
 import App from "./App";
 
 class AppContainer extends Component {
   static propTypes = {
-    history: PropTypes.object.isRequired,
-    user: PropTypes.object,
-    isLoggedIn: PropTypes.bool.isRequired,
-    loginUser: PropTypes.func.isRequired,
-    logoutUser: PropTypes.func.isRequired
+    history: PropTypes.object.isRequired
   };
 
   state = {
@@ -75,4 +70,4 @@ class AppContainer extends Component {
   }
 }
 
-export default withRouter(withUser(AppContainer));
+export default withRouter(AppContainer);
