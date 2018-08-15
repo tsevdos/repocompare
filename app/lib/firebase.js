@@ -4,10 +4,7 @@ import "firebase/auth";
 const config = {
   apiKey: "AIzaSyChNFw34jTt0qQ3cJmi_bNBQudgXNUVRtM",
   authDomain: "repocompare-ab68d.firebaseapp.com",
-  databaseURL: "https://repocompare-ab68d.firebaseio.com",
-  projectId: "repocompare-ab68d",
-  storageBucket: "repocompare-ab68d.appspot.com",
-  messagingSenderId: "978708313660"
+  projectId: "repocompare-ab68d"
 };
 
 firebase.initializeApp(config);
