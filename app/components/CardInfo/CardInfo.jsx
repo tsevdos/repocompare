@@ -52,7 +52,7 @@ const CardInfo = ({ repository, removeRepo, classes }) => {
           Repository file size: <strong>{diskUsage} KB</strong>
         </Typography>
         {
-          licenseInfo.nickname &&
+          Boolean(licenseInfo && licenseInfo.nickname) &&
             <Typography gutterBottom variant="subheading" component="p">
               License: <strong>{licenseInfo.nickname}</strong>
             </Typography>
